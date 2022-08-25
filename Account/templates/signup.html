@@ -1,0 +1,56 @@
+﻿{% extends 'baseAccount.html' %}
+{% load static %}
+
+{% block title %}
+ثبت نام
+{% endblock %}
+
+{% block body %}
+
+	<div id="">
+	    <div class="authincation section-padding">
+		<div class="container h-100">
+		    <div class="row justify-content-center h-100 align-items-center">
+			<div class="col-xl-5 col-md-6">
+			    <div class="mini-logo text-center my-4">
+				<a href="intro.html"><img src="images/logo.png" alt=""></a>
+				<h4 class="card-title mt-3">حساب کاربری برای خود بسازید</h4>
+			    </div>
+			    <div class="auth-form card">
+				<div class="card-body">
+				    <form method="post" name="myform" class="signin_validate row g-3" action="verify-email.html">
+					<div class="col-12">
+					    <input type="text" class="form-control" placeholder="نام" name="name">
+					</div>
+					<div class="col-12">
+					    <input type="email" class="form-control" placeholder="ایمیل" name="email">
+					</div>
+					<div class="col-12">
+					    <input type="password" class="form-control" placeholder="رمز عبور" name="password">
+					</div>
+					<div class="col-12">
+					    <div class="form-check form-switch">
+						<input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault">
+						<label class="form-check-label" for="flexSwitchCheckDefault">
+						    من گواهی می دهم که 18 سال به بالا هستم و موافقت می کنم <a href="#" class="text-primary">توافق کاربر</a> و <a href="#" class="text-primary">سیاست حفظ حریم خصوصی</a>.
+						</label>
+					    </div>
+					</div>
+
+					<div class="text-center">
+					    <button type="submit" class="btn btn-primary btn-block">ساخت حساب</button>
+					</div>
+				    </form>
+				    <div class="text-center">
+					<p class="mt-3 mb-0"> <a class="text-primary" href="signin.html">ورود</a> به حساب کاربری</p>
+				    </div>
+				</div>
+
+			    </div>
+			</div>
+		    </div>
+		</div>
+	    </div>
+	</div>
+
+{% endblock %}
