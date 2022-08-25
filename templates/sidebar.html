@@ -1,0 +1,36 @@
+{% load static %}
+<div class="sidebar">
+    <div class="brand-logo">
+        <a href="index.html"><img src="{% static 'images/logo.png' %}" alt="">
+        </a>
+    </div>
+    <div class="menu">
+        <ul>
+        <li>
+            <a href="{% url 'student:index' %}" data-toggle="tooltip" data-placement="right" title="خانه">
+            <span><i class="icofont-ui-home"></i></span>
+            </a>
+        </li>
+        <li><a href="{% url 'student:trade' %}" data-toggle="tooltip" data-placement="right" title="خرید/فروش">
+            <span><i class="icofont-stack-exchange"></i></span>
+            </a>
+        </li>
+        <li><a href="{% url 'student:wallet' %}" data-toggle="tooltip" data-placement="right" title="کیف پول">
+            <span><i class="icofont-wallet"></i></span>
+            </a>
+        </li>
+        <li><a href="price.html" data-toggle="tooltip" data-placement="right" title="قیمت ها">
+            <span><i class="icofont-price"></i></span>
+            </a>
+        </li>
+        <li class="logout"><a href="signin.html" data-toggle="tooltip" data-placement="right" title="خروج">
+            <span><i class="icofont-power"></i></span>
+            </a>
+        </li>
+        </ul>
+
+        <p class="copyright">
+        &#169; <a href="#">کَش</a>
+        </p>
+    </div>
+</div>
