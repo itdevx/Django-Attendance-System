@@ -17,34 +17,35 @@
 			    </div>
 			    <div class="auth-form card">
 				<div class="card-body">
-				    <form method="post" name="myform" class="signin_validate row g-3" action="otp-2.html">
-					<div class="col-12">
-					    <input type="email" class="form-control" placeholder="ایمیل" name="email">
-					</div>
-					<div class="col-12">
-					    <input type="password" class="form-control" placeholder="پسورد" name="password">
-					</div>
-					<div class="col-6">
-					    <div class="form-check form-switch">
-						<input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault">
-						<label class="form-check-label" for="flexSwitchCheckDefault">مرا بخاطر بسپار</label>
-					    </div>
-					</div>
-					<div class="col-6 text-left">
-					    <a href="reset.html">رمز خود را فراموش کردید ؟</a>
-					</div>
-					<div class="text-center">
-					    <button type="submit" class="btn btn-primary btn-block">ورود</button>
-					</div>
+				    <form method="post" name="myform" class="signin_validate row g-3" action="{% url 'account:login' %}">
+						{% csrf_token %}
+						<div class="col-12">
+							<!-- <input type="email" class="form-control" placeholder="ایمیل" name="email"> -->
+							{{ form.username }}
+							{% for e in form.username.errors %}
+								<p class="text-danger">{{ e }}</p>
+							{% endfor %}
+						</div>
+						<div class="col-12">
+							<!-- <input type="password" class="form-control" placeholder="پسورد" name="password"> -->
+							{{ form.password }}
+						</div>
+						<div class="col-6">
+							<div class="form-check form-switch">
+							<input class="form-check-input" type="checkbox" name="reme" id="flexSwitchCheckDefault">1
+							<label class="form-check-label" for="flexSwitchCheckDefault">مرا بخاطر بسپار</label>
+							</div>
+						</div>
+						<div class="col-6 text-left">
+							<a href="reset.html">رمز خود را فراموش کردید ؟</a>
+						</div>
+						<div class="text-center">
+							<button type="submit" class="btn btn-primary btn-block">ورود</button>
+						</div>
 				    </form>
 				    <p class="mt-3 mb-0">حساب کاربری ندارید ؟ <a class="text-primary" href="signup.html">ثبت نام کنید</a></p>
 				</div>
 
-			    </div>
-			    <div class="privacy-link">
-				<a href="signup.html">با احراز هویت 2 عاملی مشکلی دارید؟</a>
-				<br>
-				<a href="signup.html">سیاست حفظ حریم خصوصی</a>
 			    </div>
 			</div>
 		    </div>

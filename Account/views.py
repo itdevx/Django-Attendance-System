@@ -1,12 +1,39 @@
 from http.client import RemoteDisconnected
-from django.shortcuts import render
+from django.shortcuts import redirect, render
 from django.views import generic
+from django.contrib.auth import authenticate, login
+from Account import forms
 
 
 class LoginView(generic.View):
+    template_name = 'signin.html'
+    form_class = forms.LoginForm
+
     def get(self, request):
-        
-        return render(request, 'signin.html')
+        form = self.form_class()
+        context = {
+            'form': form
+        }
+
+        return render(request, self.template_name, context)
+
+    def post(self, request):
+        form = self.form_class(request.POST)
+        if form.is_valid():
+            username = form.cleaned_data.get('username')
+            password = form.cleaned_data.get('password')
+            # remember_me = request.POST.get('reme')
+            user = authenticate(request, username=username, password=password)
+            if user is not None:
+                login(request, user)
+                # if not remember_me:
+                #     request.session.set_expiry(0)
+                return redirect('student:index')
+
+            else:
+                form.add_error(field='username', error='این نام کاربری وجود ندارد')
+
+        return render(request, self.template_name, {'form': form})
 
 
 class SignUpView(generic.View):

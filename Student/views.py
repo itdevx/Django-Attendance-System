@@ -1,10 +1,13 @@
 from django.shortcuts import redirect, render
 from django.views import generic
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 
 
 
-class IndexView(generic.View):
+class IndexView(LoginRequiredMixin, generic.View):
+    login_url = 'account:login'
+    
     def get(self, request):
 
         return render(request, 'index.html')
