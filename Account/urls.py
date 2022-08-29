@@ -10,5 +10,8 @@ urlpatterns = [
     ),
     path(
         'register', views.SignUpView.as_view(), name='register'
+    ),
+    path(
+        'logout', views.LogoutRequest.as_view(), name='logout'
     )
 ]

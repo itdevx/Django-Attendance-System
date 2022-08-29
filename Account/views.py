@@ -1,7 +1,7 @@
-from http.client import RemoteDisconnected
+from cmath import log
 from django.shortcuts import redirect, render
 from django.views import generic
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
 from Account import forms
 
 
@@ -22,18 +22,24 @@ class LoginView(generic.View):
         if form.is_valid():
             username = form.cleaned_data.get('username')
             password = form.cleaned_data.get('password')
-            # remember_me = request.POST.get('reme')
+            remember_me = request.POST.get('reme')
             user = authenticate(request, username=username, password=password)
             if user is not None:
                 login(request, user)
-                # if not remember_me:
-                #     request.session.set_expiry(0)
+                if not remember_me:
+                    request.session.set_expiry(0)
                 return redirect('student:index')
 
             else:
                 form.add_error(field='username', error='این نام کاربری وجود ندارد')
 
         return render(request, self.template_name, {'form': form})
+
+
+class LogoutRequest(generic.View):
+    def get(self, request):
+        logout(request)
+        return redirect('account:login')
 
 
 class SignUpView(generic.View):
