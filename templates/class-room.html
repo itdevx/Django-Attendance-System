@@ -79,11 +79,9 @@
 					</div>
 
 					<p class="mb-0">1 بیت کویت ~ 12،000 دلار</p>
-
 					<button type="button" class="btn btn-primary btn-block" data-toggle="modal" data-target="#SellModal">
 					    فروش
 					</button>
-
 				    </form>
 
 				</div>
@@ -170,86 +168,44 @@
 			<div class="col-xxl-12">
 			    <div class="card">
 				<div class="card-header">
-				    <h4 class="card-title">تراکنش خرید</h4>
+					<div>
+						<h4 class="card-title">جدول دانش آموزان این کلاس</h4>
+					</div>
+					<div>
+						<a href="{% url 'student:attendance' cn %}" class="btn btn-primary">فرم حضور و غیاب</a>
+					</div> 
 				</div>
 				<div class="card-body">
 				    <div class="table-responsive">
 					<table class="table table-striped responsive-table">
 					    <thead>
 						<tr>
-						    <th>نوع</th>
-						    <th>نام ارز</th>
-						    <th>کیف پول</th>
-						    <th>مقدار</th>
-						    <th>تراز</th>
+						    <th>نام و نام خانوادگی</th>
+						    <th>نام پدر</th>
+						    <th>کد ملی</th>
+						    <th>پایه</th>
+						    <th>وضعیت</th>
 						</tr>
 					    </thead>
 					    <tbody>
-						<tr>
-						    <td><span class="danger-arrow"><i class="icofont-arrow-down"></i>
-							    فروخته شده</span>
-						    </td>
-						    <td class="coin-name">
-							<i class="cc BTC"></i> بیت کوین
-						    </td>
-						    <td>
-							استفاده از - کارت *******5264
-						    </td>
-						    <td class="text-danger">0.000242 BTC</td>
-						    <td>-0.125 دلار</td>
-						</tr>
-						<tr>
-						    <td><span class="success-arrow"><i class="icofont-arrow-up"></i>
-							    خرید</span>
-						    </td>
-						    <td class="coin-name">
-							<i class="cc LTC"></i> لایت کوین
-						    </td>
-						    <td>
-							استفاده از - کارت *******5264
-						    </td>
-						    <td class="text-success">0.000242 BTC</td>
-						    <td>-0.125 دلار</td>
-						</tr>
-						<tr>
-						    <td><span class="danger-arrow"><i class="icofont-arrow-down"></i>
-							    فروخته شده</span>
-						    </td>
-						    <td class="coin-name">
-							<i class="cc XRP"></i> ریپل
-						    </td>
-						    <td>
-							استفاده از - کارت *******5264
-						    </td>
-						    <td class="text-danger">0.000242 BTC</td>
-						    <td>-0.125 دلار</td>
-						</tr>
-						<tr>
-						    <td><span class="success-arrow"><i class="icofont-arrow-up"></i>
-							    خرید</span>
-						    </td>
-						    <td class="coin-name">
-							<i class="cc DASH"></i> دش
-						    </td>
-						    <td>
-							استفاده از - کارت *******5264
-						    </td>
-						    <td class="text-success">0.000242 BTC</td>
-						    <td>-0.125 دلار</td>
-						</tr>
-						<tr>
-						    <td><span class="danger-arrow"><i class="icofont-arrow-down"></i>
-							    فروخته شده</span>
-						    </td>
-						    <td class="coin-name">
-							<i class="cc BTC"></i> بیت کوین
-						    </td>
-						    <td>
-							استفاده از - کارت *******5264
-						    </td>
-						    <td class="text-danger">0.000242 BTC</td>
-						    <td>-0.125 دلار</td>
-						</tr>
+						{% for s in student_class_room %}
+							<tr>
+								<td><span class="danger-arrow">{{ s.first_name }} {{ s.last_name }}</span>
+								</td>
+								<td class="coin-name">
+									{{ s.father_name }}
+								</td>
+								<td>
+									{{ s.id_code }}
+								</td>
+								<!-- <td class="text-danger">{{ c.class_room }}</td> -->
+								<td>{{ s.level }}</td>
+								<td>
+									<div class="badge bg-primary"><a href="" class="text-white">مشاهده</a></div>
+									<div class="badge bg-warning"><a href="" class="text-white">ویرایش</a></div>
+								</td>
+							</tr>
+						{% endfor %}
 					    </tbody>
 					</table>
 				    </div>

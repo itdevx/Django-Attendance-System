@@ -1,7 +1,5 @@
-from xmlrpc.client import TRANSPORT_ERROR
 from django.db import models
-from django.urls import clear_script_prefix
-
+from django.urls import reverse
 
 class ClassRoom(models.Model):
     SHIFT = (
@@ -11,6 +9,9 @@ class ClassRoom(models.Model):
 
     name = models.IntegerField(verbose_name='شماره کلاس')
     shift = models.CharField(choices=SHIFT, max_length=1, verbose_name='شیفت کلاسی')
+
+    def get_absolut_url(self):
+        return reverse('student:class_room', args=[self.shift, self.name])
 
     def __str__(self):
         return f'کلاس شماره {self.name} در شیفت {self.shift}'
@@ -30,7 +31,10 @@ class Student(models.Model):
     class_room = models.ForeignKey(ClassRoom, on_delete=models.CASCADE)
     level = models.CharField(choices=LEVEL, max_length=2, verbose_name='پایه')
     level_up = models.BooleanField(default=False, verbose_name='قبول شده / قبول نشده')
-    
+
+    def get_abolut_url(self):
+        pass
+
     def __str__(self):
         return f'{self.first_name} {self.last_name} | {self.level} | {self.id_code}'
 
@@ -39,10 +43,9 @@ class Attendance(models.Model):
     ATTENDANCE = (
         ('1', 'حاضر'),
         ('2', 'تاخیر'),
-        ('3', 'غیبت'),
-        ('4', 'غیبت موجه'),
-        ('5', 'غیبت غیر موجه'),
-        ('6', 'مرخصی'),
+        ('3', 'غیبت موجه'),
+        ('4', 'غیبت غیر موجه'),
+        ('5', 'مرخصی'),
     )
 
     ALARM = (

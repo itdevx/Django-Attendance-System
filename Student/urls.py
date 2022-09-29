@@ -9,7 +9,13 @@ urlpatterns = [
         '', views.IndexView.as_view(), name='index',
     ),
     path(
-        'trade', views.TradeView.as_view(), name='trade'
+        'class-room/<shift>/<class_name>', views.ClassRoomView.as_view(), name='class_room'
+    ),
+    path(
+        'attendance/<class_name>', views.AttendanceView.as_view(), name='attendance'
+    ),
+    path(
+        'create-student', views.CreateStudentView.as_view(), name='create-student'
     ),
     path(
         'wallet', views.WalletView.as_view(), name='wallet'

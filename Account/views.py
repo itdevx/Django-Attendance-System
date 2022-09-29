@@ -31,7 +31,7 @@ class LoginView(generic.View):
                 return redirect('student:index')
 
             else:
-                form.add_error(field='username', error='این نام کاربری وجود ندارد')
+                form.add_error(field='username', error='نام کاربری یا کلمه عبور اشتباه میباشد!')
 
         return render(request, self.template_name, {'form': form})
 

@@ -1,0 +1,199 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block body %}
+
+	<div id="main-wrapper">
+	    <div class="content-body">
+		<div class="container">
+		    <div class="row">
+                <div class="col-md-12">
+                    <form action="" method="post">
+                        {% csrf_token %}
+                        <div class="row d-flex justify-content-center ">
+                            <div class="col-md-8">
+                                {{ form.student }}
+								{% if form.student.errors %}
+									{% for e in form.student.errors %}
+										<p class="text-danger text-center">{{ e }}</p>
+									{% endfor %}
+								{% endif %}
+                                <div class="col-md-12">
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            {{ form.alarm }}
+                                        </div>
+                                        
+                                        <div class="col-md-6">
+                                            {{ form.attendance }}
+                                        </div>
+                                    </div>
+                                    {{ form.time_takhir }}
+                                    {{ form.gheybat_movajah }}
+                                    {{ form.gheybat_gheyr_movajah }}
+                                    {{ form.morkhasi }}
+                                    <button class="btn btn-success btn-sm mt-5 btn-block mb-5">ذخیره</button>
+                                    <hr class="text-secondary mb-5">
+                                </div>
+                            </div>
+                        </div>
+
+                    </form>
+                </div>
+
+			<div class="col-xxl-4 col-xl-4">
+			    <div class="card">
+				<div class="card-header">
+				    <h4 class="card-title">تغییرات</h4>
+				</div>
+				<div class="card-body">
+				    <ul class="balance-widget position-value">
+					<li>
+					    <h5>تغییرات 1 ساعته</h5>
+					    <div class="text-left">
+						<h5 class="ltr">-0.37% </h5>
+						<span></span>
+					    </div>
+					</li>
+					<li>
+					    <h5>تغییرات 1 روزه	</h5>
+					    <div class="text-left">
+						<h5 class="ltr">3.46%</h5>
+						<span></span>
+					    </div>
+					</li>
+					<li>
+					    <h5>تغییرات 7 روزه	</h5>
+					    <div class="text-left">
+						<h5 class="ltr">11.29%</h5>
+						<span></span>
+					    </div>
+					</li>
+					<li>
+					    <h5>تغییرات 14 روزه	</h5>
+					    <div class="text-left">
+						<h5 class="ltr">24.01% </h5>
+						<span></span>
+					    </div>
+					</li>
+					<li>
+					    <h5>تغییرات 30 روزه	</h5>
+					    <div class="text-left">
+						<h5 class="ltr">48.28%</h5>
+						<span></span>
+					    </div>
+					</li>
+					<li>
+					    <h5>تغییرات 60 روزه	</h5>
+					    <div class="text-left">
+						<h5 class="ltr">54.73%</h5>
+						<span></span>
+					    </div>
+					</li>
+					<li>
+					    <h5>تغییرات شش ماهه	</h5>
+					    <div class="text-left">
+						<h5 class="ltr">84.36%</h5>
+						<span></span>
+					    </div>
+					</li>
+				    </ul>
+				</div>
+			    </div>
+			</div>
+			<div class="col-xxl-8 col-xl-8">
+			    <div class="card">
+				<div class="card-header">
+				    <h4 class="card-title">معامله</h4>
+
+				</div>
+				<div class="card-body">
+				    <div class="table-responsive transaction-table">
+					<table class="table table-striped responsive-table">
+					    <thead>
+						<tr>
+						    <th>شناسه</th>
+						    <th>تاریخ</th>
+						    <th>نوع</th>
+						    <th>ارز</th>
+						    <th>مقدار</th>
+						    <th>قیمت</th>
+						    <th>تراز</th>
+						</tr>
+					    </thead>
+					    <tbody>
+						<tr>
+						    <td>523640</td>
+						    <td>27 آبان</td>
+						    <td>
+							<span class="danger-arrow"><i class="icofont-arrow-down"></i>فروش</span>
+						    </td>
+						    <td class="coin-name">
+							<i class="cc BTC"></i> بیت کوین
+						    </td>
+						    <td class="text-danger">0.000242 BTC</td>
+						    <td>0.02%</td>
+						    <td><strong>0.25484 BTC</strong></td>
+						</tr>
+						<tr>
+						    <td>523640</td>
+						    <td>27 آبان</td>
+						    <td><span class="success-arrow"><i class="icofont-arrow-up"></i>خرید</span>
+						    </td>
+						    <td class="coin-name">
+							<i class="cc LTC"></i> لایت کوین
+						    </td>
+						    <td class="text-success">0.000242 BTC</td>
+						    <td>0.02%</td>
+						    <td><strong> 0.25484 LTC</strong></td>
+						</tr>
+						<tr>
+						    <td>523640</td>
+						    <td>27 آبان</td>
+						    <td><span class="success-arrow"><i class="icofont-arrow-up"></i>خرید</span>
+						    </td>
+						    <td class="coin-name">
+							<i class="cc XRP"></i> ریپل
+						    </td>
+						    <td class="text-success">0.000242 BTC</td>
+						    <td>0.02%</td>
+						    <td><strong> 0.25484 LTC</strong></td>
+						</tr>
+						<tr>
+						    <td>523640</td>
+						    <td>27 آبان</td>
+						    <td><span class="success-arrow"><i class="icofont-arrow-up"></i>خرید</span>
+						    </td>
+						    <td class="coin-name">
+							<i class="cc DASH"></i> دش
+						    </td>
+						    <td class="text-success">0.000242 BTC</td>
+						    <td>0.02%</td>
+						    <td><strong> 0.25484 LTC</strong></td>
+						</tr>
+						<tr>
+						    <td>523640</td>
+						    <td>27 آبان</td>
+						    <td><span class="success-arrow"><i class="icofont-arrow-up"></i>خرید</span>
+						    </td>
+						    <td class="coin-name">
+							<i class="cc LTC"></i> لایت کوین
+						    </td>
+						    <td class="text-success">0.000242 BTC</td>
+						    <td>0.02%</td>
+						    <td><strong> 0.25484 LTC</strong></td>
+						</tr>
+					    </tbody>
+					</table>
+				    </div>
+				</div>
+			    </div>
+			</div>
+
+		    </div>
+		</div>
+	    </div>
+	</div>
+
+
+{% endblock %}
