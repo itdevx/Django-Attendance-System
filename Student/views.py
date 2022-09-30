@@ -85,6 +85,17 @@ class CreateStudentView(generic.View):
         return render(request, self.template_name, {'form': form, 'message': message})
                 
 
+class SearchingView(generic.ListView):
+    template_name = 'search.html'
+    context_object_name = 'student_class_room'
+
+    def get_queryset(self):
+        query = self.request.GET.get('query')
+        if query is not None:
+            return models.Student.objects.get_searching(query)
+        return models.Student.objects.all()
+
+
 class WalletView(generic.View):
     def get(self, request):
 

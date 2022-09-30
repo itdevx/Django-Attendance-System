@@ -1,5 +1,13 @@
 from django.db import models
 from django.urls import reverse
+from django.db.models import Q
+
+
+class Manager(models.Manager):
+    def get_searching(self, query):
+        ST = Q(first_name__icontains=query) | Q(last_name__icontains=query) | Q(id_code__icontains=query)
+        return self.get_queryset().filter(ST).distinct()
+
 
 class ClassRoom(models.Model):
     SHIFT = (
@@ -31,6 +39,7 @@ class Student(models.Model):
     class_room = models.ForeignKey(ClassRoom, on_delete=models.CASCADE)
     level = models.CharField(choices=LEVEL, max_length=2, verbose_name='پایه')
     level_up = models.BooleanField(default=False, verbose_name='قبول شده / قبول نشده')
+    objects = Manager()
 
     def get_abolut_url(self):
         pass

@@ -18,6 +18,12 @@ urlpatterns = [
         'create-student', views.CreateStudentView.as_view(), name='create-student'
     ),
     path(
+        'search/', views.SearchingView.as_view(), name='search'
+    ),
+    # path(
+    #     'sear', views.search
+    # ),
+    path(
         'wallet', views.WalletView.as_view(), name='wallet'
     )
 ]
