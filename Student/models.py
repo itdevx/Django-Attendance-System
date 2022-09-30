@@ -42,7 +42,7 @@ class Student(models.Model):
     objects = Manager()
 
     def get_abolut_url(self):
-        pass
+        return reverse('student:student-info', args=[self.last_name, self.id_code])
 
     def __str__(self):
         return f'{self.first_name} {self.last_name} | {self.level} | {self.id_code}'

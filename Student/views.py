@@ -1,3 +1,4 @@
+from http.client import RemoteDisconnected
 from urllib.request import HTTPRedirectHandler
 from django.shortcuts import redirect, render
 from django.urls import reverse
@@ -12,7 +13,6 @@ class IndexView(LoginRequiredMixin, generic.View):
     
     def get(self, request):
         class_room = models.ClassRoom.objects.all()
-
         context = {
             'class_room': class_room
         }
@@ -94,6 +94,24 @@ class SearchingView(generic.ListView):
         if query is not None:
             return models.Student.objects.get_searching(query)
         return models.Student.objects.all()
+
+
+class StudentInfo(generic.View):
+    template_name = 'student.html'
+
+    def get(self, request, *args, **kwargs):
+        last_name = kwargs.get('last_name')
+        id_code = kwargs.get('id_code')
+
+        student = models.Student.objects.filter(last_name=last_name, id_code=id_code).first()
+        attendance = models.Attendance.objects.filter(student=student).all().order_by('-id')[:1]
+
+        context = {
+            'student': student,
+            'attendance': attendance
+        }
+
+        return render(request, self.template_name, context)
 
 
 class WalletView(generic.View):

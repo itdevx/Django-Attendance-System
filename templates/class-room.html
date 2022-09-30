@@ -7,87 +7,7 @@
 	    <div class="content-body">
 		<div class="container">
 		    <div class="row">
-			<div class="col-xxl-3 col-xl-6">
-			    <div class="card">
-				<div class="card-header">
-				    <h4 class="card-title">خرید</h4>
-				</div>
-				<div class="card-body">
-				    <form method="post" name="myform" class="currency_validate trade-form row g-3">
-					<div class="col-12">
-					    <label class="form-label">ارسال</label>
-					    <div class="input-group">
-						<select class="form-control" name="method">
-						    <option value="bank">دلار</option>
-						    <option value="master">Euro</option>
-						</select>
-						<input type="text" name="currency_amount" class="form-control" placeholder="0.0214 BTC">
-					    </div>
-					</div>
-
-					<div class="col-12">
-					    <label class="form-label">دریافت</label>
-					    <div class="input-group">
-						<select class="form-control" name="method">
-						    <option value="bank">بیت کوین</option>
-						    <option value="master">اتریوم</option>
-						</select>
-						<input type="text" name="currency_amount" class="form-control" placeholder="0.0214 BTC">
-					    </div>
-					</div>
-
-					<p class="mb-0">1 بیت کویت ~ 12،000 دلار</p>
-
-					<!-- <button type="submit" name="submit" class="btn btn-success btn-block">Exchange
-					    Now</button> -->
-					<button type="button" class="btn btn-primary btn-block" data-toggle="modal" data-target="#BuyModal">
-					    خرید
-					</button>
-
-				    </form>
-
-				</div>
-			    </div>
-			</div>
-			<div class="col-xxl-3 col-xl-6">
-			    <div class="card">
-				<div class="card-header">
-				    <h4 class="card-title">فروش </h4>
-				</div>
-				<div class="card-body">
-				    <form method="post" name="myform" class="currency_validate trade-form row g-3">
-					<div class="col-12">
-					    <label class="form-label">ارسال</label>
-					    <div class="input-group">
-						<select class="form-control" name="method">
-						    <option value="bank">دلار</option>
-						    <option value="master">Euro</option>
-						</select>
-						<input type="text" name="currency_amount" class="form-control" placeholder="0.0214 BTC">
-					    </div>
-					</div>
-
-					<div class="col-12">
-					    <label class="form-label">دریافت</label>
-					    <div class="input-group">
-						<select class="form-control" name="method">
-						    <option value="bank">بیت کوین</option>
-						    <option value="master">اتریوم</option>
-						</select>
-						<input type="text" name="currency_amount" class="form-control" placeholder="0.0214 BTC">
-					    </div>
-					</div>
-
-					<p class="mb-0">1 بیت کویت ~ 12،000 دلار</p>
-					<button type="button" class="btn btn-primary btn-block" data-toggle="modal" data-target="#SellModal">
-					    فروش
-					</button>
-				    </form>
-
-				</div>
-			    </div>
-			</div>
-			<div class="col-xxl-3 col-xl-6">
+			<!-- <div class="col-xxl-3 col-xl-6">
 			    <div class="card">
 				<div class="card-header">
 				    <h4 class="card-title">انتقال </h4>
@@ -124,46 +44,10 @@
 
 				</div>
 			    </div>
-			</div>
-			<div class="col-xxl-3 col-xl-6">
-			    <div class="card">
-				<div class="card-header">
-				    <h4 class="card-title">تبدیل </h4>
-				</div>
-				<div class="card-body">
-				    <form method="post" name="myform" class="currency_validate trade-form row g-3">
-					<div class="col-12">
-					    <label class="form-label">از</label>
-					    <div class="input-group">
-						<select class="form-control" name="method">
-						    <option value="bank">دلار</option>
-						    <option value="master">Euro</option>
-						</select>
-						<input type="text" name="currency_amount" class="form-control" placeholder="0.0214 BTC">
-					    </div>
-					</div>
+			</div> -->
 
-					<div class="col-12">
-					    <label class="form-label">به</label>
-					    <div class="input-group">
-						<select class="form-control" name="method">
-						    <option value="bank">بیت کوین</option>
-						    <option value="master">اتریوم</option>
-						</select>
-						<input type="text" name="currency_amount" class="form-control" placeholder="0.0214 BTC">
-					    </div>
-					</div>
-
-					<p class="mb-0">1 بیت کویت ~ 12،000 دلار</p>
-
-					<button type="button" class="btn btn-success btn-block" data-toggle="modal" data-target="#convertModal">تبدیل</button>
-
-				    </form>
-
-				</div>
-			    </div>
-			</div>
 		    </div>
+			<hr class="text-secondary mb-5 mt-5">
 		    <div class="row">
 			<div class="col-xxl-12">
 			    <div class="card">
@@ -201,7 +85,7 @@
 								<!-- <td class="text-danger">{{ c.class_room }}</td> -->
 								<td>{{ s.level }}</td>
 								<td>
-									<div class="badge bg-primary"><a href="" class="text-white">مشاهده</a></div>
+									<div class="badge bg-primary"><a href="{{ s.get_abolut_url }}" class="text-white">مشاهده</a></div>
 									<div class="badge bg-warning"><a href="" class="text-white">ویرایش</a></div>
 								</td>
 							</tr>

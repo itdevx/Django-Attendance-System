@@ -1,0 +1,85 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block body %}
+
+	<div id="main-wrapper">
+	    <div class="content-body">
+            <div class="container">
+                <div class="row">
+                    <div class="col-xxl-12 col-xl-12">
+                        <div class="card">
+                        <div class="card-header">
+                            <h4 class="card-title">معامله</h4>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-responsive transaction-table">
+                            <table class="table table-striped responsive-table text-center">
+                                <thead>
+                                <tr>
+                                    <th>نام</th>
+                                    <th>نام خانوادگی</th>
+                                    <th>نام پدر</th>
+                                    <th>شماره ملی</th>
+                                    <th>شماره کلاس</th>
+                                    <th>پایه تحصیلی</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr>
+                                    <td>{{ student.first_name }}</td>
+                                    <td>{{ student.last_name }}</td>
+                                    <td>{{ student.father_name }}</td>
+                                    <td>{{ student.id_code }}</td>
+                                    <td>{{ student.class_room.name }}</td>
+                                    <td>{{ student.level }}</td>
+                                </tr>
+                                </tbody>
+                            </table>
+                            </div>
+                        </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+		<div class="container">
+		    <div class="row">
+
+			<div class="col-xxl-4 col-xl-4">
+			    <div class="card">
+				<div class="card-header">
+				    <h4 class="card-title">حضور و غیاب</h4>
+				</div>
+				<div class="card-body">
+				    <ul class="balance-widget position-value">
+                        {% for a in attendance %}
+                            <li>
+                                <h5>
+                                    {% if a.attendance == '1' %}
+                                        حاضر
+                                    {% elif a.attendance == '2' %}
+                                        تاخیر
+                                    {% elif a.attendance == '3' or a.attendance == '4' %}
+                                        غایب
+                                    {% elif a.attendance == '5' %}
+                                        مرخصی
+                                    {% endif %}
+                                </h5>
+                                <div class="text-left">
+                                <h5 class="ltr">{{ a.date_attendance.year }}/{{ a.date_attendance.month }}/{{ a.date_attendance.day }}</h5>
+                                <span></span>
+                                </div>
+                            </li>
+                        {% endfor %}
+				    </ul>
+				</div>
+			    </div>
+			</div>
+
+		    </div>
+		</div>
+	    </div>
+	</div>
+
+
+{% endblock %}

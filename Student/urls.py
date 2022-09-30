@@ -20,9 +20,9 @@ urlpatterns = [
     path(
         'search/', views.SearchingView.as_view(), name='search'
     ),
-    # path(
-    #     'sear', views.search
-    # ),
+    path(
+        'student-info/<last_name>/<id_code>', views.StudentInfo.as_view(), name='student-info'
+    ),
     path(
         'wallet', views.WalletView.as_view(), name='wallet'
     )
