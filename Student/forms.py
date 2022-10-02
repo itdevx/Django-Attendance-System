@@ -1,3 +1,4 @@
+from dataclasses import field
 from django import forms
 from Student.models import Attendance, Student
 from django.utils import timezone
@@ -42,3 +43,36 @@ class StudentForm(forms.ModelForm):
     class Meta:
         model = Student
         exclude = ['level_up']
+
+
+
+class StudentEditForm(forms.ModelForm):
+    def __init__(self, *args, **kwargs):
+        super(StudentEditForm, self).__init__(*args, **kwargs)
+        self.fields['first_name'].widget.attrs.update({'class': 'form-control text-center mt-3', 'placeholder': 'نام را وارد کنید'})
+        self.fields['last_name'].widget.attrs.update({'class': 'form-control text-center mt-3', 'placeholder': 'نام خانوادگی را وارد کنید'})
+        self.fields['father_name'].widget.attrs.update({'class': 'form-control text-center mt-3', 'placeholder': 'نام پدر را وارد کنید'})
+        self.fields['id_code'].widget.attrs.update({'class': 'form-control text-center mt-3', 'placeholder': 'کدملی را وارد کنید'})
+        self.fields['class_room'].widget.attrs.update({'class': 'form-control text-center mt-3'})
+        self.fields['level'].widget.attrs.update({'class': 'form-control text-center mt-3'})
+        self.fields['level_up'].widget.attrs.update({'class': 'form-check-input text-center mt-3'})
+
+    class Meta:
+        model = Student
+        fields = '__all__'
+
+    def save(self, *args, **kwargs):
+        return super(StudentEditForm, self).save(*args, **kwargs)
+
+    # def save(self, commit=True):
+    #     student = super(StudentEditForm, self).save(commit=False)
+    #     student.first_name = self.cleaned_data['first_name']
+    #     student.last_name = self.cleaned_data['last_name']
+    #     student.father_name = self.cleaned_data['father_name']
+    #     student.id_code = self.cleaned_data['id_code']
+    #     student.class_room = self.cleaned_data['class_room']
+    #     student.level = self.cleaned_data['level']
+    #     student.level_up = self.cleaned_data['level_up']
+    #     if commit:
+    #         student.save()
+    #     return student

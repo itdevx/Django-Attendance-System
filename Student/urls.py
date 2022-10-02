@@ -11,7 +11,7 @@ urlpatterns = [
     path(
         'class-room/<shift>/<class_name>', views.ClassRoomView.as_view(), name='class_room'
     ),
-    path(
+    path(   
         'attendance/<class_name>', views.AttendanceView.as_view(), name='attendance'
     ),
     path(
@@ -22,6 +22,12 @@ urlpatterns = [
     ),
     path(
         'student-info/<last_name>/<id_code>', views.StudentInfo.as_view(), name='student-info'
+    ),
+    # path(
+    #     'student-edit/<int:id_code>', views.StudentEdit.as_view(), name='student-edit'
+    # ),
+    path(
+        'student-edit/<id_code>', views.student_edit, name='student-edit'
     ),
     path(
         'wallet', views.WalletView.as_view(), name='wallet'

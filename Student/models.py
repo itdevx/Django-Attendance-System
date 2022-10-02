@@ -44,6 +44,12 @@ class Student(models.Model):
     def get_abolut_url(self):
         return reverse('student:student-info', args=[self.last_name, self.id_code])
 
+    def get_abolut_url_edit(self):
+        return reverse('student:student-edit', kwargs={'id_code': self.id_code})
+
+    def __unicode__(self):
+        return self.id_code
+
     def __str__(self):
         return f'{self.first_name} {self.last_name} | {self.level} | {self.id_code}'
 

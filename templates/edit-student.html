@@ -1,0 +1,59 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block body %}
+
+	<div id="main-wrapper">
+	    <div class="content-body">
+		<div class="container">
+		    <div class="row">
+                <div class="col-md-12">
+                    <form action="" method="post">
+                        {% csrf_token %}
+                        <div class="row d-flex justify-content-center ">
+                            <div class="col-md-8">
+                                <div class="col-md-12">
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            {{ form.first_name }}
+                                        </div>
+                                        
+                                        <div class="col-md-6">
+                                            {{ form.last_name }}
+                                        </div>
+                                        <div class="col-md-6">
+                                            {{ form.father_name }}
+                                        </div>
+                                        
+                                        <div class="col-md-6">
+                                            {{ form.id_code }}
+                                        </div>
+                                        <div class="col-md-6">
+                                            {{ form.class_room }}
+                                        </div>
+                                        
+                                        <div class="col-md-6">
+                                            {{ form.level }}
+                                        </div>
+                                        <label class="mt-2" for="">قبولی</label>
+                                        <div class="col-2">
+                                            {{ form.level_up }}
+                                        </div>
+                                        
+                                    </div>
+                                    <button class="btn btn-success btn-sm mt-5 btn-block mb-5">ذخیره</button>
+                                    <hr class="text-secondary mb-5">
+                                </div>
+                            </div>
+                        </div>
+
+                    </form>
+                </div>
+
+		    </div>
+		</div>
+	    </div>
+	</div>
+
+
+{% endblock %}

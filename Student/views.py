@@ -1,7 +1,5 @@
-from http.client import RemoteDisconnected
-from urllib.request import HTTPRedirectHandler
-from django.shortcuts import redirect, render
-from django.urls import reverse
+from django.shortcuts import redirect, render, get_object_or_404
+from django.urls import reverse, reverse_lazy
 from django.views import generic
 from django.contrib.auth.mixins import LoginRequiredMixin
 from Student import models
@@ -104,7 +102,7 @@ class StudentInfo(generic.View):
         id_code = kwargs.get('id_code')
 
         student = models.Student.objects.filter(last_name=last_name, id_code=id_code).first()
-        attendance = models.Attendance.objects.filter(student=student).all().order_by('-id')[:1]
+        attendance = models.Attendance.objects.filter(student=student).all().order_by('-id')
 
         context = {
             'student': student,
@@ -112,6 +110,19 @@ class StudentInfo(generic.View):
         }
 
         return render(request, self.template_name, context)
+
+
+def student_edit(request, id_code):
+    context = {}
+    obj = get_object_or_404(models.Student, id_code=id_code)
+    form = forms.StudentEditForm(request.POST or None, instance=obj)
+    if form.is_valid():
+        form.save()
+        return redirect('student:index')
+    context['form'] = form
+
+    return render(request, 'edit-student.html', context)
+
 
 
 class WalletView(generic.View):

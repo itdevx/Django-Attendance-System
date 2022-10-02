@@ -86,7 +86,7 @@
 								<td>{{ s.level }}</td>
 								<td>
 									<div class="badge bg-primary"><a href="{{ s.get_abolut_url }}" class="text-white">مشاهده</a></div>
-									<div class="badge bg-warning"><a href="" class="text-white">ویرایش</a></div>
+									<div class="badge bg-warning"><a href="{% url 'student:student-edit' s.id_code %}" class="text-white">ویرایش</a></div>
 								</td>
 							</tr>
 						{% endfor %}
