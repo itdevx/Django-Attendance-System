@@ -1,4 +1,4 @@
-﻿{% extends 'base.html' %}
+{% extends 'base.html' %}
 
 {% block body %}
 
@@ -7,44 +7,6 @@
 	    <div class="content-body">
 		<div class="container">
 		    <div class="row">
-			<!-- <div class="col-xxl-3 col-xl-6">
-			    <div class="card">
-				<div class="card-header">
-				    <h4 class="card-title">انتقال </h4>
-				</div>
-				<div class="card-body">
-				    <form name="myform" class="currency_validate trade-form row g-3">
-					<div class="col-12">
-					    <label class="form-label">ارسال</label>
-					    <div class="input-group">
-						<select class="form-control" name="method">
-						    <option value="bank">دلار</option>
-						    <option value="master">Euro</option>
-						</select>
-						<input type="text" name="currency_amount" class="form-control" placeholder="0.0214 BTC">
-					    </div>
-					</div>
-
-					<div class="col-12">
-					    <label class="form-label">دریافت</label>
-					    <div class="input-group">
-						<select class="form-control" name="method">
-						    <option value="bank">بیت کوین</option>
-						    <option value="master">اتریوم</option>
-						</select>
-						<input type="text" name="currency_amount" class="form-control" placeholder="0.0214 BTC">
-					    </div>
-					</div>
-
-					<p class="mb-0">1 بیت کویت ~ 12،000 دلار</p>
-
-					<button type="button" class="btn btn-success btn-block" data-toggle="modal" data-target="#transferModal">انتقال</button>
-
-				    </form>
-
-				</div>
-			    </div>
-			</div> -->
 
 		    </div>
 			<hr class="text-secondary mb-5 mt-5">
@@ -55,9 +17,6 @@
 					<div>
 						<h4 class="card-title">جدول دانش آموزان این کلاس</h4>
 					</div>
-					<!-- <div>
-						<a href="" class="btn btn-primary">فرم حضور و غیاب</a>
-					</div>  -->
 				</div>
 				<div class="card-body">
 				    <div class="table-responsive">
@@ -65,33 +24,15 @@
 					    <thead>
 						<tr>
 						    <th>نام و نام خانوادگی</th>
-						    <th>نام پدر</th>
-						    <th>کد ملی</th>
-						    <th>رشته تحصیلی</th>
-						    <th>پایه</th>
-						    <th>وضعیت</th>
+						    <!-- <th>نام پدر</th> -->
+						    <!-- <th>کد ملی</th> -->
+						    <!-- <th>پایه</th> -->
 						</tr>
 					    </thead>
 					    <tbody>
-						{% for s in student_class_room %}
+						{% for i in form.student_set.all %}
 							<tr>
-								<td><span class="danger-arrow">{{ s.full_name }} </span>
-								</td>
-								<td class="coin-name">
-									{{ s.father_name }}
-								</td>
-								<td>
-									{{ s.id_code }}
-								</td>
-								<td>
-									{{ s.reshte }}
-								</td>
-								<!-- <td class="text-danger">{{ c.class_room }}</td> -->
-								<td>{{ s.level }}</td>
-								<td>
-									<div class="badge bg-primary"><a href="{{ s.get_absolute_url }}" class="text-white">مشاهده</a></div>
-									<div class="badge bg-warning"><a href="{% url 'student:student-edit' s.full_name s.id_code %}" class="text-white">ویرایش</a></div>
-								</td>
+							<td><span class="danger-arrow">{{ i }}</span>
 							</tr>
 						{% endfor %}
 					    </tbody>
@@ -182,8 +123,7 @@
 	    </div>
 	</div>
 
-	<!-- Buy Modal -->
-	<div class="modal fade" id="SellModal">
+	<!-- <div class="modal fade" id="SellModal">
 	    <div class="modal-dialog">
 		<div class="modal-content">
 		    <div class="modal-header">
@@ -258,7 +198,6 @@
 	    </div>
 	</div>
 
-	<!-- Transfer Modal -->
 	<div class="modal fade" id="transferModal">
 	    <div class="modal-dialog">
 		<div class="modal-content">
@@ -334,7 +273,6 @@
 	    </div>
 	</div>
 
-	<!-- Convert Modal -->
 	<div class="modal fade" id="convertModal">
 	    <div class="modal-dialog">
 		<div class="modal-content">
@@ -408,7 +346,7 @@
 		    </div>
 		</div>
 	    </div>
-	</div>
+	</div> -->
 
 
 {% endblock %}

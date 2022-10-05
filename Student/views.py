@@ -1,5 +1,5 @@
-from django.shortcuts import redirect, render, get_object_or_404
-from django.urls import reverse, reverse_lazy
+from django.shortcuts import redirect, render, get_object_or_404, HttpResponseRedirect
+from django.urls import reverse
 from django.views import generic
 from django.contrib.auth.mixins import LoginRequiredMixin
 from Student import models
@@ -10,68 +10,29 @@ class IndexView(LoginRequiredMixin, generic.View):
     login_url = 'account:login'
     
     def get(self, request):
-        class_room = models.ClassRoom.objects.all()
-        context = {
-            'class_room': class_room
-        }
+        class_room = models.Class.objects.all()
+        return render(request, 'home.html', {'class_room': class_room})
 
-        return render(request, 'home.html', context)
 
-    
 class ClassRoomView(LoginRequiredMixin, generic.View):
     login_url = 'account:login'
 
     def get(self, request, *args, **kwargs):
+        number = kwargs.get('number')
         shift = kwargs.get('shift')
-        class_name = kwargs.get('class_name')
-        students_by_class_room = models.Student.objects.filter(class_room__shift=shift, class_room__name=class_name).all()
-
-        context = {
-            'student_class_room': students_by_class_room,
-            'cn': class_name
-        }
-
-        return render(request, 'class-room.html', context)
+        students_in_class_room = models.Student.objects.filter(class_id__number=number, class_id__shift=shift).all()
+        return render(request, 'class-room.html', {'student_class_room': students_in_class_room})
 
 
-class AttendanceView(generic.View):
-    def get(self, request, *args, **kwargs):
-        class_name = kwargs.get('class_name')
-        form = forms.AttendanceForm(class_name, request.POST)
-        context = {
-            'form': form,
-            'cn': class_name
-        }
-
-        return render(request, 'attendance.html', context)
-
-    def post(self, request, *args, **kwargs):
-        class_name = kwargs.get('class_name')
-        if request.POST:
-            form = forms.AttendanceForm(class_name, request.POST)
-            if form.is_valid():
-                form.save()
-                return redirect(f'/attendance/{class_name}')
-
-        c = {   
-            'form': form
-        }
-
-        return render(request, 'attendance.html', c)
-
-
-class CreateStudentView(generic.View):
+class CreateStudenView(LoginRequiredMixin, generic.View):
+    login_url = 'account:login'
     template_name = 'create-student.html'
+
     def get(self, request, *args, **kwargs):
         form = forms.StudentForm(request.POST)
-        context = {
-            'form': form
-        }
-
-        return render(request, self.template_name, context)
-
+        return render(request, self.template_name, {'form': form})
+    
     def post(self, request, *args, **kwargs):
-        message = ''
         if request.POST:
             form = forms.StudentForm(request.POST)
             if form.is_valid():
@@ -79,53 +40,148 @@ class CreateStudentView(generic.View):
                 return redirect('student:create-student')
         else:
             form = forms.StudentForm()
-
-        return render(request, self.template_name, {'form': form, 'message': message})
-                
-
-class SearchingView(generic.ListView):
-    template_name = 'search.html'
-    context_object_name = 'student_class_room'
-
-    def get_queryset(self):
-        query = self.request.GET.get('query')
-        if query is not None:
-            return models.Student.objects.get_searching(query)
-        return models.Student.objects.all()
+        return render(request, self.template_name, {'form': form})
 
 
-class StudentInfo(generic.View):
+
+class StudentInfoView(LoginRequiredMixin, generic.View):
+    login_url = 'account:login'
     template_name = 'student.html'
 
     def get(self, request, *args, **kwargs):
-        last_name = kwargs.get('last_name')
+        full_name = kwargs.get('full_name')
         id_code = kwargs.get('id_code')
-
-        student = models.Student.objects.filter(last_name=last_name, id_code=id_code).first()
-        attendance = models.Attendance.objects.filter(student=student).all().order_by('-id')
+        student = models.Student.objects.filter(full_name=full_name, id_code=id_code).first()
+        attendance = models.Attendance.objects.filter(student=student).order_by('-id')
 
         context = {
             'student': student,
             'attendance': attendance
         }
-
         return render(request, self.template_name, context)
 
 
-def student_edit(request, id_code):
+def student_edit(request, full_name, id_code):
     context = {}
-    obj = get_object_or_404(models.Student, id_code=id_code)
+    obj = get_object_or_404(models.Student, full_name=full_name, id_code=id_code)
     form = forms.StudentEditForm(request.POST or None, instance=obj)
     if form.is_valid():
         form.save()
+        level = form.cleaned_data.get('level')
+        if form.cleaned_data.get('level_up'):
+            level += 1
+            form.save()
+
+        # TODO redirec to class-room
         return redirect('student:index')
     context['form'] = form
-
     return render(request, 'edit-student.html', context)
+
+
+class AttendanceView(LoginRequiredMixin, generic.View):
+    login_url = 'account:login'
+    template_name = 'attendance.html'
+
+    def get(self, request, *args, **kwargs):
+        assign_class_id = kwargs.get('assign_class_id')
+        # shift = kwargs.get('shift')
+        assc = get_object_or_404(models.AttendanceClass, assign__class_id__number=assign_class_id)
+        ass = assc.assign
+        c = ass.class_id
+        context = {
+            'ass': ass,
+            'c': c,
+            'assc': assc
+        }
+        return render(request, self.template_name, context)
+
+
+def confirm_attendance(request, assign_class_id):
+    assc = get_object_or_404(models.AttendanceClass, assign__class_id__number=assign_class_id)
+    ass = assc.assign
+    cl = ass.class_id
+
+    for i, s in enumerate(cl.student_set.all()):
+        status = request.POST[s.usn]
+        if status == 'present':
+            status = True
+        else:
+            status = False
+        if assc.status == 1:
+            try:
+                a = models.Attendance.objects.get(student=s, date=assc.date, attendanceclass=assc)
+                a.status = status
+                a.save()
+            except models.Attendance.DoesNotExist:
+                a = models.Attendance(student=s, status=status, date=assc.date, attendanceclass=assc)
+                a.save()
+        else:
+            a = models.Attendance(student=s, status=status, date=assc.date, attendanceclass=assc)
+            a.save()
+            assc.status = 1
+            assc.save()
+    return HttpResponseRedirect(reverse('student:index'))
 
 
 
 class WalletView(generic.View):
     def get(self, request):
-
         return render(request, 'index.html')
+
+
+
+# =============================================================
+
+# class ClassRoomView(LoginRequiredMixin, generic.View):
+#     login_url = 'account:login'
+
+#     def get(self, request, *args, **kwargs):
+#         shift = kwargs.get('shift')
+#         class_name = kwargs.get('class_name')
+#         students_by_class_room = models.Student.objects.filter(class_room__shift=shift, class_room__name=class_name).all()
+
+#         context = {
+#             'student_class_room': students_by_class_room,
+#             'cn': class_name
+#         }
+
+#         return render(request, 'class-room.html', context)
+
+
+
+# class CreateStudentView(generic.View):
+#     template_name = 'create-student.html'
+#     def get(self, request, *args, **kwargs):
+#         form = forms.StudentForm(request.POST)
+#         context = {
+#             'form': form
+#         }
+
+#         return render(request, self.template_name, context)
+
+#     def post(self, request, *args, **kwargs):
+#         message = ''
+#         if request.POST:
+#             form = forms.StudentForm(request.POST)
+#             if form.is_valid():
+#                 form.save()
+#                 return redirect('student:create-student')
+#         else:
+#             form = forms.StudentForm()
+
+#         return render(request, self.template_name, {'form': form, 'message': message})
+                
+
+# class SearchingView(generic.ListView):
+#     template_name = 'search.html'
+#     context_object_name = 'student_class_room'
+
+#     def get_queryset(self):
+#         query = self.request.GET.get('query')
+#         if query is not None:
+#             return models.Student.objects.get_searching(query)
+#         return models.Student.objects.all()
+
+
+
+

@@ -8,14 +8,17 @@
 	    <div class="content-body">
 		<div class="container">
 		    <div class="row">
-				{% for cr in class_room %}
+				{% for c in class_room %}
 					<div class="col-xxl-3 col-xl-3 col-lg-6 col-md-6 col-sm-6">
 						<div class="wallet-widget card">
 						<h5>کلاس</h5>
-						<h2><span class="text-primary">{{ cr.name }}</span></h2>
-						<p>شیفت : {% if cr.shift == 'E' %} عصر {% else %} صبح {% endif %}</p>
-						<a href="{{ cr.get_absolut_url }}" type="button" class="btn mt-2 btn-primary btn-block">
+						<h2><span class="text-primary">{{ c.number }}</span></h2>
+						<p>شیفت : {{ c.shift }}</p>
+						<a href="{{ c.get_absolute_url }}" type="button" class="btn mt-2 btn-primary btn-block">
 							مشاهده
+						</a>
+						<a href="{{ c.get_attendance_url }}" type="button" class="btn mt-2 btn-primary btn-block">
+							حضور غیاب
 						</a>
 						</div>
 					</div>

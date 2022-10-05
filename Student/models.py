@@ -1,84 +1,93 @@
+from re import L
+import re
 from django.db import models
 from django.urls import reverse
 from django.db.models import Q
 
 
-class Manager(models.Manager):
-    def get_searching(self, query):
-        ST = Q(first_name__icontains=query) | Q(last_name__icontains=query) | Q(id_code__icontains=query)
-        return self.get_queryset().filter(ST).distinct()
 
 
-class ClassRoom(models.Model):
-    SHIFT = (
-        ('M', 'صبح'),
-        ('E', 'عصر'),
-    )
+SHIFT = (
+    ('صبح', 'صبح'),
+    ('عصر', 'عصر'),
+)
 
-    name = models.IntegerField(verbose_name='شماره کلاس')
-    shift = models.CharField(choices=SHIFT, max_length=1, verbose_name='شیفت کلاسی')
+LEVEL = (
+    ('دهم', 'دهم'),
+    ('یازدهم', 'یازدهم'),
+    ('دوازدهم', 'دوازدهم'),
+)
 
-    def get_absolut_url(self):
-        return reverse('student:class_room', args=[self.shift, self.name])
+class Reshte(models.Model):
+    name = models.CharField(max_length=100)
 
     def __str__(self):
-        return f'کلاس شماره {self.name} در شیفت {self.shift}'
+        return self.name
+
+
+class Class(models.Model):
+    number = models.IntegerField()
+    shift = models.CharField(choices=SHIFT, max_length=3)
+
+    def __str__(self):
+        return f'{self.number}-{self.shift}'
+
+    def get_absolute_url(self):
+        return reverse('student:class-room', args=[self.number, self.shift])
+    
+    def get_attendance_url(self):
+        return reverse('student:attendance', args=[self.number])
 
 
 class Student(models.Model):
-    LEVEL = (
-        ('10', 'دهم'),
-        ('12', 'یازدهم'),
-        ('11', 'دوازدهم'),
-    )
-
-    first_name = models.CharField(max_length=100, verbose_name='نام')
-    last_name = models.CharField(max_length=100, verbose_name='نام خانوادگی')
-    father_name = models.CharField(max_length=100, null=True, verbose_name='نام پدر')
-    id_code = models.IntegerField(unique=True, verbose_name='کد ملی')
-    class_room = models.ForeignKey(ClassRoom, on_delete=models.CASCADE)
-    level = models.CharField(choices=LEVEL, max_length=2, verbose_name='پایه')
-    level_up = models.BooleanField(default=False, verbose_name='قبول شده / قبول نشده')
-    objects = Manager()
-
-    def get_abolut_url(self):
-        return reverse('student:student-info', args=[self.last_name, self.id_code])
-
-    def get_abolut_url_edit(self):
-        return reverse('student:student-edit', kwargs={'id_code': self.id_code})
-
-    def __unicode__(self):
-        return self.id_code
+    full_name = models.CharField(max_length=200)
+    father_name = models.CharField(max_length=100)
+    id_code = models.IntegerField(unique=True)
+    class_id = models.ForeignKey(Class, on_delete=models.CASCADE)
+    reshte = models.ForeignKey(Reshte, on_delete=models.CASCADE)
+    level = models.CharField(choices=LEVEL, max_length=8)
+    level_up = models.BooleanField(default=False)
+    date = models.DateField()
+    usn = models.CharField(primary_key=True, max_length=200)
 
     def __str__(self):
-        return f'{self.first_name} {self.last_name} | {self.level} | {self.id_code}'
+        return f'{self.full_name}-{self.id_code}-{self.class_id}-{self.reshte}-{self.level}'
 
+    def get_absolute_url(self):
+        return reverse('student:student',args=[self.full_name, self.id_code])
+
+
+class Assign(models.Model):
+    class_id = models.ForeignKey(Class, on_delete=models.CASCADE)
     
-class Attendance(models.Model):
-    ATTENDANCE = (
-        ('1', 'حاضر'),
-        ('2', 'تاخیر'),
-        ('3', 'غیبت موجه'),
-        ('4', 'غیبت غیر موجه'),
-        ('5', 'مرخصی'),
-    )
-
-    ALARM = (
-        ('1', 'زنگ اول'),
-        ('2', 'زنگ دوم'),
-        ('3', 'زنگ سوم'),
-        ('4', 'زنگ چهارم'),
-    )
-
-    student = models.ForeignKey(Student, on_delete=models.CASCADE, verbose_name='دانش آموزش')
-    alarm = models.CharField(choices=ALARM, max_length=1, null=True, blank=True, verbose_name='زنگ')
-    attendance = models.CharField(choices=ATTENDANCE, max_length=1, default=1, verbose_name='حضور و غیاب')
-    # change all name under line 55
-    time_takhir = models.CharField(max_length=100, null=True, blank=True, verbose_name='زمان تاخیر')
-    gheybat_movajah = models.TextField(null=True, blank=True, verbose_name='غیبت موجه')
-    gheybat_gheyr_movajah = models.TextField(null=True, blank=True, verbose_name='غیبت غیر موجه')
-    morkhasi = models.TextField(null=True, blank=True, verbose_name='مرخصی')
-    date_attendance = models.DateTimeField(auto_now_add=True)
-
     def __str__(self):
-        return f'{self.student.first_name} {self.student.last_name} | {self.attendance} | {self.date_attendance.year}/{self.date_attendance.month}/{self.date_attendance.day}'
+        return str(self.class_id)
+
+
+class AttendanceClass(models.Model):
+    assign = models.ForeignKey(Assign, on_delete=models.CASCADE)
+    date = models.DateField(auto_now_add=True)
+    status = models.IntegerField(default=0)
+
+
+class Attendance(models.Model):
+    student = models.ForeignKey(Student, on_delete=models.CASCADE)
+    attendanceclass = models.ForeignKey(AttendanceClass, on_delete=models.CASCADE, default=1)
+    date = models.DateField(auto_now_add=True)
+    status = models.BooleanField(default=True)
+    gheybat_text = models.CharField(max_length=500, null=True, blank=True)
+    
+    def __str__(self):
+        return f'{self.student.full_name} is {self.status} in date {self.date}'
+    
+
+
+
+
+
+
+
+# class Manager(models.Manager):
+#     def get_searching(self, query):
+#         ST = Q(first_name__icontains=query) | Q(last_name__icontains=query) | Q(id_code__icontains=query)
+#         return self.get_queryset().filter(ST).distinct()

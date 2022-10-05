@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% load static %}
+{% load jalali_tags %}
 
 {% block body %}
 
@@ -15,31 +16,42 @@
                                 <div class="col-md-12">
                                     <div class="row">
                                         <div class="col-md-6">
-                                            {{ form.first_name }}
-                                        </div>
-                                        
-                                        <div class="col-md-6">
-                                            {{ form.last_name }}
+                                            {{ form.full_name }}
                                         </div>
                                         <div class="col-md-6">
                                             {{ form.father_name }}
-                                        </div>
-                                        
+                                        </div>                                        
                                         <div class="col-md-6">
                                             {{ form.id_code }}
+                                            {% for e in form.id_code.errors %}
+                                                <p class="text-danger text-center">{{ e }}</p>
+                                            {% endfor %}
                                         </div>
                                         <div class="col-md-6">
-                                            {{ form.class_room }}
+                                            {{ form.class_id }}
                                         </div>
                                         
                                         <div class="col-md-6">
                                             {{ form.level }}
                                         </div>
-                                        <label class="mt-2" for="">قبولی</label>
-                                        <div class="col-2">
-                                            {{ form.level_up }}
+                                        <div class="col-md-6">
+                                            {{ form.reshte }}
                                         </div>
-                                        
+                                        <div class="col-md-6">
+                                            {{ form.usn }}
+                                            {% for e in form.usn.errors %}
+                                                <p class="text-danger text-center">{{ e }}</p>
+                                            {% endfor %}
+                                        </div>
+                                        <div class="col-md-6">
+                                            {{ form.date }}
+                                        </div>
+                                        <div class="col-2">
+                                            <div class="mt-5">
+                                                <label for="">قبولی</label>
+                                                {{ form.level_up }}
+                                            </div>
+                                        </div>
                                     </div>
                                     <button class="btn btn-success btn-sm mt-5 btn-block mb-5">ذخیره</button>
                                     <hr class="text-secondary mb-5">
@@ -55,5 +67,8 @@
 	    </div>
 	</div>
 
+    <script>
+        
+    </script>
 
 {% endblock %}
