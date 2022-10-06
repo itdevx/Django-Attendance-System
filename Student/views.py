@@ -1,3 +1,4 @@
+from urllib import request
 from xml.dom import ValidationErr
 from django.shortcuts import redirect, render, get_object_or_404, HttpResponseRedirect
 from django.http import Http404
@@ -6,6 +7,7 @@ from django.views import generic
 from django.contrib.auth.mixins import LoginRequiredMixin
 from Student import models
 from Student import forms
+import uuid
 
 
 class IndexView(LoginRequiredMixin, generic.View):
@@ -20,6 +22,8 @@ class IndexView(LoginRequiredMixin, generic.View):
             'class_room_m': class_room_m,
             'class_room_e': class_room_e,
         }
+
+
         return render(request, 'home.html', c)
 
 
@@ -51,6 +55,81 @@ class CreateStudenView(LoginRequiredMixin, generic.View):
             form = forms.StudentForm()
         return render(request, self.template_name, {'form': form})
 
+
+class CreateClassView(LoginRequiredMixin, generic.View):
+    login_url = 'account:login'
+    template_name = 'create-class.html'
+
+    def get(self, request, *args, **kwargs):
+        form = forms.ClassForm(request.POST)
+        return render(request, self.template_name, {'form': form})
+    
+    def post(self, request, *args, **kwargs):
+        if request.POST:
+            form = forms.ClassForm(request.POST)
+            if form.is_valid():
+                form.save()
+                return redirect('student:created-list')
+        else:
+            form = forms.ClassForm()
+        return render(request, self.template_name, {'form': form})
+
+
+class CreateAssignView(LoginRequiredMixin, generic.View):
+    login_url = 'account:login'
+    template_name = 'create-assign.html'
+
+    def get(self, request, *args, **kwargs):
+        form = forms.AssignForm(request.POST)
+        return render(request, self.template_name, {'form': form})
+    
+    def post(self, request, *args, **kwargs):
+        if request.POST:
+            form = forms.AssignForm(request.POST)
+            if form.is_valid():
+                form.save()
+                return redirect('student:created-list')
+        else:
+            form = forms.AssignForm()
+        return render(request, self.template_name, {'form': form})
+
+
+class CreateAttendanceClassView(LoginRequiredMixin, generic.View):
+    login_url = 'account:login'
+    template_name = 'create-attendance-class.html'
+
+    def get(self, request, *args, **kwargs):
+        form = forms.AttendanceClassForm(request.POST)
+        return render(request, self.template_name, {'form': form})
+    
+    def post(self, request, *args, **kwargs):
+        if request.POST:
+            form = forms.AttendanceClassForm(request.POST)
+            if form.is_valid():
+                form.save()
+                return redirect('student:created-list')
+        else:
+            form = forms.AttendanceClassForm()
+        return render(request, self.template_name, {'form': form})
+
+
+class CreateReshteView(LoginRequiredMixin, generic.View):
+    login_url = 'account:login'
+    template_name = 'create-reshte.html'
+
+    def get(self, request, *args, **kwargs):
+        form = forms.ReshteForm(request.POST)
+        return render(request, self.template_name, {'form': form})
+    
+    def post(self, request, *args, **kwargs):
+        if request.POST:
+            form = forms.ReshteForm(request.POST)
+            if form.is_valid():
+                form.save()
+                return redirect('student:created-list')
+        else:
+            form = forms.ReshteForm()
+        return render(request, self.template_name, {'form': form})
 
 
 class StudentInfoView(LoginRequiredMixin, generic.View):
@@ -136,11 +215,6 @@ def confirm(request, assign_class_id):
     return HttpResponseRedirect(reverse('student:index'))
 
 
-class WalletView(generic.View):
-    def get(self, request):
-        return render(request, 'index.html')
-
-
 class SearchingView(generic.ListView):
     template_name = 'search.html'
     context_object_name = 'student_class_room'
@@ -152,8 +226,9 @@ class SearchingView(generic.ListView):
         return models.Student.objects.all()
 
 
-
-
+class WalletView(generic.View):
+    def get(self, request):
+        return render(request, 'index.html')
 
 
 

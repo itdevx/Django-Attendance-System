@@ -9,7 +9,7 @@ urlpatterns = [
         '', views.IndexView.as_view(), name='index'
     ),
     path(
-        'wallet', views.WalletView.as_view(), name='wallet'
+        'wallet', views.WalletView.as_view(), name='created-list'
     ),
     path(
         'class-room/<number>/<shift>', views.ClassRoomView.as_view(), name='class-room'
@@ -31,6 +31,18 @@ urlpatterns = [
     ),
     path(
         'search/', views.SearchingView.as_view(), name='search'
+    ),
+    path(
+        'created/create-class/', views.CreateClassView.as_view(), name='create-class'
+    ),
+    path(
+        'created/create-assign/', views.CreateAssignView.as_view(), name='create-assign'
+    ),
+    path(
+        'created/create-attendance-class/', views.CreateAttendanceClassView.as_view(), name='create-attendance-class'
+    ),
+    path(
+        'created/create-reshte/', views.CreateReshteView.as_view(), name='create-reshte'
     ),
 ]
 

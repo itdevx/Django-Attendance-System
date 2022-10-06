@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load jalali_tags %}
+
+{% block body %}
+
+	<div id="main-wrapper">
+	    <div class="content-body">
+		<div class="container">
+		    <div class="row mt-5">
+                <div class="col-md-12">
+                    <form action="" method="post">
+                        {% csrf_token %}
+                        <div class="row d-flex justify-content-center ">
+                            <div class="col-md-8">
+                                <div class="col-md-12">
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            {{ form.number }}
+                                        </div>
+                                        <div class="col-md-6">
+                                            {{ form.shift }}
+                                        </div>
+                                    </div>
+                                    <button class="btn btn-success btn-sm mt-5 btn-block mb-5">ذخیره</button>
+                                    <hr class="text-secondary mb-5">
+                                </div>
+                            </div>
+                        </div>
+
+                    </form>
+                </div>
+
+		    </div>
+		</div>
+	    </div>
+	</div>
+
+    <script>
+        
+    </script>
+
+{% endblock %}

@@ -1,6 +1,5 @@
-from dataclasses import field
+from dataclasses import fields
 from django import forms
-from django.utils import timezone
 from Student import models
 from jalali_date.fields import JalaliDateField
 from jalali_date.widgets import AdminJalaliDateWidget
@@ -24,48 +23,6 @@ class StudentForm(forms.ModelForm):
         exclude = ['level_up']
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-# from Student.models import Attendance, Student
-# class AttendanceForm(forms.ModelForm):
-#     def __init__(self, class_name, *args, **kwargs):
-#         super(AttendanceForm, self).__init__(*args, **kwargs)
-#         self.fields['student'].queryset = Student.objects.filter(class_room__name=class_name)
-#         self.fields['student'].widget.attrs.update({'class': 'form-control text-center'})     
-#         self.fields['alarm'].widget.attrs.update({'class': 'form-control text-center mt-3'})     
-#         self.fields['attendance'].widget.attrs.update({'class': 'form-control text-center mt-3', 'id': 'status', 'onchange': 'changeStatus()'})
-#         self.fields['time_takhir'].widget.attrs.update({'class': 'form-control text-center mt-3', 'id': 'tt', 'placeholder': 'زمان تاخیر را میتوانید به عدد و حروف وارد کنید'})     
-#         self.fields['gheybat_movajah'].widget.attrs.update({'class': 'form-control text-center mt-3 p-2', 'id': 'gm', 'placeholder': 'غیبت موجه'})     
-#         self.fields['gheybat_gheyr_movajah'].widget.attrs.update({'class': 'form-control text-center mt-3 p-2', 'id': 'gg', 'placeholder': 'غیبت غیر موجه'})
-#         self.fields['morkhasi'].widget.attrs.update({'class': 'form-control text-center mt-3', 'id': 'mor', 'placeholder': 'اطلاعات مربوط به مرخصی را وارد کنید'})
-
-#     class Meta:
-#         model = Attendance
-#         fields = '__all__'
-
-#     def clean_student(self):
-#         student = self.cleaned_data['student']
-#         filtering = Attendance.objects.filter(student=student)
-#         if not filtering:
-#             return student
-#         if filtering.exists() and timezone.now().month == filtering.last().date_attendance.month and timezone.now().day == filtering.last().date_attendance.day:
-#             raise forms.ValidationError('این دانش آموز یک بار در این روز ثبت شده است')
-#         return student
-    
-
-
-
 class StudentEditForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super(StudentEditForm, self).__init__(*args, **kwargs)
@@ -86,3 +43,44 @@ class StudentEditForm(forms.ModelForm):
         return super(StudentEditForm, self).save(*args, **kwargs)
 
     
+class ClassForm(forms.ModelForm):
+    def __init__(self, *args, **kwargs):
+        super(ClassForm, self).__init__(*args, **kwargs)
+        self.fields['number'].widget.attrs.update({'class': 'form-control text-center mt-3'})
+        self.fields['shift'].widget.attrs.update({'class': 'form-control text-center mt-3'})
+
+    class Meta:
+        model = models.Class
+        fields = '__all__'
+
+
+class AssignForm(forms.ModelForm):
+    def __init__(self, *args, **kwargs):
+        super(AssignForm, self).__init__(*args, **kwargs)
+        self.fields['class_id'].widget.attrs.update({'class': 'form-control text-center mt-3'})
+
+    class Meta:
+        model = models.Assign
+        fields = '__all__'
+
+
+class AttendanceClassForm(forms.ModelForm):
+    def __init__(self, *args, **kwargs):
+        super(AttendanceClassForm, self).__init__(*args, **kwargs)
+        self.fields['assign'].widget.attrs.update({'class': 'form-control text-center mt-3'})
+        self.fields['status'].widget.attrs.update({'class': 'form-control text-center mt-3'})
+        self.fields['status'].default_validators = 0
+
+    class Meta:
+        model = models.AttendanceClass
+        fields = '__all__'
+
+
+class ReshteForm(forms.ModelForm):
+    def __init__(self, *args, **kwargs):
+        super(ReshteForm, self).__init__(*args, **kwargs)
+        self.fields['name'].widget.attrs.update({'class': 'form-control text-center mt-3', 'placeholder': 'رشته تحصیلی را وارد کنید'})
+
+    class Meta:
+        model = models.Reshte
+        fields = '__all__'
