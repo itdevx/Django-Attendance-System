@@ -7,7 +7,7 @@
 
 	    <div class="content-body">
 		<div class="container">
-		    <div class="row">
+		    <!-- <div class="row">
 				{% for c in class_room %}
 					<div class="col-xxl-3 col-xl-3 col-lg-6 col-md-6 col-sm-6">
 						<div class="wallet-widget card">
@@ -29,351 +29,37 @@
 						</div>
 					</div>
 				{% endfor %}
-		    </div>
+		    </div> -->
 		    <div class="row">
 
 			<div class="col-xxl-6">
 			    <div class="card">
 				<div class="card-header">
-				    <h4 class="card-title">آدرس های کیف پول </h4>
-				</div>
-				<div class="card-body">
-
-				    <div class="table-responsive">
-					<table class="table table-striped responsive-table">
-					    <thead>
-						<tr>
-						    <th>نام ارز</th>
-						    <th>آدرس</th>
-						    <th>کیو آر</th>
-						</tr>
-					    </thead>
-					    <tbody>
-						<tr>
-						    <td>
-							<div class="coin-name">
-							    <i class="cc BTC"></i>
-							    <span>بیت کوین</span>
-							</div>
-						    </td>
-						    <td>35Hb5B6qJa5ntYaNFN3hGYXdAjh919g2VH</td>
-						    <td>
-							<img src="images/qr.svg" alt="" width="40">
-						    </td>
-						</tr>
-						<tr>
-						    <td>
-							<div class="coin-name">
-							    <i class="cc BTC"></i>
-							    <span>بیت کوین</span>
-							</div>
-						    </td>
-						    <td>35Hb5B6qJa5ntYaNFN3hGYXdAjh919g2VH</td>
-						    <td>
-							<img src="images/qr.svg" alt="" width="40">
-						    </td>
-						</tr>
-						<tr>
-						    <td>
-							<div class="coin-name">
-							    <i class="cc BTC"></i>
-							    <span>بیت کوین</span>
-							</div>
-						    </td>
-						    <td>35Hb5B6qJa5ntYaNFN3hGYXdAjh919g2VH</td>
-						    <td>
-							<img src="images/qr.svg" alt="" width="40">
-						    </td>
-						</tr>
-						<tr>
-						    <td>
-							<div class="coin-name">
-							    <i class="cc BTC"></i>
-							    <span>بیت کوین</span>
-							</div>
-						    </td>
-						    <td>35Hb5B6qJa5ntYaNFN3hGYXdAjh919g2VH</td>
-						    <td>
-							<img src="images/qr.svg" alt="" width="40">
-						    </td>
-						</tr>
-					    </tbody>
-					</table>
-				    </div>
-				</div>
-			    </div>
-			</div>
-
-			<div class="col-xxl-6">
-			    <div class="card">
-				<div class="card-header">
-				    <h4 class="card-title">کیف پول</h4>
-				</div>
-				<div class="card-body">
-				    <div class="row align-items-center">
-					<div class="col-xxl-6 col-xl-6 col-lg-6 col-md-6">
-					    <div class="balance-chart">
-						<div id="balance-chart"></div>
-						<h4>مقدار کل = 5360 دلار</h4>
-					    </div>
-					</div>
-					<div class="col-xxl-6 col-xl-6 col-lg-6 col-md-6">
-
-					    <ul class="balance-widget">
-						<li>
-						    <div class="icon-title">
-							<i class="cc BTC"></i>
-							<span>بیت کوین</span>
-						    </div>
-						    <div class="text-right">
-							<h5>0.000242 BTC</h5>
-							<span>0.125 دلار</span>
-						    </div>
-						</li>
-						<li>
-						    <div class="icon-title">
-							<i class="cc USDT"></i>
-							<span>تتر</span>
-						    </div>
-						    <div class="text-right">
-							<h5>0.000242 USDT</h5>
-							<span>0.125 دلار</span>
-						    </div>
-						</li>
-						<li>
-						    <div class="icon-title">
-							<i class="cc XTZ"></i>
-							<span>تزوس</span>
-						    </div>
-						    <div class="text-right">
-							<h5>0.000242 XTZ</h5>
-							<span>0.125 دلار</span>
-						    </div>
-						</li>
-						<li>
-						    <div class="icon-title">
-							<i class="cc XMR"></i>
-							<span>مونرو</span>
-						    </div>
-						    <div class="text-right">
-							<h5>0.000242 XMR</h5>
-							<span>0.125 دلار</span>
-						    </div>
-						</li>
-						<li>
-						    <div class="icon-title">
-							<i class="cc XMR"></i>
-							<span>مونرو</span>
-						    </div>
-						    <div class="text-right">
-							<h5>0.000242 XMR</h5>
-							<span>0.125 دلار</span>
-						    </div>
-						</li>
-					    </ul>
-					</div>
-				    </div>
-
-				</div>
-			    </div>
-			</div>
-
-			<div class="col-xxl-6">
-			    <div class="card">
-				<div class="card-header">
-				    <h4 class="card-title">کیف پول </h4>
+				    <h4 class="card-title">کلاس های شیفت صبح</h4>
 				</div>
 				<div class="card-body">
 				    <div class="table-responsive">
-					<table class="table table-striped responsive-table">
+					<table class="table table-striped responsive-table text-center">
 					    <thead>
 						<tr>
-						    <th>ارز</th>
-						    <th>تراز</th>
-						    <th>موجود</th>
-						    <th>قفل شده</th>
-						    <th>% سود</th>
-						</tr>
-					    </thead>
-					    <tbody>
-						<tr>
-						    <td class="coin-name">
-							<i class="cc BTC"></i>
-							<span>بیت کوین</span>
-						    </td>
-						    <td>
-							0
-						    </td>
-						    <td>
-							>0
-						    </td>
-						    <td>
-							0
-						    </td>
-						    <td class="success-arrow">
-							<strong>0.005%</strong>
-							<i class="icofont-arrow-up ml-2"></i>
-						    </td>
-						</tr>
-						<tr>
-						    <td class="coin-name">
-							<i class="cc BTC"></i>
-							<span>بیت کوین</span>
-						    </td>
-						    <td>
-							0
-						    </td>
-						    <td>
-							>0
-						    </td>
-						    <td>
-							0
-						    </td>
-						    <td class="success-arrow">
-							<strong>0.005%</strong>
-							<i class="icofont-arrow-up ml-2"></i>
-						    </td>
-						</tr>
-						<tr>
-						    <td class="coin-name">
-							<i class="cc BTC"></i>
-							<span>بیت کوین</span>
-						    </td>
-						    <td>
-							0
-						    </td>
-						    <td>
-							>0
-						    </td>
-						    <td>
-							0
-						    </td>
-						    <td class="success-arrow">
-							<strong>0.005%</strong>
-							<i class="icofont-arrow-up ml-2"></i>
-						    </td>
-						</tr>
-						<tr>
-						    <td class="coin-name">
-							<i class="cc BTC"></i>
-							<span>بیت کوین</span>
-						    </td>
-						    <td>
-							0
-						    </td>
-						    <td>
-							>0
-						    </td>
-						    <td>
-							0
-						    </td>
-						    <td class="success-arrow">
-							<strong>0.005%</strong>
-							<i class="icofont-arrow-up ml-2"></i>
-						    </td>
-						</tr>
-					    </tbody>
-					</table>
-				    </div>
-
-				</div>
-			    </div>
-			</div>
-			<div class="col-xxl-6">
-			    <div class="card">
-				<div class="card-header">
-				    <h4 class="card-title">سپرده </h4>
-				</div>
-				<div class="card-body">
-				    <div class="table-responsive">
-					<table class="table table-striped responsive-table">
-					    <thead>
-						<tr>
-						    <th>شماره</th>
-						    <th>نوع</th>
-						    <th>مقدار</th>
-						    <th>تاریخ</th>
-						    <th>هش</th>
+						    <th>شماره کلاس</th>
+						    <th>تعداد دانش آموز</th>
 						    <th>وضعیت</th>
 						</tr>
 					    </thead>
 					    <tbody>
-						<tr>
-						    <td>12345</td>
-						    <td class="coin-name">
-							<i class="cc BTC"></i>
-							<span>بیت کوین</span>
-						    </td>
-						    <td>
-							0
-						    </td>
-						    <td>
-							Jan 01
-						    </td>
-						    <td>
-							#1236598745565
-						    </td>
-						    <td>
-							در انتظار
-						    </td>
-						</tr>
-						<tr>
-						    <td>12345</td>
-						    <td class="coin-name">
-							<i class="cc BTC"></i>
-							<span>بیت کوین</span>
-						    </td>
-						    <td>
-							0
-						    </td>
-						    <td>
-							Jan 01
-						    </td>
-						    <td>
-							#1236598745565
-						    </td>
-						    <td>
-							در انتظار
-						    </td>
-						</tr>
-						<tr>
-						    <td>12345</td>
-						    <td class="coin-name">
-							<i class="cc BTC"></i>
-							<span>بیت کوین</span>
-						    </td>
-						    <td>
-							0
-						    </td>
-						    <td>
-							Jan 01
-						    </td>
-						    <td>
-							#1236598745565
-						    </td>
-						    <td>
-							در انتظار
-						    </td>
-						</tr>
-						<tr>
-						    <td>12345</td>
-						    <td class="coin-name">
-							<i class="cc BTC"></i>
-							<span>بیت کوین</span>
-						    </td>
-						    <td>
-							0
-						    </td>
-						    <td>
-							Jan 01
-						    </td>
-						    <td>
-							#1236598745565
-						    </td>
-						    <td>
-							در انتظار
-						    </td>
-						</tr>
+							{% for c in class_room_m %}
+								<tr>
+									<td>
+									{{ c.number }}
+									</td>
+									<td>{{ stud_m }}</td>
+									<td>
+										<div class="badge p-3 bg-primary"><a href="{{ c.get_absolute_url }}" class="text-white">مشاهده</a></div>
+										<div class="badge p-3 bg-warning"><a href="{% url 'student:attendance' c.number %}" class="text-white">حضور غیاب</a></div>
+									</td>
+								</tr>
+							{% endfor %}
 					    </tbody>
 					</table>
 				    </div>
@@ -381,92 +67,35 @@
 				</div>
 			    </div>
 			</div>
-			<div class="col-xxl-12">
+			
+			<div class="col-xxl-6">
 			    <div class="card">
 				<div class="card-header">
-				    <h4 class="card-title">برداشت ها </h4>
+				    <h4 class="card-title">کلاس های شیفت عصر</h4>
 				</div>
 				<div class="card-body">
 				    <div class="table-responsive">
-					<table class="table table-striped responsive-table">
+					<table class="table table-striped responsive-table text-center">
 					    <thead>
 						<tr>
-						    <th>شماره</th>
-						    <th>نوع</th>
-						    <th>مقدار</th>
-						    <th>مقدار</th>
-						    <th>تاریخ</th>
-						    <th>هش</th>
+						    <th>شماره کلاس</th>
+						    <th>تعداد دانش آموز</th>
 						    <th>وضعیت</th>
 						</tr>
 					    </thead>
 					    <tbody>
-						<tr>
-						    <td>12345</td>
-						    <td class="coin-name">
-							<i class="cc BTC"></i>
-							<span>بیت کوین</span>
-						    </td>
-						    <td>
-							0
-						    </td>
-						    <td>
-							0.02%
-						    </td>
-						    <td>
-							Jan 01
-						    </td>
-						    <td>
-							#1236598745565
-						    </td>
-						    <td>
-							در انتظار
-						    </td>
-						</tr>
-						<tr>
-						    <td>12345</td>
-						    <td class="coin-name">
-							<i class="cc BTC"></i>
-							<span>بیت کوین</span>
-						    </td>
-						    <td>
-							0
-						    </td>
-						    <td>
-							0.02%
-						    </td>
-						    <td>
-							Jan 01
-						    </td>
-						    <td>
-							#1236598745565
-						    </td>
-						    <td>
-							در انتظار
-						    </td>
-						</tr>
-						<tr>
-						    <td>12345</td>
-						    <td class="coin-name">
-							<i class="cc BTC"></i>
-							<span>بیت کوین</span>
-						    </td>
-						    <td>
-							0
-						    </td>
-						    <td>
-							0.02%
-						    </td>
-						    <td>
-							Jan 01
-						    </td>
-						    <td>
-							#1236598745565
-						    </td>
-						    <td>
-							در انتظار
-						    </td>
-						</tr>
+							{% for c in class_room_e %}
+								<tr>
+									<td>
+									{{ c.number }}
+									</td>
+									<td>{{ stud_m }}</td>
+									<td>
+										<div class="badge p-3 bg-primary"><a href="{{ c.get_absolute_url }}" class="text-white">مشاهده</a></div>
+										<div class="badge p-3 bg-warning"><a href="{% url 'student:attendance' c.number %}" class="text-white">حضور غیاب</a></div>
+									</td>
+								</tr>
+							{% endfor %}
 					    </tbody>
 					</table>
 				    </div>

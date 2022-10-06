@@ -13,7 +13,14 @@ class IndexView(LoginRequiredMixin, generic.View):
     
     def get(self, request):
         class_room = models.Class.objects.all()
-        return render(request, 'home.html', {'class_room': class_room})
+        class_room_m = models.Class.objects.filter(shift='صبح').all()
+        class_room_e = models.Class.objects.filter(shift='عصر').all()
+        c = {
+            'class_room': class_room,
+            'class_room_m': class_room_m,
+            'class_room_e': class_room_e,
+        }
+        return render(request, 'home.html', c)
 
 
 class ClassRoomView(LoginRequiredMixin, generic.View):

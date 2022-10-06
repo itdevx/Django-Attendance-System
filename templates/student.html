@@ -56,17 +56,18 @@
 				    <ul class="align-center">
 						{% for a in attendance %}
                             <li>
-                                <h5>
-									{% if a.status %}
-										<p class="text-success">حاضر</p>
-									{% else %}
-										<p class="text-danger">غایب</p>
-									{% endif %}
-                                </h5>
-                                <div class="text-left">
-                                <h5 class="ltr">{{ a.date.year }}/{{ a.date.month }}/{{ a.date.day }}</h5>
+								{% if a.status %}
+									<h5 class="text-success">
+										حاضر
+									</h5>
+								{% else %}
+									<h5 class="text-danger">
+										غایب
+									</h5>
+								{% endif %}
+                                <h5 class="text-left">{{ a.date.year }}/{{ a.date.month }}/{{ a.date.day }}</h5>
+								<span></span>
 								<hr class="text-primary">
-                                </div>
                             </li>
 						{% endfor %}
 				    </ul>
