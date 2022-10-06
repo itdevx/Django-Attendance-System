@@ -22,6 +22,7 @@
 						    <th>نام و نام خانوادگی</th>
 						    <th>نام پدر</th>
 						    <th>کد ملی</th>
+						    <th>رشته تحصیلی</th>
 						    <th>پایه</th>
 						    <th>وضعیت</th>
 						</tr>
@@ -29,7 +30,7 @@
 					    <tbody>
 						{% for s in student_class_room %}
 							<tr>
-								<td><span class="danger-arrow">{{ s.first_name }} {{ s.last_name }}</span>
+								<td><span class="danger-arrow">{{ s.full_name }}</span>
 								</td>
 								<td class="coin-name">
 									{{ s.father_name }}
@@ -38,6 +39,7 @@
 									{{ s.id_code }}
 								</td>
 								<!-- <td class="text-danger">{{ c.class_room }}</td> -->
+								<td>{{ s.reshte }}</td>
 								<td>{{ s.level }}</td>
 								<td>
 									<div class="badge bg-primary"><a href="" class="text-white">مشاهده</a></div>

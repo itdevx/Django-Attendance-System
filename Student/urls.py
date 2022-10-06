@@ -29,6 +29,9 @@ urlpatterns = [
     path(
         'student-edit/<full_name>/<id_code>', views.student_edit, name='student-edit'
     ),
+    path(
+        'search/', views.SearchingView.as_view(), name='search'
+    ),
 ]
 
 
@@ -48,9 +51,6 @@ urlpatterns = [
 #     ),
 #     path(
 #         'create-student', views.CreateStudentView.as_view(), name='create-student'
-#     ),
-#     path(
-#         'search/', views.SearchingView.as_view(), name='search'
 #     ),
 #     path(
 #         'student-info/<last_name>/<id_code>', views.StudentInfo.as_view(), name='student-info'

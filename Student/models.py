@@ -6,6 +6,11 @@ from django.db.models import Q
 
 
 
+class Manager(models.Manager):
+    def get_searching(self, query):
+        ST = Q(full_name__icontains=query) | Q(id_code__icontains=query)
+        return self.get_queryset().filter(ST).distinct()
+
 
 SHIFT = (
     ('صبح', 'صبح'),
@@ -50,6 +55,7 @@ class Student(models.Model):
     level_up = models.BooleanField(default=False)
     date = models.DateField()
     usn = models.CharField(primary_key=True, max_length=200)
+    objects = Manager()
 
     def __str__(self):
         return f'{self.full_name}-{self.id_code}-{self.class_id}-{self.reshte}-{self.level}'
@@ -83,12 +89,3 @@ class Attendance(models.Model):
     
 
 
-
-
-
-
-
-# class Manager(models.Manager):
-#     def get_searching(self, query):
-#         ST = Q(first_name__icontains=query) | Q(last_name__icontains=query) | Q(id_code__icontains=query)
-#         return self.get_queryset().filter(ST).distinct()

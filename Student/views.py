@@ -130,18 +130,18 @@ class WalletView(generic.View):
         return render(request, 'index.html')
 
 
+class SearchingView(generic.ListView):
+    template_name = 'search.html'
+    context_object_name = 'student_class_room'
+
+    def get_queryset(self):
+        query = self.request.GET.get('query')
+        if query is not None:
+            return models.Student.objects.get_searching(query)
+        return models.Student.objects.all()
 
 # =============================================================
 
-# class SearchingView(generic.ListView):
-#     template_name = 'search.html'
-#     context_object_name = 'student_class_room'
-
-#     def get_queryset(self):
-#         query = self.request.GET.get('query')
-#         if query is not None:
-#             return models.Student.objects.get_searching(query)
-#         return models.Student.objects.all()
 
 
 
