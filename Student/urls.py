@@ -21,10 +21,10 @@ urlpatterns = [
         'student/<full_name>/<id_code>', views.StudentInfoView.as_view(), name='student'
     ),
     path(
-        'attendance/<assign_class_id>', views.AttendanceView.as_view(), name='attendance'
+        'attendance/<int:assign_class_id>/', views.AttendanceView.as_view(), name='attendance'
     ),
     path(
-        'attendance/<assign_class_id>/confirm', views.confirm_attendance, name='confirm'
+        'attendance/<int:assign_class_id>/confirm', views.confirm, name='confirm'
     ),
     path(
         'student-edit/<full_name>/<id_code>', views.student_edit, name='student-edit'

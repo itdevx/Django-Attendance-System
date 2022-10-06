@@ -10,7 +10,7 @@ admin.site.register(Student)
 
 
 
-
+# https://twitter.com/angelawhite
 
 
 # from Student.models import ClassRoom, Student, Attendance

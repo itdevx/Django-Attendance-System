@@ -17,7 +17,7 @@
 						<a href="{{ c.get_absolute_url }}" type="button" class="btn mt-2 btn-primary btn-block">
 							مشاهده
 						</a>
-						<a href="{{ c.get_attendance_url }}" type="button" class="btn mt-2 btn-primary btn-block">
+						<a href="{% url 'student:attendance' c.number %}" type="button" class="btn mt-2 btn-primary btn-block">
 							حضور غیاب
 						</a>
 						</div>

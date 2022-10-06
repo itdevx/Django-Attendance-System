@@ -35,8 +35,9 @@ class Class(models.Model):
     def get_absolute_url(self):
         return reverse('student:class-room', args=[self.number, self.shift])
     
-    def get_attendance_url(self):
-        return reverse('student:attendance', args=[self.number])
+    # def get_attendance_url(self):
+        # return reverse('student:attendance', args=[self.id])
+
 
 
 class Student(models.Model):
@@ -60,8 +61,8 @@ class Student(models.Model):
 class Assign(models.Model):
     class_id = models.ForeignKey(Class, on_delete=models.CASCADE)
     
-    def __str__(self):
-        return str(self.class_id)
+    # def __str__(self):
+    #     return str(self.class_id)
 
 
 class AttendanceClass(models.Model):
@@ -75,10 +76,10 @@ class Attendance(models.Model):
     attendanceclass = models.ForeignKey(AttendanceClass, on_delete=models.CASCADE, default=1)
     date = models.DateField(auto_now_add=True)
     status = models.BooleanField(default=True)
-    gheybat_text = models.CharField(max_length=500, null=True, blank=True)
+    # gheybat_text = models.CharField(max_length=500, null=True, blank=True)
     
     def __str__(self):
-        return f'{self.student.full_name} is {self.status} in date {self.date}'
+        return f'{self.student.full_name} درتاریخ : {self.status} <- {self.date}'
     
 
 

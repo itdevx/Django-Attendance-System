@@ -1,4 +1,5 @@
 from django.shortcuts import redirect, render, get_object_or_404, HttpResponseRedirect
+from django.http import Http404
 from django.urls import reverse
 from django.views import generic
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -96,7 +97,7 @@ class AttendanceView(LoginRequiredMixin, generic.View):
         return render(request, self.template_name, context)
 
 
-def confirm_attendance(request, assign_class_id):
+def confirm(request, assign_class_id):
     assc = get_object_or_404(models.AttendanceClass, assign__class_id__number=assign_class_id)
     ass = assc.assign
     cl = ass.class_id
@@ -109,14 +110,14 @@ def confirm_attendance(request, assign_class_id):
             status = False
         if assc.status == 1:
             try:
-                a = models.Attendance.objects.get(student=s, date=assc.date, attendanceclass=assc)
+                a = models.Attendance.objects.create(student=s, date=assc.date, attendanceclass=assc)
                 a.status = status
                 a.save()
             except models.Attendance.DoesNotExist:
                 a = models.Attendance(student=s, status=status, date=assc.date, attendanceclass=assc)
                 a.save()
         else:
-            a = models.Attendance(student=s, status=status, date=assc.date, attendanceclass=assc)
+            a = models.Attendance(student=s, status=status, date=assc.date, attendanceclass=assc)            
             a.save()
             assc.status = 1
             assc.save()
@@ -131,46 +132,6 @@ class WalletView(generic.View):
 
 
 # =============================================================
-
-# class ClassRoomView(LoginRequiredMixin, generic.View):
-#     login_url = 'account:login'
-
-#     def get(self, request, *args, **kwargs):
-#         shift = kwargs.get('shift')
-#         class_name = kwargs.get('class_name')
-#         students_by_class_room = models.Student.objects.filter(class_room__shift=shift, class_room__name=class_name).all()
-
-#         context = {
-#             'student_class_room': students_by_class_room,
-#             'cn': class_name
-#         }
-
-#         return render(request, 'class-room.html', context)
-
-
-
-# class CreateStudentView(generic.View):
-#     template_name = 'create-student.html'
-#     def get(self, request, *args, **kwargs):
-#         form = forms.StudentForm(request.POST)
-#         context = {
-#             'form': form
-#         }
-
-#         return render(request, self.template_name, context)
-
-#     def post(self, request, *args, **kwargs):
-#         message = ''
-#         if request.POST:
-#             form = forms.StudentForm(request.POST)
-#             if form.is_valid():
-#                 form.save()
-#                 return redirect('student:create-student')
-#         else:
-#             form = forms.StudentForm()
-
-#         return render(request, self.template_name, {'form': form, 'message': message})
-                
 
 # class SearchingView(generic.ListView):
 #     template_name = 'search.html'
