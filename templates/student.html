@@ -53,7 +53,7 @@
 				    <h4 class="card-title">حضور و غیاب</h4>
 				</div>
 				<div class="card-body">
-				    <ul class="balance-widget position-value">
+				    <ul class="align-center">
 						{% for a in attendance %}
                             <li>
                                 <h5>
@@ -65,7 +65,7 @@
                                 </h5>
                                 <div class="text-left">
                                 <h5 class="ltr">{{ a.date.year }}/{{ a.date.month }}/{{ a.date.day }}</h5>
-                                <span></span>
+								<hr class="text-primary">
                                 </div>
                             </li>
 						{% endfor %}

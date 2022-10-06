@@ -14,12 +14,18 @@
 						<h5>کلاس</h5>
 						<h2><span class="text-primary">{{ c.number }}</span></h2>
 						<p>شیفت : {{ c.shift }}</p>
-						<a href="{{ c.get_absolute_url }}" type="button" class="btn mt-2 btn-primary btn-block">
-							مشاهده
-						</a>
-						<a href="{% url 'student:attendance' c.number %}" type="button" class="btn mt-2 btn-primary btn-block">
-							حضور غیاب
-						</a>
+						<div class="row mt-4">
+							<div class="col-6">
+								<a href="{{ c.get_absolute_url }}" type="button" class="btn mt-2 btn-primary btn-block">
+									مشاهده
+								</a>
+							</div>
+							<div class="col-6">
+								<a href="{% url 'student:attendance' c.number %}" type="button" class="btn mt-2 btn-primary btn-block">
+									حضور غیاب
+								</a>
+							</div>
+						</div>
 						</div>
 					</div>
 				{% endfor %}

@@ -1,3 +1,4 @@
+from xml.dom import ValidationErr
 from django.shortcuts import redirect, render, get_object_or_404, HttpResponseRedirect
 from django.http import Http404
 from django.urls import reverse
@@ -89,10 +90,14 @@ class AttendanceView(LoginRequiredMixin, generic.View):
         assc = get_object_or_404(models.AttendanceClass, assign__class_id__number=assign_class_id)
         ass = assc.assign
         c = ass.class_id
+
+        attendance = models.Attendance.objects.filter(student__class_id__number=assign_class_id, date=assc.date)
+
         context = {
             'ass': ass,
             'c': c,
-            'assc': assc
+            'assc': assc,
+            'attendance': attendance
         }
         return render(request, self.template_name, context)
 
@@ -124,7 +129,6 @@ def confirm(request, assign_class_id):
     return HttpResponseRedirect(reverse('student:index'))
 
 
-
 class WalletView(generic.View):
     def get(self, request):
         return render(request, 'index.html')
@@ -140,7 +144,7 @@ class SearchingView(generic.ListView):
             return models.Student.objects.get_searching(query)
         return models.Student.objects.all()
 
-# =============================================================
+
 
 
 

@@ -44,7 +44,6 @@ class Class(models.Model):
         # return reverse('student:attendance', args=[self.id])
 
 
-
 class Student(models.Model):
     full_name = models.CharField(max_length=200)
     father_name = models.CharField(max_length=100)

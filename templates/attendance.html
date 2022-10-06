@@ -9,67 +9,28 @@
 		    <div class="row">
 
 
-			<div class="col-xxl-4 col-xl-4">
+			<div class="col-xxl-3 col-xl-3">
 			    <div class="card">
 				<div class="card-header">
 				    <h4 class="card-title">تغییرات</h4>
 				</div>
 				<div class="card-body">
-				    <ul class="balance-widget position-value">
-					<li>
-					    <h5>تغییرات 1 ساعته</h5>
-					    <div class="text-left">
-						<h5 class="ltr">-0.37% </h5>
-						<span></span>
-					    </div>
-					</li>
-					<li>
-					    <h5>تغییرات 1 روزه	</h5>
-					    <div class="text-left">
-						<h5 class="ltr">3.46%</h5>
-						<span></span>
-					    </div>
-					</li>
-					<li>
-					    <h5>تغییرات 7 روزه	</h5>
-					    <div class="text-left">
-						<h5 class="ltr">11.29%</h5>
-						<span></span>
-					    </div>
-					</li>
-					<li>
-					    <h5>تغییرات 14 روزه	</h5>
-					    <div class="text-left">
-						<h5 class="ltr">24.01% </h5>
-						<span></span>
-					    </div>
-					</li>
-					<li>
-					    <h5>تغییرات 30 روزه	</h5>
-					    <div class="text-left">
-						<h5 class="ltr">48.28%</h5>
-						<span></span>
-					    </div>
-					</li>
-					<li>
-					    <h5>تغییرات 60 روزه	</h5>
-					    <div class="text-left">
-						<h5 class="ltr">54.73%</h5>
-						<span></span>
-					    </div>
-					</li>
-					<li>
-					    <h5>تغییرات شش ماهه	</h5>
-					    <div class="text-left">
-						<h5 class="ltr">84.36%</h5>
-						<span></span>
-					    </div>
-					</li>
+				    <ul>
+						{% for a in attendance %}
+							<li>
+								<h5><a href="">لیست حضور غیاب</a></h5>
+								<div class="text-left">
+									<h5 class="ltr">{{ a.date.year }}/{{ a.date.month }}/{{ a.date.day }}</h5>
+									<span></span>
+								</div>
+							</li>
+							<hr>
+						{% endfor %}
 				    </ul>
 				</div>
 			    </div>
 			</div>
-			<div class="col-xxl-8 col-xl-8">
+			<div class="col-xxl-9 col-xl-9">
 			    <div class="card">
 				<div class="card-header">
 				    <h4 class="card-title">لیست حضور و غیاب</h4>
