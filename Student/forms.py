@@ -1,4 +1,3 @@
-from dataclasses import fields
 from django import forms
 from Student import models
 from jalali_date.fields import JalaliDateField
@@ -16,7 +15,6 @@ class StudentForm(forms.ModelForm):
         self.fields['level'].widget.attrs.update({'class': 'form-control text-center mt-3'})
         self.fields['usn'].widget.attrs.update({'class': 'form-control text-center mt-3', 'placeholder': 'usn را وارد کنید'})
         self.fields['date'].widget.attrs.update({'class': 'form-control date text-center mt-3'})
-        # self.fields['date'] = JalaliDateField(widget=AdminJalaliDateWidget)
         
     class Meta:
         model = models.Student
@@ -53,6 +51,12 @@ class ClassForm(forms.ModelForm):
         model = models.Class
         fields = '__all__'
 
+    def clean_number(self):
+        number = self.cleaned_data.get('number')
+        if models.Class.objects.filter(number=number).exists():
+            raise forms.ValidationError('این کلاس از قبل ثبت شده است')
+        else:
+            return number
 
 class AssignForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
@@ -62,6 +66,13 @@ class AssignForm(forms.ModelForm):
     class Meta:
         model = models.Assign
         fields = '__all__'
+
+    def clean_class_id(self):
+        class_id = self.cleaned_data['class_id']
+        if models.Assign.objects.filter(class_id=class_id).exists():
+            raise forms.ValidationError('این کلاس قبلا اختصاص یافته است')
+        else:
+            return class_id
 
 
 class AttendanceClassForm(forms.ModelForm):
@@ -74,6 +85,13 @@ class AttendanceClassForm(forms.ModelForm):
         model = models.AttendanceClass
         fields = ['assign']
 
+    def clean_assign(self):
+        assign = self.cleaned_data['assign']
+        if models.AttendanceClass.objects.filter(assign=assign).exists():
+            raise forms.ValidationError('این ساخته شده است')
+        else:
+            return assign
+    
 
 class ReshteForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
@@ -83,3 +101,11 @@ class ReshteForm(forms.ModelForm):
     class Meta:
         model = models.Reshte
         fields = '__all__'
+
+    def clean_name(self):
+        name = self.cleaned_data['name']
+        if models.Reshte.objects.filter(name=name).exists():
+            raise forms.ValidationError('این رشته تحصیلی از قبل ثبت شده است')
+        else:
+            return name
+        

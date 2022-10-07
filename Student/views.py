@@ -147,7 +147,8 @@ class StudentInfoView(LoginRequiredMixin, generic.View):
         full_name = kwargs.get('full_name')
         id_code = kwargs.get('id_code')
         student = models.Student.objects.filter(full_name=full_name, id_code=id_code).first()
-        attendance = models.Attendance.objects.filter(student=student).order_by('-id')
+        attendance = models.Attendance.objects.filter(student=student).order_by('-id').distinct()
+
         context = {
             'student': student,
             'attendance': attendance

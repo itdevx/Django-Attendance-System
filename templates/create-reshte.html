@@ -17,6 +17,9 @@
                                     <div class="row">
                                         <div class="col-md-12">
                                             {{ form.name }}
+                                            {% for e in form.name.errors %}
+                                                <p class="text-danger text-center">{{ e }}</p>
+                                            {% endfor %}
                                         </div>
                                     </div>
                                     <button class="btn btn-success btn-sm mt-5 btn-block mb-5">ذخیره</button>
