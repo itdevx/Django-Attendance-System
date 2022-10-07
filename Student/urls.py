@@ -9,7 +9,7 @@ urlpatterns = [
         '', views.IndexView.as_view(), name='index'
     ),
     path(
-        'wallet', views.WalletView.as_view(), name='created-list'
+        'creative-settings', views.WalletView.as_view(), name='created-list'
     ),
     path(
         'class-room/<number>/<shift>', views.ClassRoomView.as_view(), name='class-room'
