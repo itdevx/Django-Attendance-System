@@ -34,8 +34,9 @@
 
 			<div class="col-xxl-6">
 			    <div class="card">
-				<div class="card-header">
+				<div class="card-header align-items-center">
 				    <h4 class="card-title">کلاس های شیفت صبح</h4>
+				    <h5 class="text-left">تعداد : {{ student_m }} نفر</h5>
 				</div>
 				<div class="card-body">
 				    <div class="table-responsive">
@@ -43,7 +44,6 @@
 					    <thead>
 						<tr>
 						    <th>شماره کلاس</th>
-						    <th>تعداد دانش آموز</th>
 						    <th>وضعیت</th>
 						</tr>
 					    </thead>
@@ -51,9 +51,8 @@
 							{% for c in class_room_m %}
 								<tr>
 									<td>
-									{{ c.number }}
+									<h4>{{ c.number }}</h4>
 									</td>
-									<td>{{ stud_m }}</td>
 									<td>
 										<div class="badge p-3 bg-primary"><a href="{{ c.get_absolute_url }}" class="text-white">مشاهده</a></div>
 										<div class="badge p-3 bg-warning"><a href="{% url 'student:attendance' c.number %}" class="text-white">حضور غیاب</a></div>
@@ -70,8 +69,9 @@
 			
 			<div class="col-xxl-6">
 			    <div class="card">
-				<div class="card-header">
+				<div class="card-header align-items-center">
 				    <h4 class="card-title">کلاس های شیفت عصر</h4>
+				    <h5 class="text-left">تعداد : {{ student_e }} نفر</h5>
 				</div>
 				<div class="card-body">
 				    <div class="table-responsive">
@@ -79,7 +79,6 @@
 					    <thead>
 						<tr>
 						    <th>شماره کلاس</th>
-						    <th>تعداد دانش آموز</th>
 						    <th>وضعیت</th>
 						</tr>
 					    </thead>
@@ -87,9 +86,8 @@
 							{% for c in class_room_e %}
 								<tr>
 									<td>
-									{{ c.number }}
+									<h4>{{ c.number }}</h4>
 									</td>
-									<td>{{ stud_m }}</td>
 									<td>
 										<div class="badge p-3 bg-primary"><a href="{{ c.get_absolute_url }}" class="text-white">مشاهده</a></div>
 										<div class="badge p-3 bg-warning"><a href="{% url 'student:attendance' c.number %}" class="text-white">حضور غیاب</a></div>

@@ -1,9 +1,8 @@
-from re import L
-import re
+from django.utils import timezone
 from django.db import models
 from django.urls import reverse
 from django.db.models import Q
-
+from django.core.exceptions import ValidationError
 
 
 class Manager(models.Manager):
@@ -81,10 +80,9 @@ class Attendance(models.Model):
     attendanceclass = models.ForeignKey(AttendanceClass, on_delete=models.CASCADE, default=1)
     date = models.DateField(auto_now_add=True)
     status = models.BooleanField(default=True)
-    # gheybat_text = models.CharField(max_length=500, null=True, blank=True)
+    gheybat_text = models.CharField(max_length=500, null=True, blank=True)
     
     def __str__(self):
         return f'{self.student.full_name} درتاریخ : {self.status} <- {self.date}'
-    
 
 

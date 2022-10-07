@@ -69,9 +69,8 @@
 											<label class="btn btn-outline-success btn-sm active">
 												<input type="radio" name="{{ s.usn }}" id="option1" autocomplete="off" value="present" checked> حاضر
 											</label>
-			
-											<label class="btn btn-outline-danger active btn-sm">
-												<input type="radio" name="{{ s.usn }}" id="option2" autocomplete="off" value="absent"> غایب
+											<label class="btn btn-outline-danger active btdn-sm">
+												<input type="radio" name="{{ s.usn }}" id="option2" onclick="javascript:showtext();" autocomplete="off" value="absent"> غایب
 											</label>
                                   		</div>
 									</td>
@@ -97,5 +96,14 @@
 	    </div>
 	</div>
 
+	<script>
+		function showtext(){
+			if(document.getElementById('option2').checked) {
+				document.getElementById('gheybat').style.visibility = 'visible';
+			}else {
+				document.getElementById('gheybat').style.visibility = 'hidden';
+			}
+		}
+	</script>
 
 {% endblock %}

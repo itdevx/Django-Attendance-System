@@ -1,5 +1,3 @@
-from urllib import request
-from xml.dom import ValidationErr
 from django.shortcuts import redirect, render, get_object_or_404, HttpResponseRedirect
 from django.http import Http404
 from django.urls import reverse
@@ -7,7 +5,7 @@ from django.views import generic
 from django.contrib.auth.mixins import LoginRequiredMixin
 from Student import models
 from Student import forms
-import uuid
+from django.core.exceptions import ValidationError
 
 
 class IndexView(LoginRequiredMixin, generic.View):
@@ -17,13 +15,17 @@ class IndexView(LoginRequiredMixin, generic.View):
         class_room = models.Class.objects.all()
         class_room_m = models.Class.objects.filter(shift='صبح').all()
         class_room_e = models.Class.objects.filter(shift='عصر').all()
+        student_e = models.Student.objects.filter(class_id__shift='عصر').count()
+        student_m = models.Student.objects.filter(class_id__shift='صبح').count()
+
+        print(student_m)
         c = {
             'class_room': class_room,
             'class_room_m': class_room_m,
             'class_room_e': class_room_e,
+            'student_m': student_m,
+            'student_e': student_e
         }
-
-
         return render(request, 'home.html', c)
 
 
@@ -141,7 +143,6 @@ class StudentInfoView(LoginRequiredMixin, generic.View):
         id_code = kwargs.get('id_code')
         student = models.Student.objects.filter(full_name=full_name, id_code=id_code).first()
         attendance = models.Attendance.objects.filter(student=student).order_by('-id')
-
         context = {
             'student': student,
             'attendance': attendance
@@ -178,7 +179,6 @@ class AttendanceView(LoginRequiredMixin, generic.View):
         c = ass.class_id
 
         attendance = models.Attendance.objects.filter(student__class_id__number=assign_class_id, date=assc.date)
-
         context = {
             'ass': ass,
             'c': c,
