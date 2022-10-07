@@ -68,12 +68,11 @@ class AttendanceClassForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super(AttendanceClassForm, self).__init__(*args, **kwargs)
         self.fields['assign'].widget.attrs.update({'class': 'form-control text-center mt-3'})
-        self.fields['status'].widget.attrs.update({'class': 'form-control text-center mt-3'})
-        self.fields['status'].default_validators = 0
+        # self.fields['status'].widget.attrs.update({'class': 'form-control text-center mt-3'})
 
     class Meta:
         model = models.AttendanceClass
-        fields = '__all__'
+        fields = ['assign']
 
 
 class ReshteForm(forms.ModelForm):

@@ -64,7 +64,8 @@ class CreateClassView(LoginRequiredMixin, generic.View):
 
     def get(self, request, *args, **kwargs):
         form = forms.ClassForm(request.POST)
-        return render(request, self.template_name, {'form': form})
+        class_ = models.Class.objects.all()
+        return render(request, self.template_name, {'form': form, 'class': class_})
     
     def post(self, request, *args, **kwargs):
         if request.POST:
@@ -83,7 +84,9 @@ class CreateAssignView(LoginRequiredMixin, generic.View):
 
     def get(self, request, *args, **kwargs):
         form = forms.AssignForm(request.POST)
-        return render(request, self.template_name, {'form': form})
+        assign = models.Assign.objects.all()
+        class_ = models.Class.objects.all()
+        return render(request, self.template_name, {'form': form, 'assign': assign, 'class': class_})
     
     def post(self, request, *args, **kwargs):
         if request.POST:
@@ -102,7 +105,8 @@ class CreateAttendanceClassView(LoginRequiredMixin, generic.View):
 
     def get(self, request, *args, **kwargs):
         form = forms.AttendanceClassForm(request.POST)
-        return render(request, self.template_name, {'form': form})
+        attendance = models.AttendanceClass.objects.all()
+        return render(request, self.template_name, {'form': form, 'attendance': attendance})
     
     def post(self, request, *args, **kwargs):
         if request.POST:
@@ -121,7 +125,8 @@ class CreateReshteView(LoginRequiredMixin, generic.View):
 
     def get(self, request, *args, **kwargs):
         form = forms.ReshteForm(request.POST)
-        return render(request, self.template_name, {'form': form})
+        reshte = models.Reshte.objects.all()
+        return render(request, self.template_name, {'form': form, 'reshte': reshte})
     
     def post(self, request, *args, **kwargs):
         if request.POST:

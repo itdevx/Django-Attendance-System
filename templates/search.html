@@ -16,7 +16,7 @@
 				</div>
 				<div class="card-body">
 				    <div class="table-responsive">
-					<table class="table table-striped responsive-table">
+					<table class="table table-striped responsive-table text-center">
 					    <thead>
 						<tr>
 						    <th>نام و نام خانوادگی</th>
@@ -24,6 +24,8 @@
 						    <th>کد ملی</th>
 						    <th>رشته تحصیلی</th>
 						    <th>پایه</th>
+						    <th>شماره کلاس</th>
+						    <th>شبفت</th>
 						    <th>وضعیت</th>
 						</tr>
 					    </thead>
@@ -41,9 +43,11 @@
 								<!-- <td class="text-danger">{{ c.class_room }}</td> -->
 								<td>{{ s.reshte }}</td>
 								<td>{{ s.level }}</td>
+								<td>{{ s.class_id.number }}</td>
+								<td>{{ s.class_id.shift }}</td>
 								<td>
-									<div class="badge bg-primary"><a href="" class="text-white">مشاهده</a></div>
-									<div class="badge bg-warning"><a href="" class="text-white">ویرایش</a></div>
+									<div class="badge bg-primary p-3"><a href="{{ s.get_absolute_url }}" class="text-white">مشاهده</a></div>
+									<div class="badge bg-warning p-3"><a href="{% url 'student:student-edit' s.full_name s.id_code %}" class="text-white">ویرایش</a></div>
 								</td>
 							</tr>
 						{% endfor %}

@@ -65,15 +65,17 @@ class Student(models.Model):
 class Assign(models.Model):
     class_id = models.ForeignKey(Class, on_delete=models.CASCADE)
     
-    # def __str__(self):
-    #     return str(self.class_id)
+    def __str__(self):
+        return f'کلاس : {self.class_id} اختصاص داده شد'
 
 
 class AttendanceClass(models.Model):
     assign = models.ForeignKey(Assign, on_delete=models.CASCADE)
     date = models.DateField(auto_now_add=True)
     status = models.IntegerField(default=0)
-
+    
+    def __str__(self):
+        return f'کلاس : {self.assign.class_id.number} در شیف : {self.assign.class_id.shift}'
 
 class Attendance(models.Model):
     student = models.ForeignKey(Student, on_delete=models.CASCADE)

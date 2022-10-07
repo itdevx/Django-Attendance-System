@@ -7,7 +7,7 @@
 	<div id="main-wrapper">
 	    <div class="content-body">
 		<div class="container">
-		    <div class="row mt-5">
+		    <div class="row mt-5 d-flex justify-content-center">
                 <div class="col-md-12">
                     <form action="" method="post">
                         {% csrf_token %}
@@ -15,12 +15,11 @@
                             <div class="col-md-8">
                                 <div class="col-md-12">
                                     <div class="row">
-                                        <div class="col-md-6">
+                                        <div class="col-md-12">
                                             {{ form.assign }}
-                                        </div>
-                                        <div class="col-md-6">
-                                            <p class="text-danger">add defualt value=0</p>
-                                            {{ form.status }}
+                                            {% for e in form.assign.errors %}
+                                                <p class="text-danger text-center">{{ e }}</p>
+                                            {% endfor %}
                                         </div>
                                     </div>
                                     <button class="btn btn-success btn-sm mt-5 btn-block mb-5">ذخیره</button>
@@ -32,6 +31,36 @@
                     </form>
                 </div>
 
+                <div class="row d-flex justify-content-center">
+                    <div class="col-xxl-8">
+                        <div class="card">
+                        <div class="card-header align-items-center">
+                            <h4 class="card-title">کلاس هایی که دسترسی داده شده</h4>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-responsive">
+                            <table class="table table-striped responsive-table text-center">
+                                <thead>
+                                <tr>
+                                    <th>توضیحات</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                    {% for a in attendance %}
+                                        <tr>
+                                            <td>
+                                            <h4>{{ a }}</h4>
+                                            </td>
+                                        </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                            </div>
+        
+                        </div>
+                        </div>
+                    </div>
+                </div>
 		    </div>
 		</div>
 	    </div>
