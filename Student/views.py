@@ -1,5 +1,6 @@
 from django.shortcuts import redirect, render, get_object_or_404, HttpResponseRedirect
-from django.http import Http404
+from django.http import Http404, HttpResponse
+from django.urls import reverse_lazy
 from django.urls import reverse
 from django.views import generic
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -56,6 +57,13 @@ class CreateClassView(LoginRequiredMixin, generic.View):
         else:
             form = forms.ClassForm()
         return render(request, self.template_name, {'form': form})
+
+
+# TODO : have a problem for modal
+class ClassDelete(LoginRequiredMixin, generic.DeleteView):
+    login_url = 'account:login'
+    model = models.Class
+    success_url = reverse_lazy('student:create-class')
 
 
 def class_edit(request, number, shift):
@@ -130,6 +138,19 @@ class CreateReshteView(LoginRequiredMixin, generic.View):
         else:
             form = forms.ReshteForm()
         return render(request, self.template_name, {'form': form})
+
+
+# def reshte_edit(request, pk):
+#     context = {}
+#     objec = get_object_or_404(models.Reshte, id=pk)
+#     form = forms.EditReshteForm(request.POST or None, instance=objec)
+#     reshte = models.Reshte.objects.all()
+#     if form.is_valid():
+#         form.save()
+#         return redirect('student:create-reshte')
+#     context['form'] = form
+#     context['reshte'] = reshte
+#     return render(request, 'create-reshte.html', context)
 
 
 class CreateStudenView(LoginRequiredMixin, generic.View):

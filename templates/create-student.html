@@ -29,13 +29,22 @@
                                         </div>
                                         <div class="col-md-6">
                                             {{ form.class_id }}
+                                            {% for e in form.class_id.errors %}
+                                                <p class="text-danger text-center">{{ e }}</p>
+                                            {% endfor %}
                                         </div>
                                         
                                         <div class="col-md-6">
                                             {{ form.level }}
+                                            {% for e in form.level.errors %}
+                                                <p class="text-danger text-center">{{ e }}</p>
+                                            {% endfor %}
                                         </div>
                                         <div class="col-md-6">
                                             {{ form.reshte }}
+                                            {% for e in form.reshte.errors %}
+                                                <p class="text-danger text-center">{{ e }}</p>
+                                            {% endfor %}
                                         </div>
                                         <div class="col-md-6">
                                             {{ form.usn }}

@@ -60,8 +60,37 @@
                                                 </td>
                                                 <td>{{ c.shift }}</td>
                                                 <td>
-                                                    <a class="badge p-3 bg-primary" href="{% url 'student:edit-class' c.number c.shift %}">ویرایش</a>
+                                                    <a class="btn badge btn-primary" href="{% url 'student:edit-class' c.number c.shift %}">ویرایش</a>
+                                                    <!-- Button trigger modal -->
+                                                    <button type="button" class="btn badge btn-danger" data-bs-toggle="modal" data-bs-target="#staticBackdrop-{{ c.id }}">
+                                                        پاک کردن
+                                                    </button>
+                                                    
+                                                    <!-- Modal -->
+                                                    <form action="{% url 'student:create-class' %}" method="post">
+                                                        {% csrf_token %}
+                                                        <div class="modal fade" id="staticBackdrop-{{ c.id }}" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                                                            <div class="modal-dialog">
+                                                            <div class="modal-content">
+                                                                <div class="modal-header">
+                                                                <h5 class="modal-title" id="staticBackdropLabel">Modal title</h5>
+                                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                                </div>
+                                                                <div class="modal-body">
+                                                                آیا میخواهدی این کلاس را پاک کنید؟  "{{ c.number }}-{{ c.shift }}"
+                                                                </div>
+                                                                <div class="modal-footer">
+                                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">انصراف</button>
+                                                                <a href="{% url 'student:delete-class' c.id %}" class="btn btn-danger">پاک کردن</a>
+                                                                </div>
+                                                            </div>
+                                                            </div>
+                                                        </div>
+                                                    </form>
+                                                
+
                                                 </td>
+                                                
                                             </tr>
                                         {% endfor %}
                                     </tbody>

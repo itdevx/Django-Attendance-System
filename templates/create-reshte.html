@@ -42,6 +42,7 @@
                             <thead>
                             <tr>
                                 <th>رشته تحصیلی</th>
+                                <th>وضعیت</th>
                             </tr>
                             </thead>
                             <tbody>
@@ -49,6 +50,9 @@
                                     <tr>
                                         <td>
                                             <h4>{{ r.name }}</h4>
+                                        </td>
+                                        <td>
+                                            <a class="btn badge btn-primary" href="{% url 'student:edit-reshte' r.id %}">ویرایش</a>
                                         </td>
                                     </tr>
                                 {% endfor %}
