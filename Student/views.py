@@ -6,6 +6,7 @@ from django.views import generic
 from django.contrib.auth.mixins import LoginRequiredMixin
 from Student import models
 from Student import forms
+from django.core.exceptions import ValidationError
 
 
 class IndexView(LoginRequiredMixin, generic.View):
@@ -231,19 +232,23 @@ def confirm(request, assign_class_id):
     cl = ass.class_id
 
     for i, s in enumerate(cl.student_set.all()):
-        status = request.POST[s.usn]
+        status = request.POST.get(s.usn, False)
         if status == 'present':
             status = True
         else:
             status = False
         if assc.status == 1:
-            try:
-                a = models.Attendance.objects.create(student=s, date=assc.date, attendanceclass=assc)
-                a.status = status
-                a.save()
-            except models.Attendance.DoesNotExist:
-                a = models.Attendance(student=s, status=status, date=assc.date, attendanceclass=assc)
-                a.save()
+            from django.utils import timezone
+            if models.Attendance.objects.filter(student=s, date=timezone.now().date()).exists():
+                return HttpResponse('این وجود دارد')
+            else:
+                try:
+                    a = models.Attendance.objects.create(student=s, date=assc.date, attendanceclass=assc)
+                    a.status = status
+                    a.save()
+                except models.Attendance.DoesNotExist:
+                    a = models.Attendance(student=s, status=status, date=assc.date, attendanceclass=assc)
+                    a.save()
         else:
             a = models.Attendance(student=s, status=status, date=assc.date, attendanceclass=assc)            
             a.save()
