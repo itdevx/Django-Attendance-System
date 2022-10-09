@@ -6,7 +6,6 @@ from django.views import generic
 from django.contrib.auth.mixins import LoginRequiredMixin
 from Student import models
 from Student import forms
-from django.core.exceptions import ValidationError
 
 
 class IndexView(LoginRequiredMixin, generic.View):
