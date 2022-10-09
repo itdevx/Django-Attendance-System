@@ -36,6 +36,9 @@ urlpatterns = [
         'created/create-class/', views.CreateClassView.as_view(), name='create-class'
     ),
     path(
+        'edited/edit-class/<number>/<shift>', views.class_edit, name='edit-class'
+    ),
+    path(
         'created/create-assign/', views.CreateAssignView.as_view(), name='create-assign'
     ),
     path(

@@ -18,7 +18,6 @@ class IndexView(LoginRequiredMixin, generic.View):
         student_e = models.Student.objects.filter(class_id__shift='عصر').count()
         student_m = models.Student.objects.filter(class_id__shift='صبح').count()
 
-        print(student_m)
         c = {
             'class_room': class_room,
             'class_room_m': class_room_m,
@@ -39,25 +38,6 @@ class ClassRoomView(LoginRequiredMixin, generic.View):
         return render(request, 'class-room.html', {'student_class_room': students_in_class_room})
 
 
-class CreateStudenView(LoginRequiredMixin, generic.View):
-    login_url = 'account:login'
-    template_name = 'create-student.html'
-
-    def get(self, request, *args, **kwargs):
-        form = forms.StudentForm(request.POST)
-        return render(request, self.template_name, {'form': form})
-    
-    def post(self, request, *args, **kwargs):
-        if request.POST:
-            form = forms.StudentForm(request.POST)
-            if form.is_valid():
-                form.save()
-                return redirect('student:create-student')
-        else:
-            form = forms.StudentForm()
-        return render(request, self.template_name, {'form': form})
-
-
 class CreateClassView(LoginRequiredMixin, generic.View):
     login_url = 'account:login'
     template_name = 'create-class.html'
@@ -76,6 +56,19 @@ class CreateClassView(LoginRequiredMixin, generic.View):
         else:
             form = forms.ClassForm()
         return render(request, self.template_name, {'form': form})
+
+
+def class_edit(request, number, shift):
+    context = {}
+    obj = get_object_or_404(models.Class, number=number, shift=shift)
+    form = forms.ClassForm(request.POST or None, instance=obj)
+    class_ = models.Class.objects.all()
+    if form.is_valid():
+        form.save()
+        return redirect('student:index')
+    context['form'] = form
+    context['class'] = class_
+    return render(request, 'create-class.html', context)
 
 
 class CreateAssignView(LoginRequiredMixin, generic.View):
@@ -139,6 +132,25 @@ class CreateReshteView(LoginRequiredMixin, generic.View):
         return render(request, self.template_name, {'form': form})
 
 
+class CreateStudenView(LoginRequiredMixin, generic.View):
+    login_url = 'account:login'
+    template_name = 'create-student.html'
+
+    def get(self, request, *args, **kwargs):
+        form = forms.StudentForm(request.POST)
+        return render(request, self.template_name, {'form': form})
+    
+    def post(self, request, *args, **kwargs):
+        if request.POST:
+            form = forms.StudentForm(request.POST)
+            if form.is_valid():
+                form.save()
+                return redirect('student:create-student')
+        else:
+            form = forms.StudentForm()
+        return render(request, self.template_name, {'form': form})
+
+
 class StudentInfoView(LoginRequiredMixin, generic.View):
     login_url = 'account:login'
     template_name = 'student.html'
@@ -164,7 +176,6 @@ def student_edit(request, full_name, id_code):
         form.save()
         level = form.cleaned_data.get('level')
         if form.cleaned_data.get('level_up'):
-            level += 1
             form.save()
 
         # TODO redirec to class-room

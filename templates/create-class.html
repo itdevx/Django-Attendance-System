@@ -49,6 +49,7 @@
                                     <tr>
                                         <th>شماره کلاس</th>
                                         <th>شیفت</th>
+                                        <th>وضعیت</th>
                                     </tr>
                                     </thead>
                                     <tbody>
@@ -57,8 +58,9 @@
                                                 <td>
                                                 <h4>{{ c.number }}</h4>
                                                 </td>
+                                                <td>{{ c.shift }}</td>
                                                 <td>
-                                                    {{ c.shift }}
+                                                    <a class="badge p-3 bg-primary" href="{% url 'student:edit-class' c.number c.shift %}">ویرایش</a>
                                                 </td>
                                             </tr>
                                         {% endfor %}
