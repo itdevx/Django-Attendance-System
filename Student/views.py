@@ -1,3 +1,4 @@
+from telnetlib import PRAGMA_HEARTBEAT
 from django.shortcuts import redirect, render, get_object_or_404, HttpResponseRedirect
 from django.http import Http404, HttpResponse
 from django.urls import reverse_lazy
@@ -14,18 +15,23 @@ class IndexView(LoginRequiredMixin, generic.View):
     
     def get(self, request):
         class_room = models.Class.objects.all()
-        class_room_m = models.Class.objects.filter(shift='صبح').all()
-        class_room_e = models.Class.objects.filter(shift='عصر').all()
-        student_e = models.Student.objects.filter(class_id__shift='عصر').count()
         student_m = models.Student.objects.filter(class_id__shift='صبح').count()
+        student_e = models.Student.objects.filter(class_id__shift='عصر').count()
 
         c = {
-            'class_room': class_room,
-            'class_room_m': class_room_m,
-            'class_room_e': class_room_e,
             'student_m': student_m,
             'student_e': student_e
         }
+
+        assign_m = models.Assign.objects.filter(class_id__shift='صبح')
+        assign_e = models.Assign.objects.filter(class_id__shift='عصر')
+
+        if assign_m.exists():
+            c['class_room_m'] = assign_m
+
+        if assign_e.exists():
+            c['class_room_e'] = assign_e
+
         return render(request, 'home.html', c)
 
 
@@ -240,7 +246,8 @@ def confirm(request, assign_class_id):
         if assc.status == 1:
             from django.utils import timezone
             if models.Attendance.objects.filter(student=s, date=timezone.now().date()).exists():
-                return HttpResponse('این وجود دارد')
+                # return HttpResponse('این وجود دارد')
+                pass
             else:
                 try:
                     a = models.Attendance.objects.create(student=s, date=assc.date, attendanceclass=assc)

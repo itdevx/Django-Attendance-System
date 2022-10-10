@@ -51,11 +51,11 @@
 							{% for c in class_room_m %}
 								<tr>
 									<td>
-									<h4>{{ c.number }}</h4>
+									<h4>{{ c.class_id.number }}</h4>
 									</td>
 									<td>
 										<div class="badge p-3 bg-primary"><a href="{{ c.get_absolute_url }}" class="text-white">مشاهده</a></div>
-										<div class="badge p-3 bg-warning"><a href="{% url 'student:attendance' c.number %}" class="text-white">حضور غیاب</a></div>
+										<div class="badge p-3 bg-warning"><a href="{% url 'student:attendance' c.class_id.number %}" class="text-white">حضور غیاب</a></div>
 									</td>
 								</tr>
 							{% endfor %}
@@ -86,11 +86,11 @@
 							{% for c in class_room_e %}
 								<tr>
 									<td>
-									<h4>{{ c.number }}</h4>
+									<h4>{{ c.class_id.number }}</h4>
 									</td>
 									<td>
 										<div class="badge p-3 bg-primary"><a href="{{ c.get_absolute_url }}" class="text-white">مشاهده</a></div>
-										<div class="badge p-3 bg-warning"><a href="{% url 'student:attendance' c.number %}" class="text-white">حضور غیاب</a></div>
+										<div class="badge p-3 bg-warning"><a href="{% url 'student:attendance' c.class_id.number %}" class="text-white">حضور غیاب</a></div>
 									</td>
 								</tr>
 							{% endfor %}

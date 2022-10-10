@@ -35,9 +35,6 @@ class Class(models.Model):
 
     def __str__(self):
         return f'{self.number}-{self.shift}'
-
-    def get_absolute_url(self):
-        return reverse('student:class-room', args=[self.number, self.shift])
     
     # def get_attendance_url(self):
         # return reverse('student:attendance', args=[self.id])
@@ -67,6 +64,9 @@ class Assign(models.Model):
     
     def __str__(self):
         return f'کلاس : {self.class_id} اختصاص داده شد'
+
+    def get_absolute_url(self):
+        return reverse('student:class-room', args=[self.class_id.number, self.class_id.shift])
 
 
 class AttendanceClass(models.Model):
