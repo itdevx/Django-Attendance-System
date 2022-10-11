@@ -1,0 +1,6 @@
+
+1- Delte class with modal []
+2- create class and save class in assign, save assign in attendanceclass []
+3- Don't show class in home view if not saved : number 2!
+4- create Enzebat model for student after attendanceclass
+5- create Zang for attendanceclass

@@ -16,16 +16,14 @@
 				</div>
 				<div class="card-body">
 				    <ul>
-						{% for a in attendance %}
-							<li>
-								<h5><a href="">لیست حضور غیاب</a></h5>
-								<div class="text-left">
-									<h5 class="ltr">{{ a.date.year }}/{{ a.date.month }}/{{ a.date.day }}</h5>
-									<span></span>
-								</div>
-							</li>
-							<hr>
-						{% endfor %}
+						<li>
+							<h5><a href="">لیست حضور غیاب</a></h5>
+							<div class="text-left">
+								<h5 class="ltr">Date</h5>
+								<span></span>
+							</div>
+						</li>
+						<hr>
 				    </ul>
 				</div>
 			    </div>
@@ -34,13 +32,13 @@
 			    <div class="card">
 				<div class="card-header">
 				    <h4 class="card-title">لیست حضور و غیاب</h4>
-
 				</div>
 				{% if c.student_set.all %}
 				<div class="card-body">
 				    <div class="table-responsive transaction-table">
 						<form action="{% url 'student:confirm' assc.assign.class_id.number %}" method="POST">
 							{% csrf_token %}
+							
 							<table class="table table-striped responsive-table">
 								<thead>
 								<tr>

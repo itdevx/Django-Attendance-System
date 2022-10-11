@@ -35,9 +35,6 @@ class Class(models.Model):
 
     def __str__(self):
         return f'{self.number}-{self.shift}'
-    
-    # def get_attendance_url(self):
-        # return reverse('student:attendance', args=[self.id])
 
 
 class Student(models.Model):
@@ -77,6 +74,7 @@ class AttendanceClass(models.Model):
     def __str__(self):
         return f'کلاس : {self.assign.class_id.number} در شیف : {self.assign.class_id.shift}'
 
+
 class Attendance(models.Model):
     student = models.ForeignKey(Student, on_delete=models.CASCADE)
     attendanceclass = models.ForeignKey(AttendanceClass, on_delete=models.CASCADE, default=1)
@@ -86,5 +84,4 @@ class Attendance(models.Model):
     
     def __str__(self):
         return f'{self.student.full_name} درتاریخ : {self.status} <- {self.date}'
-
 

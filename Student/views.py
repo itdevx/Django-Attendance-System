@@ -1,4 +1,3 @@
-from telnetlib import PRAGMA_HEARTBEAT
 from django.shortcuts import redirect, render, get_object_or_404, HttpResponseRedirect
 from django.http import Http404, HttpResponse
 from django.urls import reverse_lazy
@@ -14,15 +13,12 @@ class IndexView(LoginRequiredMixin, generic.View):
     login_url = 'account:login'
     
     def get(self, request):
-        class_room = models.Class.objects.all()
         student_m = models.Student.objects.filter(class_id__shift='صبح').count()
         student_e = models.Student.objects.filter(class_id__shift='عصر').count()
-
         c = {
             'student_m': student_m,
             'student_e': student_e
         }
-
         assign_m = models.Assign.objects.filter(class_id__shift='صبح')
         assign_e = models.Assign.objects.filter(class_id__shift='عصر')
 
@@ -59,7 +55,7 @@ class CreateClassView(LoginRequiredMixin, generic.View):
             form = forms.ClassForm(request.POST)
             if form.is_valid():
                 form.save()
-                return redirect('student:created-list')
+                return redirect('student:create-assign')
         else:
             form = forms.ClassForm()
         return render(request, self.template_name, {'form': form})
@@ -100,7 +96,7 @@ class CreateAssignView(LoginRequiredMixin, generic.View):
             form = forms.AssignForm(request.POST)
             if form.is_valid():
                 form.save()
-                return redirect('student:created-list')
+                return redirect('student:create-attendance-class')
         else:
             form = forms.AssignForm()
         return render(request, self.template_name, {'form': form})
@@ -217,12 +213,11 @@ class AttendanceView(LoginRequiredMixin, generic.View):
 
     def get(self, request, *args, **kwargs):
         assign_class_id = kwargs.get('assign_class_id')
-        # shift = kwargs.get('shift')
         assc = get_object_or_404(models.AttendanceClass, assign__class_id__number=assign_class_id)
         ass = assc.assign
         c = ass.class_id
+        attendance = models.Attendance.objects.filter(student__class_id__number=assign_class_id, date=assc.date) 
 
-        attendance = models.Attendance.objects.filter(student__class_id__number=assign_class_id, date=assc.date)
         context = {
             'ass': ass,
             'c': c,
