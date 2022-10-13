@@ -86,47 +86,6 @@ def class_edit(request, number, shift):
     return render(request, 'create-class.html', context)
 
 
-class CreateAssignView(LoginRequiredMixin, generic.View):
-    login_url = 'account:login'
-    template_name = 'create-assign.html'
-
-    def get(self, request, *args, **kwargs):
-        form = forms.AssignForm(request.POST)
-        assign = models.Assign.objects.all()
-        class_ = models.Class.objects.all()
-        return render(request, self.template_name, {'form': form, 'assign': assign, 'class': class_})
-    
-    def post(self, request, *args, **kwargs):
-        if request.POST:
-            form = forms.AssignForm(request.POST)
-            if form.is_valid():
-                form.save()
-                return redirect('student:create-attendance-class')
-        else:
-            form = forms.AssignForm()
-        return render(request, self.template_name, {'form': form})
-
-
-class CreateAttendanceClassView(LoginRequiredMixin, generic.View):
-    login_url = 'account:login'
-    template_name = 'create-attendance-class.html'
-
-    def get(self, request, *args, **kwargs):
-        form = forms.AttendanceClassForm(request.POST)
-        attendance = models.AttendanceClass.objects.all()
-        return render(request, self.template_name, {'form': form, 'attendance': attendance})
-    
-    def post(self, request, *args, **kwargs):
-        if request.POST:
-            form = forms.AttendanceClassForm(request.POST)
-            if form.is_valid():
-                form.save()
-                return redirect('student:created-list')
-        else:
-            form = forms.AttendanceClassForm()
-        return render(request, self.template_name, {'form': form})
-
-
 class CreateReshteView(LoginRequiredMixin, generic.View):
     login_url = 'account:login'
     template_name = 'create-reshte.html'

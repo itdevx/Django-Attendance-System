@@ -57,40 +57,6 @@ class ClassForm(forms.ModelForm):
             raise forms.ValidationError('این کلاس از قبل ثبت شده است')
         else:
             return number
-
-class AssignForm(forms.ModelForm):
-    def __init__(self, *args, **kwargs):
-        super(AssignForm, self).__init__(*args, **kwargs)
-        self.fields['class_id'].widget.attrs.update({'class': 'form-control text-center mt-3'})
-
-    class Meta:
-        model = models.Assign
-        fields = '__all__'
-
-    def clean_class_id(self):
-        class_id = self.cleaned_data['class_id']
-        if models.Assign.objects.filter(class_id=class_id).exists():
-            raise forms.ValidationError('این کلاس قبلا اختصاص یافته است')
-        else:
-            return class_id
-
-
-class AttendanceClassForm(forms.ModelForm):
-    def __init__(self, *args, **kwargs):
-        super(AttendanceClassForm, self).__init__(*args, **kwargs)
-        self.fields['assign'].widget.attrs.update({'class': 'form-control text-center mt-3'})
-        # self.fields['status'].widget.attrs.update({'class': 'form-control text-center mt-3'})
-
-    class Meta:
-        model = models.AttendanceClass
-        fields = ['assign']
-
-    def clean_assign(self):
-        assign = self.cleaned_data['assign']
-        if models.AttendanceClass.objects.filter(assign=assign).exists():
-            raise forms.ValidationError('این ساخته شده است')
-        else:
-            return assign
     
 
 class ReshteForm(forms.ModelForm):
