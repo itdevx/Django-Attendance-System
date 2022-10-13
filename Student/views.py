@@ -55,6 +55,11 @@ class CreateClassView(LoginRequiredMixin, generic.View):
             form = forms.ClassForm(request.POST)
             if form.is_valid():
                 form.save()
+                c = models.Class.objects.last()
+                a = models.Assign(class_id=c)
+                a.save()
+                at = models.AttendanceClass(assign=a)
+                at.save()
                 return redirect('student:create-assign')
         else:
             form = forms.ClassForm()
