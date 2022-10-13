@@ -52,7 +52,32 @@
                                             <h4>{{ r.name }}</h4>
                                         </td>
                                         <td>
-                                            <a class="btn badge btn-primary" href="">ویرایش</a>
+                                            <a class="btn badge btn-primary" href="{% url 'student:edit-reshte' r.id %}">ویرایش</a>
+                                            <button type="button" class="btn badge btn-danger" data-bs-toggle="modal" data-bs-target="#staticBackdrop-{{ r.id }}">
+                                                پاک کردن
+                                            </button>
+                                            
+                                            <!-- Modal -->
+                                            <form action="{% url 'student:delete-reshte' r.id %}" method="post">
+                                                {% csrf_token %}
+                                                <div class="modal fade" id="staticBackdrop-{{ r.id }}" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                                                    <div class="modal-dialog">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                        <h5 class="modal-title" id="staticBackdropLabel">Modal title</h5>
+                                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                        </div>
+                                                        <div class="modal-body">
+                                                        آیا میخواهدی این رشته تحصیلی را پاک کنید؟  "{{ r.name }}"
+                                                        </div>
+                                                        <div class="modal-footer">
+                                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">انصراف</button>
+                                                        <button type="submit" class="btn btn-danger">پاک کردن</button>
+                                                        </div>
+                                                    </div>
+                                                    </div>
+                                                </div>
+                                            </form>
                                         </td>
                                     </tr>
                                 {% endfor %}

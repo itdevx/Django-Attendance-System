@@ -75,11 +75,3 @@ class ReshteForm(forms.ModelForm):
         else:
             return name
         
-class EditReshteForm(forms.ModelForm):
-    def __init__(self ,*args, **kwargs):
-        super(ReshteForm, self).__init__(*args, **kwargs)
-        self.fields['name'].widget.attrs.update({'class': 'form-control text-center mt-3', 'placeholder': 'رشته تحصیلی را وارد کنید'})
-
-    class Meta:
-        model = models.Reshte
-        fields = '__all__'

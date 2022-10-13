@@ -6,7 +6,7 @@ from django.views import generic
 from django.contrib.auth.mixins import LoginRequiredMixin
 from Student import models
 from Student import forms
-from django.core.exceptions import ValidationError
+from django.contrib.auth.decorators import login_required
 
 
 class IndexView(LoginRequiredMixin, generic.View):
@@ -67,15 +67,13 @@ class CreateClassView(LoginRequiredMixin, generic.View):
         return render(request, self.template_name, {'form': form, 'class': class_})
 
 
-# TODO : have a problem for modal
 class ClassDelete(LoginRequiredMixin, generic.DeleteView):
     login_url = 'account:login'
     model = models.Class
     success_url = reverse_lazy('student:create-class')
-    # template_name = 'create-class.html' 
     
 
-
+@login_required(login_url='account:login')
 def class_edit(request, number, shift):
     context = {}
     obj = get_object_or_404(models.Class, number=number, shift=shift)
@@ -109,17 +107,24 @@ class CreateReshteView(LoginRequiredMixin, generic.View):
         return render(request, self.template_name, {'form': form})
 
 
-# def reshte_edit(request, pk):
-#     context = {}
-#     objec = get_object_or_404(models.Reshte, id=pk)
-#     form = forms.EditReshteForm(request.POST or None, instance=objec)
-#     reshte = models.Reshte.objects.all()
-#     if form.is_valid():
-#         form.save()
-#         return redirect('student:create-reshte')
-#     context['form'] = form
-#     context['reshte'] = reshte
-#     return render(request, 'create-reshte.html', context)
+class ReshteDelete(LoginRequiredMixin, generic.DeleteView):
+    login_url = 'account:login'
+    model = models.Reshte
+    success_url = reverse_lazy('student:create-reshte')
+
+
+@login_required(login_url='account:login')
+def reshte_edit(request, pk):
+    context = {}
+    objec = get_object_or_404(models.Reshte, id=pk)
+    form = forms.ReshteForm(request.POST or None, instance=objec)
+    reshte = models.Reshte.objects.all()
+    if form.is_valid():
+        form.save()
+        return redirect('student:create-reshte')
+    context['form'] = form
+    context['reshte'] = reshte
+    return render(request, 'create-reshte.html', context)
 
 
 class CreateStudenView(LoginRequiredMixin, generic.View):
@@ -158,6 +163,7 @@ class StudentInfoView(LoginRequiredMixin, generic.View):
         return render(request, self.template_name, context)
 
 
+@login_required(login_url='account:login')
 def student_edit(request, full_name, id_code):
     context = {}
     obj = get_object_or_404(models.Student, full_name=full_name, id_code=id_code)
