@@ -67,7 +67,7 @@
                                                     </button>
                                                     
                                                     <!-- Modal -->
-                                                    <form action="{% url 'student:create-class' %}" method="post">
+                                                    <form action="{% url 'student:delete-class' c.id %}" method="post">
                                                         {% csrf_token %}
                                                         <div class="modal fade" id="staticBackdrop-{{ c.id }}" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
                                                             <div class="modal-dialog">
@@ -81,7 +81,7 @@
                                                                 </div>
                                                                 <div class="modal-footer">
                                                                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">انصراف</button>
-                                                                <a href="{% url 'student:delete-class' c.id %}" class="btn btn-danger">پاک کردن</a>
+                                                                <button type="submit" class="btn btn-danger">پاک کردن</button>
                                                                 </div>
                                                             </div>
                                                             </div>

@@ -51,6 +51,7 @@ class CreateClassView(LoginRequiredMixin, generic.View):
         return render(request, self.template_name, {'form': form, 'class': class_})
     
     def post(self, request, *args, **kwargs):
+        class_ = models.Class.objects.all()
         if request.POST:
             form = forms.ClassForm(request.POST)
             if form.is_valid():
@@ -63,7 +64,7 @@ class CreateClassView(LoginRequiredMixin, generic.View):
                 return redirect('student:create-assign')
         else:
             form = forms.ClassForm()
-        return render(request, self.template_name, {'form': form})
+        return render(request, self.template_name, {'form': form, 'class': class_})
 
 
 # TODO : have a problem for modal
@@ -71,6 +72,8 @@ class ClassDelete(LoginRequiredMixin, generic.DeleteView):
     login_url = 'account:login'
     model = models.Class
     success_url = reverse_lazy('student:create-class')
+    # template_name = 'create-class.html' 
+    
 
 
 def class_edit(request, number, shift):
