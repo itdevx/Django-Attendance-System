@@ -7,8 +7,6 @@
 	    <div class="content-body">
 		<div class="container">
 		    <div class="row">
-
-
 			<div class="col-xxl-3 col-xl-3">
 			    <div class="card">
 				<div class="card-header">
@@ -45,8 +43,8 @@
 									<th>نام و نام خانوادگی</th>
 									<th>نام پدر</th>
 									<th>شماره ملی</th>
-									<!-- <th>شماره کلاس</th> -->
-									<!-- <th>شیفت</th> -->
+									<th>شماره کلاس</th>
+									<th>شیفت</th>
 									<th>پایه تحصیلی</th>
 									<th>رشته تحصیلی</th>
 									<th>حضور و غیاب</th>
@@ -58,8 +56,8 @@
 									<td>{{ s.full_name }}</td>
 									<td>{{ s.father_name }}</td>
 									<td>{{ s.id_code }}</td>
-									<!-- <td">{{ s.class_id.number }}</td> -->
-									<!-- <td>{{ s.class_id.shift }}</td> -->
+									<td">{{ s.class_id.number }}</td>
+									<td>{{ s.class_id.shift }}</td>
 									<td>{{ s.level }}</td>
 									<td>{{ s.reshte }}</td>
 									<td>
@@ -85,7 +83,9 @@
 				</div>
 			    </div>
 				{% else %}
-					هیچ دانش آموزی در این کلاس وجود ندارد
+					<div class="alert">
+						هیچ دانش آموزی در این کلاس ثبت نشده است
+					</div>
 				{% endif %}
 			</div>
 

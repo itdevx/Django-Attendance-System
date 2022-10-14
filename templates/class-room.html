@@ -7,45 +7,6 @@
 	    <div class="content-body">
 		<div class="container">
 		    <div class="row">
-			<!-- <div class="col-xxl-3 col-xl-6">
-			    <div class="card">
-				<div class="card-header">
-				    <h4 class="card-title">انتقال </h4>
-				</div>
-				<div class="card-body">
-				    <form name="myform" class="currency_validate trade-form row g-3">
-					<div class="col-12">
-					    <label class="form-label">ارسال</label>
-					    <div class="input-group">
-						<select class="form-control" name="method">
-						    <option value="bank">دلار</option>
-						    <option value="master">Euro</option>
-						</select>
-						<input type="text" name="currency_amount" class="form-control" placeholder="0.0214 BTC">
-					    </div>
-					</div>
-
-					<div class="col-12">
-					    <label class="form-label">دریافت</label>
-					    <div class="input-group">
-						<select class="form-control" name="method">
-						    <option value="bank">بیت کوین</option>
-						    <option value="master">اتریوم</option>
-						</select>
-						<input type="text" name="currency_amount" class="form-control" placeholder="0.0214 BTC">
-					    </div>
-					</div>
-
-					<p class="mb-0">1 بیت کویت ~ 12،000 دلار</p>
-
-					<button type="button" class="btn btn-success btn-block" data-toggle="modal" data-target="#transferModal">انتقال</button>
-
-				    </form>
-
-				</div>
-			    </div>
-			</div> -->
-
 		    </div>
 			<hr class="text-secondary mb-5 mt-5">
 		    <div class="row">
@@ -55,10 +16,8 @@
 					<div>
 						<h4 class="card-title">جدول دانش آموزان این کلاس</h4>
 					</div>
-					<!-- <div>
-						<a href="" class="btn btn-primary">فرم حضور و غیاب</a>
-					</div>  -->
 				</div>
+				{% if student_class_room %}
 				<div class="card-body">
 				    <div class="table-responsive">
 					<table class="table table-striped responsive-table">
@@ -86,7 +45,6 @@
 								<td>
 									{{ s.reshte }}
 								</td>
-								<!-- <td class="text-danger">{{ c.class_room }}</td> -->
 								<td>{{ s.level }}</td>
 								<td>
 									<div class="badge p-3 bg-primary"><a href="{{ s.get_absolute_url }}" class="text-white">مشاهده</a></div>
@@ -98,317 +56,16 @@
 					</table>
 				    </div>
 				</div>
+				{% else %}
+					<div class="alert">
+						در این کلاس هیچ دانش آموزی ثبت نشده
+					</div>
+				{% endif %}
 			    </div>
 			</div>
 		    </div>
 		</div>
 	    </div>
-
-	</div>
-
-	<!-- Buy Modal -->
-	<div class="modal fade" id="BuyModal">
-	    <div class="modal-dialog">
-		<div class="modal-content">
-		    <div class="modal-header">
-			<h5 class="modal-title">تائیدیه</h5>
-			<button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
-		    </div>
-		    <div class="modal-body">
-			<div class="table-responsive">
-			    <table class="table">
-				<tbody>
-				    <tr>
-					<td><span class="text-primary">ایمیل خریدار</span></td>
-					<td><span class="text-primary">buyer@example.com</span></td>
-				    </tr>
-				    <tr>
-					<td><span class="text-primary">ایمیل فروشنده</span></td>
-					<td><span class="text-primary">seller@example.com</span></td>
-				    </tr>
-				    <tr>
-					<td>قیمت ارز</td>
-					<td>0.00212455 BTC</td>
-				    </tr>
-				    <tr>
-					<td>مفدار</td>
-					<td>$28.00 دلار</td>
-				    </tr>
-				    <tr>
-					<td>کل</td>
-					<td>$854.00 دلار</td>
-				    </tr>
-				    <tr>
-					<td>مالیات</td>
-					<td>
-					    <div class="text-danger">$25.00 دلار</div>
-					</td>
-				    </tr>
-				    <tr>
-					<td>قابل پرداخت</td>
-					<td> $1232.00 دلار</td>
-				    </tr>
-				</tbody>
-			    </table>
-			</div>
-			<div class="text-right">
-			    <button type="button" class="btn btn-primary" data-dismiss="modal" data-toggle="modal" data-target="#buySuccessleModal">تائید</button>
-			</div>
-		    </div>
-		</div>
-	    </div>
-	</div>
-	<div class="modal fade" id="buySuccessleModal">
-	    <div class="modal-dialog">
-		<div class="modal-content">
-		    <div class="modal-header">
-			<h5 class="modal-title">تائید</h5>
-			<button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
-		    </div>
-		    <div class="modal-body">
-			<div class="auth-form">
-			    <form action="verify-step-2.html" class="identity-upload">
-				<div class="identity-content">
-				    <span class="icon"><i class="icofont-check"></i></span>
-				    <p>ارسال به موفقیت انجام شد</p>
-				</div>
-			    </form>
-			    <div class="card-footer text-center">
-				<a href="signup.html">لیست تراکنش ها</a>
-			    </div>
-			</div>
-		    </div>
-		</div>
-	    </div>
-	</div>
-
-	<!-- Buy Modal -->
-	<div class="modal fade" id="SellModal">
-	    <div class="modal-dialog">
-		<div class="modal-content">
-		    <div class="modal-header">
-			<h5 class="modal-title">تائیدیه</h5>
-			<button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
-		    </div>
-		    <div class="modal-body">
-			<div class="table-responsive">
-			    <table class="table">
-				<tbody>
-				    <tr>
-					<td><span class="text-primary">ایمیل خریدار</span></td>
-					<td><span class="text-primary">buyer@example.com</span></td>
-				    </tr>
-				    <tr>
-					<td><span class="text-primary">ایمیل فروشنده</span></td>
-					<td><span class="text-primary">seller@example.com</span></td>
-				    </tr>
-				    <tr>
-					<td>قیمت ارز</td>
-					<td>0.00212455 BTC</td>
-				    </tr>
-				    <tr>
-					<td>مفدار</td>
-					<td>$28.00 دلار</td>
-				    </tr>
-				    <tr>
-					<td>کل</td>
-					<td>$854.00 دلار</td>
-				    </tr>
-				    <tr>
-					<td>مالیات</td>
-					<td>
-					    <div class="text-danger">$25.00 دلار</div>
-					</td>
-				    </tr>
-				    <tr>
-					<td>قابل پرداخت</td>
-					<td> $1232.00 دلار</td>
-				    </tr>
-				</tbody>
-			    </table>
-			</div>
-			<div class="text-right">
-			    <button type="button" class="btn btn-primary" data-dismiss="modal" data-toggle="modal" data-target="#buySuccessleModal">تائید</button>
-			</div>
-		    </div>
-		</div>
-	    </div>
-	</div>
-	<div class="modal fade" id="SellSuccessleModal">
-	    <div class="modal-dialog">
-		<div class="modal-content">
-		    <div class="modal-header">
-			<h5 class="modal-title">تائید</h5>
-			<button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
-		    </div>
-		    <div class="modal-body">
-			<div class="auth-form">
-			    <form action="verify-step-2.html" class="identity-upload">
-				<div class="identity-content">
-				    <span class="icon"><i class="icofont-check"></i></span>
-				    <p>انتقال با موفقیت ثبت شد</p>
-				</div>
-			    </form>
-			    <div class="card-footer text-center">
-				<a href="signup.html">لیست تراکنش ها</a>
-			    </div>
-			</div>
-		    </div>
-		</div>
-	    </div>
-	</div>
-
-	<!-- Transfer Modal -->
-	<div class="modal fade" id="transferModal">
-	    <div class="modal-dialog">
-		<div class="modal-content">
-		    <div class="modal-header">
-			<h5 class="modal-title">تائیدیه</h5>
-			<button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
-		    </div>
-		    <div class="modal-body">
-			<div class="table-responsive">
-			    <table class="table">
-				<tbody>
-				    <tr>
-					<td><span class="text-primary">ایمیل خریدار</span></td>
-					<td><span class="text-primary">buyer@example.com</span></td>
-				    </tr>
-				    <tr>
-					<td><span class="text-primary">ایمیل فروشنده</span></td>
-					<td><span class="text-primary">seller@example.com</span></td>
-				    </tr>
-				    <tr>
-					<td>قیمت ارز</td>
-					<td>0.00212455 BTC</td>
-				    </tr>
-				    <tr>
-					<td>مفدار</td>
-					<td>$28.00 دلار</td>
-				    </tr>
-				    <tr>
-					<td>کل</td>
-					<td>$854.00 دلار</td>
-				    </tr>
-				    <tr>
-					<td>مالیات</td>
-					<td>
-					    <div class="text-danger">$25.00 دلار</div>
-					</td>
-				    </tr>
-				    <tr>
-					<td>قابل پرداخت</td>
-					<td> $1232.00 دلار</td>
-				    </tr>
-				</tbody>
-			    </table>
-			</div>
-			<div class="text-right">
-			    <button type="button" class="btn btn-primary" data-dismiss="modal" data-toggle="modal" data-target="#transferSuccessModal">تائید</button>
-			</div>
-		    </div>
-		</div>
-	    </div>
-	</div>
-	<div class="modal fade" id="transferSuccessModal">
-	    <div class="modal-dialog">
-		<div class="modal-content">
-		    <div class="modal-header">
-			<h5 class="modal-title">تائید</h5>
-			<button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
-		    </div>
-		    <div class="modal-body">
-			<div class="auth-form">
-			    <form action="verify-step-2.html" class="identity-upload">
-				<div class="identity-content">
-				    <span class="icon"><i class="icofont-check"></i></span>
-				    <p>ارسال به موفقیت انجام شد</p>
-				</div>
-			    </form>
-			    <div class="card-footer text-center">
-				<a href="signup.html">لیست تراکنش ها</a>
-			    </div>
-			</div>
-		    </div>
-		</div>
-	    </div>
-	</div>
-
-	<!-- Convert Modal -->
-	<div class="modal fade" id="convertModal">
-	    <div class="modal-dialog">
-		<div class="modal-content">
-		    <div class="modal-header">
-			<h5 class="modal-title">تائیدیه</h5>
-			<button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
-		    </div>
-		    <div class="modal-body">
-			<div class="table-responsive">
-			    <table class="table">
-				<tbody>
-				    <tr>
-					<td><span class="text-primary">ایمیل خریدار</span></td>
-					<td><span class="text-primary">buyer@example.com</span></td>
-				    </tr>
-				    <tr>
-					<td><span class="text-primary">ایمیل فروشنده</span></td>
-					<td><span class="text-primary">seller@example.com</span></td>
-				    </tr>
-				    <tr>
-					<td>قیمت ارز</td>
-					<td>0.00212455 BTC</td>
-				    </tr>
-				    <tr>
-					<td>مفدار</td>
-					<td>$28.00 دلار</td>
-				    </tr>
-				    <tr>
-					<td>کل</td>
-					<td>$854.00 دلار</td>
-				    </tr>
-				    <tr>
-					<td>مالیات</td>
-					<td>
-					    <div class="text-danger">$25.00 دلار</div>
-					</td>
-				    </tr>
-				    <tr>
-					<td>قابل پرداخت</td>
-					<td> $1232.00 دلار</td>
-				    </tr>
-				</tbody>
-			    </table>
-			</div>
-			<div class="text-right">
-			    <button type="button" class="btn btn-primary" data-dismiss="modal" data-toggle="modal" data-target="#convertSuccessModal">تائید</button>
-			</div>
-		    </div>
-		</div>
-	    </div>
-	</div>
-	<div class="modal fade" id="convertSuccessModal">
-	    <div class="modal-dialog">
-		<div class="modal-content">
-		    <div class="modal-header">
-			<h5 class="modal-title">تائید</h5>
-			<button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
-		    </div>
-		    <div class="modal-body">
-			<div class="auth-form">
-			    <form action="verify-step-2.html" class="identity-upload">
-				<div class="identity-content">
-				    <span class="icon"><i class="icofont-check"></i></span>
-				    <p>ارسال به موفقیت انجام شد</p>
-				</div>
-			    </form>
-			    <div class="card-footer text-center">
-				<a href="signup.html">لیست تراکنش ها</a>
-			    </div>
-			</div>
-		    </div>
-		</div>
-	    </div>
-	</div>
-
+	</div>	
 
 {% endblock %}
