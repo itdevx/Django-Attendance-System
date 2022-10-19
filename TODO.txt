@@ -1,6 +1,11 @@
 
-1- Delte class with modal []
-2- create class and save class in assign, save assign in attendanceclass []
-3- Don't show class in home view if not saved : number 2!
-4- create Enzebat model for student after attendanceclass
-5- create Zang for attendanceclass
+1- Delte class with modal [X]
+2- create class and save class in assign, save assign in attendanceclass [X]
+3- Don't show class in home view if not saved : number 2! [X]
+4- create Enzebat model for student after attendanceclass []
+5- create Zang for attendanceclass []
+6- update studnet with modal []
+7- change settng view for create all item with modal and change delete and edit item with modal []
+8- update student Model and change USN -> auto create with a sctipt []
+9- create history view for student information with save btn or other []
+10- create update view for attendance in new view []

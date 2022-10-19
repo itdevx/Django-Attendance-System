@@ -30,6 +30,7 @@
 			    <div class="card">
 				<div class="card-header">
 				    <h4 class="card-title">لیست حضور و غیاب</h4>
+				    <h4 class="text-left">کلاس {{ c.number }} در شیفت {{ c.shift }}</h4>
 				</div>
 				{% if c.student_set.all %}
 				<div class="card-body">
@@ -43,8 +44,6 @@
 									<th>نام و نام خانوادگی</th>
 									<th>نام پدر</th>
 									<th>شماره ملی</th>
-									<th>شماره کلاس</th>
-									<th>شیفت</th>
 									<th>پایه تحصیلی</th>
 									<th>رشته تحصیلی</th>
 									<th>حضور و غیاب</th>
@@ -56,8 +55,6 @@
 									<td>{{ s.full_name }}</td>
 									<td>{{ s.father_name }}</td>
 									<td>{{ s.id_code }}</td>
-									<td">{{ s.class_id.number }}</td>
-									<td>{{ s.class_id.shift }}</td>
 									<td>{{ s.level }}</td>
 									<td>{{ s.reshte }}</td>
 									<td>
