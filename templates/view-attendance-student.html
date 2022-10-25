@@ -29,7 +29,7 @@
 			<div class="col-xxl-9 col-xl-9">
 			    <div class="card">
 				<div class="card-header">
-				    <h4 class="card-title">لیست حضور غیاب در تاریخ : {{ jalali }}</h4>
+				    <h4 class="card-title">لیست حضور و غیاب</h4>
 				    <h4 class="text-left">کلاس {{ c.number }} در شیفت {{ c.shift }}</h4>
 				</div>
 				{% if c.student_set.all %}
@@ -90,15 +90,4 @@
 		</div>
 	    </div>
 	</div>
-
-	<script>
-		function showtext(){
-			if(document.getElementById('option2').checked) {
-				document.getElementById('gheybat').style.visibility = 'visible';
-			}else {
-				document.getElementById('gheybat').style.visibility = 'hidden';
-			}
-		}
-	</script>
-
 {% endblock %}

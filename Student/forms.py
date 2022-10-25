@@ -74,4 +74,4 @@ class ReshteForm(forms.ModelForm):
             raise forms.ValidationError('این رشته تحصیلی از قبل ثبت شده است')
         else:
             return name
-        
+            

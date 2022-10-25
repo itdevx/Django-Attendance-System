@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block body %}
+	<div id="main-wrapper">
+	    <div class="content-body">
+		<div class="container">
+		    <div class="row mt-5">
+            {% for d in dates %}
+			<div class="col-xxl-2 col-xl-2 col-lg-4">
+			    <div class="card">
+				<div class="card-body">
+				    <div class="invite-content">
+					<h4>{{ d }}</h4>
+					<a href="#" class="btn btn-primary">مشاهده</a>
+				    </div>
+				</div>
+			    </div>
+			</div>
+			{% endfor %}
+		    </div>
+		</div>
+	    </div>
+	</div>
+
+{% endblock %}

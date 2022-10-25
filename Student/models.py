@@ -3,6 +3,7 @@ from django.db import models
 from django.urls import reverse
 from django.db.models import Q
 from django.core.exceptions import ValidationError
+from extentions.utils import jalali_converter
 
 
 class Manager(models.Manager):
@@ -36,6 +37,10 @@ class Class(models.Model):
     def __str__(self):
         return f'{self.number}-{self.shift}'
 
+ZANG = (
+    ('1', '1'),
+    ('2', '2'),
+)
 
 class Student(models.Model):
     full_name = models.CharField(max_length=200)
@@ -47,6 +52,7 @@ class Student(models.Model):
     level_up = models.BooleanField(default=False)
     date = models.DateField()
     usn = models.CharField(primary_key=True, max_length=200)
+    zang = models.BooleanField(choices=ZANG, null=True, blank=True)
     objects = Manager()
 
     def __str__(self):
@@ -55,10 +61,12 @@ class Student(models.Model):
     def get_absolute_url(self):
         return reverse('student:student',args=[self.full_name, self.id_code])
 
+    def jdate(self):
+        return jalali_converter(self.date)
 
 class Assign(models.Model):
     class_id = models.ForeignKey(Class, on_delete=models.CASCADE)
-    
+
     def __str__(self):
         return f'کلاس : {self.class_id} اختصاص داده شد'
 
@@ -69,11 +77,13 @@ class Assign(models.Model):
 class AttendanceClass(models.Model):
     assign = models.ForeignKey(Assign, on_delete=models.CASCADE)
     date = models.DateField(auto_now_add=True)
-    status = models.IntegerField(default=0)
-    
+    status = models.IntegerField(default=0)    
+
     def __str__(self):
         return f'کلاس : {self.assign.class_id.number} در شیف : {self.assign.class_id.shift}'
 
+    def jdate(self):
+        return jalali_converter(self.date)
 
 class Attendance(models.Model):
     student = models.ForeignKey(Student, on_delete=models.CASCADE)
@@ -85,3 +95,5 @@ class Attendance(models.Model):
     def __str__(self):
         return f'{self.student.full_name} درتاریخ : {self.status} <- {self.date}'
 
+    def jdate(self):
+        return jalali_converter(self.date)

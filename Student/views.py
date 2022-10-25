@@ -1,5 +1,4 @@
 from django.shortcuts import redirect, render, get_object_or_404, HttpResponseRedirect
-from django.http import Http404, HttpResponse
 from django.urls import reverse_lazy
 from django.urls import reverse
 from django.views import generic
@@ -7,6 +6,8 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from Student import models
 from Student import forms
 from django.contrib.auth.decorators import login_required
+from extentions.utils import jalali_converter
+from django.utils import timezone
 
 
 class IndexView(LoginRequiredMixin, generic.View):
@@ -39,6 +40,28 @@ class ClassRoomView(LoginRequiredMixin, generic.View):
         shift = kwargs.get('shift')
         students_in_class_room = models.Student.objects.filter(class_id__number=number, class_id__shift=shift).all()
         return render(request, 'class-room.html', {'student_class_room': students_in_class_room})
+
+
+class AttendanceList(LoginRequiredMixin, generic.View):
+    login_url = 'account:login'
+    template_name = 'attendance-list.html'
+
+    def get(self, request, *args, **kwargs):
+        class_id_number = kwargs.get('class_id_number')
+        att = models.Attendance.objects.filter(attendanceclass__assign__class_id__number=class_id_number)
+        date = []
+        for i in att:
+            date.append(i.date)
+        c = {
+            'dates': set(date)
+        }
+        return render(request, self.template_name, c)
+
+
+class AttendanceStudent(generic.View):
+    template_name = 'view-attendance-student.html'
+    def get(self, request, *args, **kwargs):
+        return render(request, self.template_name)
 
 
 class CreateClassView(LoginRequiredMixin, generic.View):
@@ -189,13 +212,16 @@ class AttendanceView(LoginRequiredMixin, generic.View):
         assc = get_object_or_404(models.AttendanceClass, assign__class_id__number=assign_class_id)
         ass = assc.assign
         c = ass.class_id
-        attendance = models.Attendance.objects.filter(student__class_id__number=assign_class_id, date=assc.date) 
+        attendance = models.Attendance.objects.filter(student__class_id__number=assign_class_id, date=assc.date)
+        d = timezone.now().date()
+        jalali = jalali_converter(d)
 
         context = {
             'ass': ass,
             'c': c,
             'assc': assc,
-            'attendance': attendance
+            'attendance': attendance,
+            'jalali': jalali
         }
         return render(request, self.template_name, context)
 

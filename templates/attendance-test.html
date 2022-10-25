@@ -29,13 +29,12 @@
 			<div class="col-xxl-9 col-xl-9">
 			    <div class="card">
 				<div class="card-header">
-				    <h4 class="card-title">لیست حضور غیاب در تاریخ : {{ jalali }}</h4>
+				    <h4 class="card-title">لیست حضور و غیاب</h4>
 				    <h4 class="text-left">کلاس {{ c.number }} در شیفت {{ c.shift }}</h4>
 				</div>
-				{% if c.student_set.all %}
 				<div class="card-body">
 				    <div class="table-responsive transaction-table">
-						<form action="{% url 'student:confirm' assc.assign.class_id.number %}" method="POST">
+						<form action=" " method="POST">
 							{% csrf_token %}
 							
 							<table class="table table-striped responsive-table">
@@ -50,25 +49,24 @@
 								</tr>
 								</thead>
 								<tbody>
-								{% for s in c.student_set.all %}
+									
 								<tr>
-									<td>{{ s.full_name }}</td>
-									<td>{{ s.father_name }}</td>
-									<td>{{ s.id_code }}</td>
-									<td>{{ s.level }}</td>
-									<td>{{ s.reshte }}</td>
+									<td></td>
+									<td></td>
+									<td></td>
+									<td></td>
+									<td></td>
 									<td>
 										<div class="btn-group btn-group-toggle" data-toggle="buttons" dir="ltr">
 											<label class="btn btn-outline-success btn-sm active">
-												<input type="radio" name="{{ s.usn }}" id="option1" autocomplete="off" value="present" checked> حاضر
+												<input type="radio" name=" " id="option1" autocomplete="off" value="present" checked> حاضر
 											</label>
 											<label class="btn btn-outline-danger active btdn-sm">
-												<input type="radio" name="{{ s.usn }}" id="option2" onclick="javascript:showtext();" autocomplete="off" value="absent"> غایب
+												<input type="radio" name=" " id="option2" onclick="javascript:showtext();" autocomplete="off" value="absent"> غایب
 											</label>
                                   		</div>
 									</td>
 								</tr>
-								{% endfor %}
 								</tbody>
 							</table>
 							<div class="d-flex justify-content-center">
@@ -79,26 +77,11 @@
 				    </div>
 				</div>
 			    </div>
-				{% else %}
-					<div class="alert">
-						هیچ دانش آموزی در این کلاس ثبت نشده است
-					</div>
-				{% endif %}
 			</div>
 
 		    </div>
 		</div>
 	    </div>
 	</div>
-
-	<script>
-		function showtext(){
-			if(document.getElementById('option2').checked) {
-				document.getElementById('gheybat').style.visibility = 'visible';
-			}else {
-				document.getElementById('gheybat').style.visibility = 'hidden';
-			}
-		}
-	</script>
 
 {% endblock %}

@@ -50,4 +50,7 @@ urlpatterns = [
     path(
         'edited/edit-reshte/<int:pk>', views.reshte_edit, name='edit-reshte'
     ),
+    path(
+        'attendance-list/<class_id_number>', views.AttendanceList.as_view(), name='attendance-list'
+    )
 ]
