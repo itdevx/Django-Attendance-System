@@ -39,7 +39,7 @@ class ClassRoomView(LoginRequiredMixin, generic.View):
         number = kwargs.get('number')
         shift = kwargs.get('shift')
         students_in_class_room = models.Student.objects.filter(class_id__number=number, class_id__shift=shift).all()
-        return render(request, 'class-room.html', {'student_class_room': students_in_class_room})
+        return render(request, 'class-room.html', {'student_class_room': students_in_class_room, 'class': number})
 
 
 class AttendanceList(LoginRequiredMixin, generic.View):

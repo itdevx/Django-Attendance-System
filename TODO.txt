@@ -7,5 +7,5 @@
 8- update student Model and change USN -> auto create with a sctipt []
 9- create history view for student information with save btn or other []
 10- create update view for attendance in new view []
-11- create Ghabooli for year and save in database and show in view
+11- create Ghabooli for year and save in database and show in view []
 12- change date with django jalali [X]
