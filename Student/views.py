@@ -263,7 +263,7 @@ def confirm(request, assign_class_id):
             status = False
         if assc.status == 1:
             from django.utils import timezone
-            if models.Attendance.objects.filter(student=s, date=timezone.now().date()).exists():
+            if models.Attendance.objects.filter(student=s, date=timezone.now().date(), zang=z).exists():
                 # return HttpResponse('این وجود دارد')
                 pass
             else:
