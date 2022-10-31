@@ -48,15 +48,34 @@ class AttendanceList(LoginRequiredMixin, generic.View):
 
     def get(self, request, *args, **kwargs):
         class_id_number = kwargs.get('class_id_number')
+        
         att = models.Attendance.objects.filter(attendanceclass__assign__class_id__number=class_id_number)
         date = []
         for i in att:
             date.append(i.date)
         c = {
-            'dates': set(date)
+            'dates': set(date),
+            'class_id_number': class_id_number
         }
         return render(request, self.template_name, c)
 
+
+class AttendanceEdit(LoginRequiredMixin, generic.View):
+    login_url = 'account:login'
+    template_name = 'attendance-edit.html'
+
+    def get(self, request, *args, **kwargs):
+        class_id_number = kwargs.get('class_id_number')
+        date = kwargs.get('date')
+        att = models.Attendance.objects.filter(attendanceclass__assign__class_id__number=class_id_number, date=date)
+
+        c = {
+            'att_list': att,
+            'class_id_number': class_id_number,
+        }
+
+        return render(request, self.template_name, c)
+        
 
 class AttendanceStudent(generic.View):
     template_name = 'view-attendance-student.html'
@@ -215,13 +234,15 @@ class AttendanceView(LoginRequiredMixin, generic.View):
         attendance = models.Attendance.objects.filter(student__class_id__number=assign_class_id, date=assc.date)
         d = timezone.now().date()
         jalali = jalali_converter(d)
-
+        zang = models.Zang.objects.all()
+        
         context = {
             'ass': ass,
             'c': c,
             'assc': assc,
             'attendance': attendance,
-            'jalali': jalali
+            'jalali': jalali,
+            'zang': zang
         }
         return render(request, self.template_name, context)
 
@@ -230,6 +251,9 @@ def confirm(request, assign_class_id):
     assc = get_object_or_404(models.AttendanceClass, assign__class_id__number=assign_class_id)
     ass = assc.assign
     cl = ass.class_id
+    zang = request.POST.get('zang')
+    z = models.Zang.objects.get(name=zang)
+    
 
     for i, s in enumerate(cl.student_set.all()):
         status = request.POST.get(s.usn, False)
@@ -246,12 +270,15 @@ def confirm(request, assign_class_id):
                 try:
                     a = models.Attendance.objects.create(student=s, date=assc.date, attendanceclass=assc)
                     a.status = status
+                    a.zang = z
                     a.save()
                 except models.Attendance.DoesNotExist:
                     a = models.Attendance(student=s, status=status, date=assc.date, attendanceclass=assc)
+                    a.zang = z
                     a.save()
         else:
-            a = models.Attendance(student=s, status=status, date=assc.date, attendanceclass=assc)            
+            a = models.Attendance(student=s, status=status, date=assc.date, attendanceclass=assc)
+            a.zang = z
             a.save()
             assc.status = 1
             assc.save()

@@ -1,3 +1,4 @@
+from unicodedata import name
 from django.urls import path
 from Student import views
 
@@ -51,6 +52,10 @@ urlpatterns = [
         'edited/edit-reshte/<int:pk>', views.reshte_edit, name='edit-reshte'
     ),
     path(
-        'attendance-list/<class_id_number>', views.AttendanceList.as_view(), name='attendance-list'
-    )
+        'attendance-list/<class_id_number>/', views.AttendanceList.as_view(), name='attendance-list'
+    ),
+    path(
+        'attendance-edit/<class_id_number>/<date>', views.AttendanceEdit.as_view(), name='attendance-edit'
+    ),
+
 ]

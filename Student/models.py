@@ -23,6 +23,12 @@ LEVEL = (
     ('دوازدهم', 'دوازدهم'),
 )
 
+ZANG = (
+    ('اول', 'اول'),
+    ('دوم', 'دوم'),
+    ('دوم', 'دوم'),
+)
+
 class Reshte(models.Model):
     name = models.CharField(max_length=100)
 
@@ -37,10 +43,6 @@ class Class(models.Model):
     def __str__(self):
         return f'{self.number}-{self.shift}'
 
-ZANG = (
-    ('1', '1'),
-    ('2', '2'),
-)
 
 class Student(models.Model):
     full_name = models.CharField(max_length=200)
@@ -85,13 +87,20 @@ class AttendanceClass(models.Model):
     def jdate(self):
         return jalali_converter(self.date)
 
+class Zang(models.Model):
+    name = models.CharField(max_length=10)
+
+    def __str__(self):
+        return self.name
+
 class Attendance(models.Model):
     student = models.ForeignKey(Student, on_delete=models.CASCADE)
     attendanceclass = models.ForeignKey(AttendanceClass, on_delete=models.CASCADE, default=1)
     date = models.DateField(auto_now_add=True)
     status = models.BooleanField(default=True)
     gheybat_text = models.CharField(max_length=500, null=True, blank=True)
-    
+    zang = models.ForeignKey(Zang, on_delete=models.CASCADE, null=True, blank=True)
+
     def __str__(self):
         return f'{self.student.full_name} درتاریخ : {self.status} <- {self.date}'
 
