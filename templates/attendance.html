@@ -37,7 +37,7 @@
 				    <div class="table-responsive transaction-table">
 						<form action="{% url 'student:confirm' assc.assign.class_id.number %}" method="POST">
 							{% csrf_token %}
-							<select name="zang" class="form-control col-4">
+							<select name="zang" class="form-control col-4" required>
 								<option value="">لطفا زنگ کلاس را انتخاب کنید</option>
 								{% for z in zang %}
 								<option value="{{ z.name }}">{{ z.name }}</option>
@@ -64,7 +64,7 @@
 									<td>{{ s.reshte }}</td>
 									<td>
 										<div class="btn-group btn-group-toggle" data-toggle="buttons" dir="ltr">
-											<label class="btn btn-outline-success btn-sm">
+											<label class="btn btn-outline-success active btn-sm">
 												<input type="radio" name="{{ s.usn }}" id="option1" autocomplete="off" value="present" checked> حاضر
 											</label>
 											<label class="btn btn-outline-danger btn-sm">
