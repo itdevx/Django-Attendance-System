@@ -37,12 +37,11 @@
 				    <div class="table-responsive transaction-table">
 						<form action="{% url 'student:confirm' assc.assign.class_id.number %}" method="POST">
 							{% csrf_token %}
-							<div class="col-md-3">
-								<label for="validationCustom04" class="form-label">State</label>
-								<select name="zang" class="form-select" id="validationCustom04" required>
+							<div class="col-xl-3 col-lg-5 col-md-5 col-sm-12">
+								<select name="zang" class="form-select mb-3" id="validationCustom04" required>
 								  <option selected disabled value="">لطفا زنگ کلاس را انتخاب کنید</option>
 								  {% for z in zang %}
-									<option value="{{ z.name }}">{{ z.name }}</option>
+									<option class="text-center" value="{{ z.name }}">{{ z.name }}</option>
 								  {% endfor %}
 								</select>
 								<div class="invalid-feedback">
