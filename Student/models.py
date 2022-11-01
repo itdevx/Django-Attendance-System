@@ -99,7 +99,7 @@ class Attendance(models.Model):
     date = models.DateField(auto_now_add=True)
     status = models.BooleanField(default=True)
     gheybat_text = models.CharField(max_length=500, null=True, blank=True)
-    zang = models.ForeignKey(Zang, on_delete=models.CASCADE, null=True, blank=True)
+    zang = models.ForeignKey(Zang, on_delete=models.CASCADE)
 
     def __str__(self):
         return f'{self.student.full_name} درتاریخ : {self.status} <- {self.date}'

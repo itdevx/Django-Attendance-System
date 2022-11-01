@@ -7,7 +7,7 @@
 	    <div class="content-body">
 		<div class="container">
 		    <div class="row">
-			<div class="col-xxl-3 col-xl-3">
+			<!-- <div class="col-xxl-3 col-xl-3">
 			    <div class="card">
 				<div class="card-header">
 				    <h4 class="card-title">تغییرات</h4>
@@ -25,8 +25,8 @@
 				    </ul>
 				</div>
 			    </div>
-			</div>
-			<div class="col-xxl-9 col-xl-9">
+			</div> -->
+			<div class="col-xxl-12 col-xl-12">
 			    <div class="card">
 				<div class="card-header">
 				    <h4 class="card-title">لیست حضور غیاب در تاریخ : {{ jalali }}</h4>
@@ -37,12 +37,18 @@
 				    <div class="table-responsive transaction-table">
 						<form action="{% url 'student:confirm' assc.assign.class_id.number %}" method="POST">
 							{% csrf_token %}
-							<select name="zang" class="form-control col-4" required>
-								<option value="">لطفا زنگ کلاس را انتخاب کنید</option>
-								{% for z in zang %}
-								<option value="{{ z.name }}">{{ z.name }}</option>
-								{% endfor %}
-							</select>
+							<div class="col-md-3">
+								<label for="validationCustom04" class="form-label">State</label>
+								<select name="zang" class="form-select" id="validationCustom04" required>
+								  <option selected disabled value="">لطفا زنگ کلاس را انتخاب کنید</option>
+								  {% for z in zang %}
+									<option value="{{ z.name }}">{{ z.name }}</option>
+								  {% endfor %}
+								</select>
+								<div class="invalid-feedback">
+									لطفا زنگ کلاس را انتخاب کنید
+								</div>
+							  </div>
 							<table class="table table-striped responsive-table">
 								<thead>
 								<tr>
