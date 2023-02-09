@@ -73,7 +73,6 @@ class AttendanceEdit(LoginRequiredMixin, generic.View):
             'att_list': att,
             'class_id_number': class_id_number,
         }
-
         return render(request, self.template_name, c)
         
 
@@ -196,7 +195,7 @@ class StudentInfoView(LoginRequiredMixin, generic.View):
         full_name = kwargs.get('full_name')
         id_code = kwargs.get('id_code')
         student = models.Student.objects.filter(full_name=full_name, id_code=id_code).first()
-        attendance = models.Attendance.objects.filter(student=student).order_by('-id').distinct()
+        attendance = models.Attendance.objects.filter(student=student).order_by('-date', '-zang').distinct()
 
         context = {
             'student': student,
@@ -254,7 +253,6 @@ def confirm(request, assign_class_id):
     zang = request.POST.get('zang')
     z = models.Zang.objects.get(name=zang)
     
-
     for i, s in enumerate(cl.student_set.all()):
         status = request.POST.get(s.usn, False)
         if status == 'present':

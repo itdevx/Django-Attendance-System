@@ -47,14 +47,43 @@
 		<div class="container">
 		    <div class="row">
 
-			<div class="col-xxl-4 col-xl-4">
+			<div class="col-xxl-6 col-xl-6">
 			    <div class="card">
 				<div class="card-header">
 				    <h4 class="card-title">حضور و غیاب</h4>
 				</div>
 				<div class="card-body">
-				    <ul class="align-center">
+					<table class="table table-striped responsive-table text-center">
+						<thead>
+						<tr>
+							<th>تاریخ</th>
+							<th>زنگ</th>
+							<th>وضعیت</th>
+						</tr>
+						</thead>
+						<tbody>
 						{% for a in attendance %}
+							<tr>
+								<td>{{ a.jdate }}</td>
+								<td>{{ a.zang }}</td>
+								<td>
+									{% if a.status %}
+										<h5 class="text-success">
+											حاضر
+										</h5>
+									{% else %}
+										<h5 class="text-danger">
+											غایب
+										</h5>
+								{% endif %}
+								</td>
+							</tr>
+						{% endfor %}
+						</tbody>
+					</table>
+				    <!-- <ul class="align-center">
+						{% for a in attendance %}
+							{{ a.zang }}
                             <li>
 								{% if a.status %}
 									<h5 class="text-success">
@@ -70,11 +99,11 @@
 								<hr class="text-primary">
                             </li>
 						{% endfor %}
-				    </ul>
+				    </ul> -->
 				</div>
 			    </div>
 			</div>
-            <div class="col-xxl-8">
+            <!-- <div class="col-xxl-8">
 			    <div class="card">
 				<div class="card-header">
 				    <h4 class="card-title">کیف پول</h4>
@@ -146,7 +175,7 @@
 
 				</div>
 			    </div>
-			</div>
+			</div> -->
 
 		    </div>
 		</div>

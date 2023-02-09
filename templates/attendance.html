@@ -39,7 +39,7 @@
 							{% csrf_token %}
 							<div class="col-xl-3 col-lg-5 col-md-5 col-sm-12">
 								<select name="zang" class="form-select mb-3" id="validationCustom04" required>
-								  <option selected disabled value="">لطفا زنگ کلاس را انتخاب کنید</option>
+								  <option class="text-center" selected disabled value="">لطفا زنگ کلاس را انتخاب کنید</option>
 								  {% for z in zang %}
 									<option class="text-center" value="{{ z.name }}">{{ z.name }}</option>
 								  {% endfor %}
