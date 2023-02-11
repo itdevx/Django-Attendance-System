@@ -58,7 +58,10 @@ urlpatterns = [
         'attendance-edit/<class_id_number>/<date>', views.AttendanceEdit.as_view(), name='attendance-edit'
     ),
     path(
-        'student/<id_code>/', views.export_csv, name='export-csv' 
+        'student/export-csv/<id_code>/', views.export_csv, name='export-csv' 
+    ),
+    path(
+        'student/export-pdf/<id_code>/', views.export_pdf, name='export-pdf' 
     )
 
 ]

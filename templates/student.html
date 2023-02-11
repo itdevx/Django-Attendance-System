@@ -36,7 +36,7 @@
                                     <td>{{ student.class_id.shift }}</td>
                                     <td>{{ student.level }}</td>
                                     <td>{{ student.reshte }}</td>
-                                    <td><a href="{% url 'student:export-csv' student.id_code %}">CSV</a></td>
+                                    <td><a href="{% url 'student:export-csv' student.id_code %}">CSV</a> <a href="{% url 'student:export-pdf' student.id_code %}">PDF</a> </td>
                                 </tr>
                                 </tbody>
                             </table>

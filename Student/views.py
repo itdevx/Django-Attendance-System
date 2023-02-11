@@ -10,6 +10,9 @@ from django.contrib.auth.decorators import login_required
 from extentions.utils import jalali_converter
 from django.utils import timezone
 import csv
+from io import BytesIO
+from django.template.loader import get_template
+from xhtml2pdf import pisa
 
 
 class IndexView(LoginRequiredMixin, generic.View):
@@ -309,5 +312,29 @@ def export_csv(request, id_code):
     student = models.Student.objects.filter(id_code=id_code)
     for s in student:
         write.writerow([s.full_name, s.father_name, s.id_code, s.class_id.number, s.reshte, s.class_id.shift, s.level, s.reshte])
-
     return response
+
+
+# add table
+def render_to_pdf(template_src, context={}):
+    template = get_template(template_src)
+    html = template.render(context)
+    result = BytesIO()
+    pdf = pisa.pisaDocument(BytesIO(html.encode('utf8')), result)
+    if not pdf.err:
+        return HttpResponse(result.getvalue(), content_type='application/pdf')
+    return None
+
+
+# Bug
+def export_pdf(request, id_code):
+    template = get_template('pdf-output.html')
+    student = models.Student.objects.filter(id_code=id_code)
+    context = {
+        'student': student
+    }
+    html = template.render(context)
+    pdf = render_to_pdf('pdf-output.html', context)
+    if pdf:
+        return HttpResponse(pdf, content_type='application/pdf')
+    return HttpResponse('Not Found!')
