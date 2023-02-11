@@ -61,7 +61,7 @@ class Student(models.Model):
         return f'{self.full_name}-{self.id_code}-{self.class_id}-{self.reshte}-{self.level}'
 
     def get_absolute_url(self):
-        return reverse('student:student',args=[self.full_name, self.id_code])
+        return reverse('student:student',args=[self.id_code])
 
     def jdate(self):
         return jalali_converter(self.date)

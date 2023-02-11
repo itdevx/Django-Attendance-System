@@ -1,4 +1,5 @@
 from django.shortcuts import redirect, render, get_object_or_404, HttpResponseRedirect
+from django.http import HttpResponse
 from django.urls import reverse_lazy
 from django.urls import reverse
 from django.views import generic
@@ -8,6 +9,7 @@ from Student import forms
 from django.contrib.auth.decorators import login_required
 from extentions.utils import jalali_converter
 from django.utils import timezone
+import csv
 
 
 class IndexView(LoginRequiredMixin, generic.View):
@@ -192,9 +194,9 @@ class StudentInfoView(LoginRequiredMixin, generic.View):
     template_name = 'student.html'
 
     def get(self, request, *args, **kwargs):
-        full_name = kwargs.get('full_name')
+        # full_name = kwargs.get('full_name')
         id_code = kwargs.get('id_code')
-        student = models.Student.objects.filter(full_name=full_name, id_code=id_code).first()
+        student = models.Student.objects.filter(id_code=id_code).first()
         attendance = models.Attendance.objects.filter(student=student).order_by('-date', '-zang').distinct()
 
         context = {
@@ -299,4 +301,13 @@ class WalletView(generic.View):
         return render(request, 'index.html')
 
 
+def export_csv(request, id_code):
+    response = HttpResponse(content_type='text/csv')
+    response['Content-Disposition'] = 'attenchment; filename=student.csv'
+    write = csv.writer(response)
+    write.writerow(['نام و نام خانوادگی', 'نام پدر', 'شماره ملی', 'شماره کلاس', 'شیفت', 'پایه تحصیلی', 'رشته تحصیلی'])
+    student = models.Student.objects.filter(id_code=id_code)
+    for s in student:
+        write.writerow([s.full_name, s.father_name, s.id_code, s.class_id.number, s.reshte, s.class_id.shift, s.level, s.reshte])
 
+    return response

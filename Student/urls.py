@@ -19,7 +19,7 @@ urlpatterns = [
         'create-student', views.CreateStudenView.as_view(), name='create-student'
     ),
     path(
-        'student/<full_name>/<id_code>', views.StudentInfoView.as_view(), name='student'
+        'student/<id_code>', views.StudentInfoView.as_view(), name='student'
     ),
     path(
         'attendance/<int:assign_class_id>/', views.AttendanceView.as_view(), name='attendance'
@@ -57,5 +57,8 @@ urlpatterns = [
     path(
         'attendance-edit/<class_id_number>/<date>', views.AttendanceEdit.as_view(), name='attendance-edit'
     ),
+    path(
+        'student/<id_code>/', views.export_csv, name='export-csv' 
+    )
 
 ]

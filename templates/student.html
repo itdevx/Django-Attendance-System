@@ -24,6 +24,7 @@
                                     <th>شیفت</th>
                                     <th>پایه تحصیلی</th>
                                     <th>رشته تحصیلی</th>
+                                    <th>خروجی</th>
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -35,6 +36,7 @@
                                     <td>{{ student.class_id.shift }}</td>
                                     <td>{{ student.level }}</td>
                                     <td>{{ student.reshte }}</td>
+                                    <td><a href="{% url 'student:export-csv' student.id_code %}">CSV</a></td>
                                 </tr>
                                 </tbody>
                             </table>
