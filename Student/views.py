@@ -76,6 +76,9 @@ class AttendanceList(LoginRequiredMixin, generic.View):
         }
         return render(request, self.template_name, c)
 
+# dark light #343a40
+# dark dark #121212
+
 
 # add new view for filter zang
 class AttendanceEdit(LoginRequiredMixin, generic.View):

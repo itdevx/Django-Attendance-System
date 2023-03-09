@@ -10899,7 +10899,7 @@ strong {
 }
 
 .sidebar {
-    background: #1830a3;
+    background: #343a40;
     position: fixed;
     right: 20px;
     height: calc(100%-20px);
@@ -11027,7 +11027,7 @@ strong {
 }
 
 .dark-theme {
-    background-color: #10206e;
+    background-color: #121212;
     color: #c4cdf6;
 }
 
@@ -11060,7 +11060,7 @@ strong {
 }
 
 .dark-theme .header {
-    background-color: #10206e;
+    background-color: #121212;
 }
 
 .dark-theme .dropdown-menu {
@@ -11107,7 +11107,7 @@ strong {
 }
 
 .dark-theme .card {
-    background: #152a8d !important;
+    background: #212529 !important;
 }
 
 .dark-theme .card .card-header {
@@ -11128,7 +11128,7 @@ strong {
 
 .dark-theme .form-control,
 .dark-theme .form-select {
-    background: #10206e;
+    background: #343a40;
     border-color: rgba(255, 255, 255, 0.08);
     color: #c4cdf6;
 }
@@ -11152,7 +11152,7 @@ strong {
 .dark-theme .form-select:hover {
     border-color: rgba(255, 255, 255, 0.08);
     color: #c4cdf6;
-    background: #10206e;
+    background: #343a40;
 }
 
 .dark-theme .form-control:focus,
@@ -11163,7 +11163,7 @@ strong {
 .dark-theme .form-select.active {
     border-color: rgba(255, 255, 255, 0.08);
     color: #c4cdf6;
-    background: #10206e;
+    background: #343a40;
 }
 
 .dark-theme .form-file-text {
@@ -11179,7 +11179,7 @@ strong {
 }
 
 .dark-theme .input-group-text {
-    background: #152a8d;
+    background: #343a40;
     color: #fff;
     border-color: rgba(255, 255, 255, 0.08);
 }
@@ -11212,8 +11212,8 @@ strong {
 }
 
 .dark-theme .table-striped>tbody>tr:nth-of-type(odd) {
-    --bs-table-accent-bg: #10206e;
-    background-color: #10206e;
+    --bs-table-accent-bg: #343a40;
+    background-color: #343a40;
     color: #c4cdf6;
 }
 
