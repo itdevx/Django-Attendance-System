@@ -14,7 +14,6 @@ class LoginView(generic.View):
         context = {
             'form': form
         }
-
         return render(request, self.template_name, context)
 
     def post(self, request):

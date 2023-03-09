@@ -55,13 +55,13 @@ urlpatterns = [
         'attendance-list/<class_id_number>/', views.AttendanceList.as_view(), name='attendance-list'
     ),
     path(
-        'attendance-edit/<class_id_number>/<date>', views.AttendanceEdit.as_view(), name='attendance-edit'
+        'attendance-edit/<class_id_number>/<date>/<zang>/', views.AttendanceEdit.as_view(), name='attendance-edit'
     ),
     path(
         'student/export-csv/<id_code>/', views.export_csv, name='export-csv' 
     ),
     path(
         'student/export-pdf/<id_code>/', views.export_pdf, name='export-pdf' 
-    )
+    ),
 
 ]

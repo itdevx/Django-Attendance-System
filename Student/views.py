@@ -11,8 +11,9 @@ from extentions.utils import jalali_converter
 from django.utils import timezone
 import csv
 from io import BytesIO
-from django.template.loader import get_template
+from django.template.loader import get_template, render_to_string
 from xhtml2pdf import pisa
+import pandas as pd
 
 
 class IndexView(LoginRequiredMixin, generic.View):
@@ -55,16 +56,28 @@ class AttendanceList(LoginRequiredMixin, generic.View):
         class_id_number = kwargs.get('class_id_number')
         
         att = models.Attendance.objects.filter(attendanceclass__assign__class_id__number=class_id_number)
+
         date = []
         for i in att:
             date.append(i.date)
+
+        att_list_date = []
+        zang_list = []
+        for a in att:
+            att_list_date.append(a.date)
+            zang_list.append(a.zang)
+
         c = {
             'dates': set(date),
-            'class_id_number': class_id_number
+            'class_id_number': class_id_number,
+            'att': att,
+            'att_date': set(att_list_date),
+            'zang_list': set(zang_list)
         }
         return render(request, self.template_name, c)
 
 
+# add new view for filter zang
 class AttendanceEdit(LoginRequiredMixin, generic.View):
     login_url = 'account:login'
     template_name = 'attendance-edit.html'
@@ -72,14 +85,28 @@ class AttendanceEdit(LoginRequiredMixin, generic.View):
     def get(self, request, *args, **kwargs):
         class_id_number = kwargs.get('class_id_number')
         date = kwargs.get('date')
-        att = models.Attendance.objects.filter(attendanceclass__assign__class_id__number=class_id_number, date=date)
+        zang = kwargs.get('zang')
+        att = models.Attendance.objects.filter(attendanceclass__assign__class_id__number=class_id_number, date=date,zang__name=zang)
 
         c = {
             'att_list': att,
             'class_id_number': class_id_number,
         }
         return render(request, self.template_name, c)
+    
+    def post(self, request, *args, **kwargs):
+        class_id_number = kwargs.get('class_id_number')
+        date = kwargs.get('date')
+        zang = kwargs.get('zang')
+        att = models.Attendance.objects.filter(attendanceclass__assign__class_id__number=class_id_number, date=date,zang__name=zang)
+        if request.POST:
+            att.update()
+            pass
+            # return redirect('student:index')
+        c={'att_list': att, 'class_id_number': class_id_number}
+        return render(self, self.template_name, c)
         
+
 
 class AttendanceStudent(generic.View):
     template_name = 'view-attendance-student.html'
@@ -197,7 +224,6 @@ class StudentInfoView(LoginRequiredMixin, generic.View):
     template_name = 'student.html'
 
     def get(self, request, *args, **kwargs):
-        # full_name = kwargs.get('full_name')
         id_code = kwargs.get('id_code')
         student = models.Student.objects.filter(id_code=id_code).first()
         attendance = models.Attendance.objects.filter(student=student).order_by('-date', '-zang').distinct()
@@ -267,7 +293,6 @@ def confirm(request, assign_class_id):
         if assc.status == 1:
             from django.utils import timezone
             if models.Attendance.objects.filter(student=s, date=timezone.now().date(), zang=z).exists():
-                # return HttpResponse('این وجود دارد')
                 pass
             else:
                 try:
@@ -305,11 +330,11 @@ class WalletView(generic.View):
 
 
 def export_csv(request, id_code):
+    student = models.Student.objects.filter(id_code=id_code)
     response = HttpResponse(content_type='text/csv')
-    response['Content-Disposition'] = 'attenchment; filename=student.csv'
+    response['Content-Disposition'] = f'attenchment; filename={id_code}.csv'
     write = csv.writer(response)
     write.writerow(['نام و نام خانوادگی', 'نام پدر', 'شماره ملی', 'شماره کلاس', 'شیفت', 'پایه تحصیلی', 'رشته تحصیلی'])
-    student = models.Student.objects.filter(id_code=id_code)
     for s in student:
         write.writerow([s.full_name, s.father_name, s.id_code, s.class_id.number, s.reshte, s.class_id.shift, s.level, s.reshte])
     return response
@@ -320,7 +345,7 @@ def render_to_pdf(template_src, context={}):
     template = get_template(template_src)
     html = template.render(context)
     result = BytesIO()
-    pdf = pisa.pisaDocument(BytesIO(html.encode('utf8')), result)
+    pdf = pisa.pisaDocument(BytesIO(html.encode('UTF-16')), result)
     if not pdf.err:
         return HttpResponse(result.getvalue(), content_type='application/pdf')
     return None
