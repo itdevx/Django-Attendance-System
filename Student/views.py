@@ -54,7 +54,6 @@ class AttendanceList(LoginRequiredMixin, generic.View):
 
     def get(self, request, *args, **kwargs):
         class_id_number = kwargs.get('class_id_number')
-        
         att = models.Attendance.objects.filter(attendanceclass__assign__class_id__number=class_id_number)
 
         date = []
@@ -75,9 +74,6 @@ class AttendanceList(LoginRequiredMixin, generic.View):
             'zang_list': set(zang_list)
         }
         return render(request, self.template_name, c)
-
-# dark light #343a40
-# dark dark #121212
 
 
 # add new view for filter zang

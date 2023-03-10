@@ -4,6 +4,7 @@ from django.urls import reverse
 from django.db.models import Q
 from django.core.exceptions import ValidationError
 from extentions.utils import jalali_converter
+from django_jalali.db import models as jmodels
 
 
 class Manager(models.Manager):
@@ -96,7 +97,7 @@ class Zang(models.Model):
 class Attendance(models.Model):
     student = models.ForeignKey(Student, on_delete=models.CASCADE)
     attendanceclass = models.ForeignKey(AttendanceClass, on_delete=models.CASCADE, default=1)
-    date = models.DateField(auto_now_add=True)
+    date = jmodels.jDateField(auto_now_add=True)
     status = models.BooleanField(default=True)
     gheybat_text = models.CharField(max_length=500, null=True, blank=True)
     zang = models.ForeignKey(Zang, on_delete=models.CASCADE)
@@ -104,5 +105,5 @@ class Attendance(models.Model):
     def __str__(self):
         return f'{self.student.full_name} درتاریخ : {self.status} <- {self.date}'
 
-    def jdate(self):
-        return jalali_converter(self.date)
+    # def jdate(self):
+    #     return jalali_converter(self.date)
