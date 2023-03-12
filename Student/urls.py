@@ -28,6 +28,9 @@ urlpatterns = [
         'attendance/<int:assign_class_id>/confirm', views.confirm, name='confirm'
     ),
     path(
+        'attendance/<int:assign_class_id>/<date>/<zang>/confirm-update', views.confirm_update, name='confirm-update'
+    ),
+    path(
         'student-edit/<full_name>/<id_code>', views.student_edit, name='student-edit'
     ),
     path(

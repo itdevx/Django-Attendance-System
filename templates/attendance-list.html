@@ -7,16 +7,16 @@
 		<div class="container">
 		    <div class="row mt-5">
             {% for a in att_date %}
-			<div class="col-xxl-2 col-xl-2 col-lg-4">
+			<div class="col-xxl-4 col-xl-4 col-lg-6 col-sm-6">
 			    <div class="card">
-				<div class="card-body">
-				    <div class="invite-content">
-					<h4>{{ a }}</h4>
-					{% for z in zang_list %}
+					<div class="card-body">
+						<div class="invite-content">
+						<h4>{{ a }}</h4>
+						{% for z in zang_list %}
 						<a href="{% url 'student:attendance-edit' class_id_number a z %}" class="btn btn-primary m-2">زنگ {{ z }}</a>
-					{% endfor %}
-				    </div>
-				</div>
+						{% endfor %}
+						</div>
+					</div>
 			    </div>
 			</div>
 			{% endfor %}

@@ -90,6 +90,8 @@ class AttendanceEdit(LoginRequiredMixin, generic.View):
         c = {
             'att_list': att,
             'class_id_number': class_id_number,
+            'date': date,
+            'zang': zang
         }
         return render(request, self.template_name, c)
     
@@ -309,7 +311,27 @@ def confirm(request, assign_class_id):
             a.save()
             assc.status = 1
             assc.save()
-    return HttpResponseRedirect(reverse('student:index'))
+    return redirect('student:attendance',assign_class_id)
+
+
+def confirm_update(request, assign_class_id, date, zang):
+    assc = get_object_or_404(models.AttendanceClass, assign__class_id__number=assign_class_id, zang__name=zang)
+    ass = assc.assign
+    cl = ass.class_id
+    
+    for i, s in enumerate(cl.student_set.all()):
+        status = request.POST.get(s.usn, False)
+        if status == 'present':
+            status = True
+        else:
+            status = False
+        if assc.status == 1:
+            student_attendnace = models.Attendance.objects.filter(student=s, date=date, zang=zang)
+            print(student_attendnace)
+    
+    return redirect('student:attendance',assign_class_id)
+
+
 
 
 class SearchingView(generic.ListView):

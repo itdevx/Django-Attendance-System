@@ -7,7 +7,7 @@
 	    <div class="content-body">
 		<div class="container">
 		    <div class="row">
-			<div class="col-xxl-3 col-xl-3">
+			<!-- <div class="col-xxl-3 col-xl-3">
 			    <div class="card">
 				<div class="card-header">
 				    <h4 class="card-title">تغییرات</h4>
@@ -25,16 +25,16 @@
 				    </ul>
 				</div>
 			    </div>
-			</div>
-			<div class="col-xxl-9 col-xl-9">
+			</div> -->
+			<div class="col-xxl-12 col-xl-12">
 			    <div class="card">
 				<div class="card-header">
-				    <!-- <h4 class="card-title">لیست حضور غیاب در تاریخ : {{ jalali }}</h4> -->
-				    <!-- <h4 class="text-left">کلاس {{ c.number }} در شیفت {{ c.shift }}</h4> -->
+				    <h4 class="card-title"> {{ date }}</h4>
+				    <h5 class="text-left">زنگ : {{ zang }}</h5>
 				</div>
 				<div class="card-body">
 				    <div class="table-responsive transaction-table">
-						<form action="" method="POST">
+						<form action="{% url 'student:confirm-update' class_id_number date zang  %}" method="POST">
 							{% csrf_token %}
 							
 							<table class="table table-striped responsive-table">
@@ -80,7 +80,7 @@
 								</tbody>
 							</table>
 							<div class="d-flex justify-content-center">
-								<button class="btn btn-success btn-sm col-4 mt-5">ذخیره</button>
+								<button class="btn btn-primary btn-sm col-4 mt-5 mb-2">ذخیره</button>
 							</div>
 
 						</form>

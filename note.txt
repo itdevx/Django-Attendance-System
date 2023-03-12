@@ -1,0 +1,3 @@
+btn success = #239B56
+btn danger = #C70039
+btn primary = #2C3E50
