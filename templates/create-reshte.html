@@ -7,8 +7,8 @@
 	<div id="main-wrapper">
 	    <div class="content-body">
 		<div class="container">
-		    <div class="row mt-5 d-flex justify-content-center">
-                <div class="col-md-12">
+		    <div class="row mt-5 d-flex justify-content-bettwen">
+                <div class="col-md-12 col-sm-12 col-lg-6 col-xl-6 col-12 mt-5">
                     <form action="" method="post">
                         {% csrf_token %}
                         <div class="row d-flex justify-content-center ">
@@ -29,9 +29,7 @@
                         </div>
                     </form>
                 </div>
-		    </div>
-            <div class="row d-flex justify-content-center">
-                <div class="col-xxl-6">
+                <div class="col-md-12 col-sm-12 col-lg-6 col-xl-6 col-12 mt-5">
                     <div class="card">
                     <div class="card-header align-items-center">
                         <h4 class="card-title">رشته های تحصیلی ثبت شده</h4>
@@ -64,12 +62,12 @@
                                                     <div class="modal-dialog">
                                                     <div class="modal-content">
                                                         <div class="modal-header">
-                                                        <h5 class="modal-title" id="staticBackdropLabel">Modal title</h5>
+                                                        <h5 class="modal-title" id="staticBackdropLabel">
+                                                            آیا میخواهید این رشته تحصیلی را پاک کنید؟  "{{ r.name }}"
+                                                        </h5>
                                                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                                         </div>
-                                                        <div class="modal-body">
-                                                        آیا میخواهدی این رشته تحصیلی را پاک کنید؟  "{{ r.name }}"
-                                                        </div>
+
                                                         <div class="modal-footer">
                                                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">انصراف</button>
                                                         <button type="submit" class="btn btn-danger">پاک کردن</button>
@@ -88,7 +86,7 @@
                     </div>
                     </div>
                 </div>
-            </div>
+		    </div>
 		</div>
 	    </div>
 	</div>
