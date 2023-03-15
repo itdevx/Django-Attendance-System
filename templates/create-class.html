@@ -7,8 +7,8 @@
 	<div id="main-wrapper">
 	    <div class="content-body">
             <div class="container">
-                <div class="row mt-5 d-flex justify-content-center">
-                    <div class="col-md-12">
+                <div class="row mt-5 d-flex justify-content-bettwen">
+                    <div class="col-md-12 col-sm-12 col-lg-6 col-xl-6 col-12 mt-5">
                         <form action="" method="post">
                             {% csrf_token %}
                             <div class="row d-flex justify-content-center ">
@@ -28,79 +28,72 @@
                                                 {% endfor %}
                                             </div>
                                         </div>
-                                        <button class="btn btn-primary btn-sm mt-5 btn-block mb-5">ذخیره</button>
-                                        <hr class="text-secondary mb-5">
+                                        <button class="btn btn-primary btn-block mt-5 mb-5">ذخیره</button>
                                     </div>
                                 </div>
                             </div>
-
                         </form>
                     </div>
-                    <div class="row d-flex justify-content-center">
-                        <div class="col-xxl-8">
-                            <div class="card">
-                            <div class="card-header align-items-center">
-                                <h4 class="card-title">کلاس های ثبت شده</h4>
-                            </div>
-                            <div class="card-body">
-                                <div class="table-responsive">
-                                <table class="table table-striped responsive-table text-center">
-                                    <thead>
-                                    <tr>
-                                        <th>شماره کلاس</th>
-                                        <th>شیفت</th>
-                                        <th>وضعیت</th>
-                                    </tr>
-                                    </thead>
-                                    <tbody>
-                                        {% for c in class %}
-                                            <tr>
-                                                <td>
-                                                <h4>{{ c.number }}</h4>
-                                                </td>
-                                                <td>{{ c.shift }}</td>
-                                                <td>
-                                                    <a class="btn badge btn-primary" href="{% url 'student:edit-class' c.number c.shift %}">ویرایش</a>
-                                                    <!-- Button trigger modal -->
-                                                    <button type="button" class="btn badge btn-danger" data-bs-toggle="modal" data-bs-target="#staticBackdrop-{{ c.id }}">
-                                                        پاک کردن
-                                                    </button>
-                                                    
-                                                    <!-- Modal -->
-                                                    <form action="{% url 'student:delete-class' c.id %}" method="post">
-                                                        {% csrf_token %}
-                                                        <div class="modal fade" id="staticBackdrop-{{ c.id }}" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-                                                            <div class="modal-dialog">
-                                                            <div class="modal-content">
-                                                                <div class="modal-header">
-                                                                <h5 class="modal-title" id="staticBackdropLabel">Modal title</h5>
-                                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                                                </div>
-                                                                <div class="modal-body">
-                                                                آیا میخواهدی این کلاس را پاک کنید؟  "{{ c.number }}-{{ c.shift }}"
-                                                                </div>
-                                                                <div class="modal-footer">
-                                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">انصراف</button>
-                                                                <button type="submit" class="btn btn-danger">پاک کردن</button>
-                                                                </div>
+                    <div class="col-md-12 col-sm-12 col-lg-6 col-xl-6 col-12 mt-5">
+                        <div class="card">
+                        <div class="card-header align-items-center">
+                            <h4 class="card-title">کلاس های ثبت شده</h4>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-responsive">
+                            <table class="table table-striped responsive-table text-center">
+                                <thead>
+                                <tr>
+                                    <th>شماره کلاس</th>
+                                    <th>شیفت</th>
+                                    <th>وضعیت</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                    {% for c in class %}
+                                        <tr>
+                                            <td>
+                                            <h4>{{ c.number }}</h4>
+                                            </td>
+                                            <td>{{ c.shift }}</td>
+                                            <td>
+                                                <a class="btn badge btn-primary" href="{% url 'student:edit-class' c.number c.shift %}">ویرایش</a>
+                                                <!-- Button trigger modal -->
+                                                <button type="button" class="btn badge btn-danger" data-bs-toggle="modal" data-bs-target="#staticBackdrop-{{ c.id }}">
+                                                    پاک کردن
+                                                </button>
+                                                
+                                                <!-- Modal -->
+                                                <form action="{% url 'student:delete-class' c.id %}" method="post">
+                                                    {% csrf_token %}
+                                                    <div class="modal fade" id="staticBackdrop-{{ c.id }}" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                                                        <div class="modal-dialog">
+                                                        <div class="modal-content">
+                                                            <div class="modal-header">
+                                                            <h5 class="modal-title" id="staticBackdropLabel">
+                                                            آیا میخواهدی این کلاس را پاک کنید؟  "{{ c.number }}-{{ c.shift }}"
+                                                            </h5>
+                                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                                             </div>
+                                                            <div class="modal-footer d-flex justify-content-bettwen">
+                                                            <button type="button" class="btn btn-sm btn-secondary" data-bs-dismiss="modal">انصراف</button>
+                                                            <button type="submit" class="btn btn-sm btn-danger">پاک کردن</button>
                                                             </div>
                                                         </div>
-                                                    </form>
-                                                
-
-                                                </td>
-                                                
-                                            </tr>
-                                        {% endfor %}
-                                    </tbody>
-                                </table>
-                                </div>
-            
+                                                        </div>
+                                                    </div>
+                                                </form>
+                                            </td>
+                                        </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
                             </div>
-                            </div>
+        
+                        </div>
                         </div>
                     </div>
+                    <hr>
                 </div>
             </div>
 

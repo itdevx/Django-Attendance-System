@@ -5521,6 +5521,7 @@ fieldset:disabled .btn {
 .modal.fade .modal-dialog {
     transition: transform 0.3s ease-out;
     transform: translate(0, -50px);
+    margin-top: 100px !important;
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -11233,7 +11234,7 @@ strong {
 }
 
 .dark-theme .modal-content {
-    background-color: #152a8d;
+    background-color: #212529;
 }
 
 .dark-theme .modal-content .modal-header {
