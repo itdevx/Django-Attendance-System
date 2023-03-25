@@ -62,7 +62,6 @@
                                                 <button type="button" class="btn badge btn-danger" data-bs-toggle="modal" data-bs-target="#staticBackdrop-{{ c.id }}">
                                                     پاک کردن
                                                 </button>
-                                                
                                                 <!-- Modal -->
                                                 <form action="{% url 'student:delete-class' c.id %}" method="post">
                                                     {% csrf_token %}
