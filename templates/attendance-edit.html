@@ -1,6 +1,8 @@
 {% extends 'base.html' %}
 {% load static %}
 
+{% block title %}ویرایش لیست حضور غیاب{% endblock %}
+
 {% block body %}
 
 	<div id="main-wrapper">
@@ -60,7 +62,7 @@
 										<div class="btn-group btn-group-toggle" data-toggle="buttons" dir="ltr">
                                             {% if s.status %}
 											<label class="btn btn-outline-success btn-sm active">
-												<input type="radio" name="{{ s.student.usn }}" id="option1" autocomplete="off" value="present" checked> حاضر
+												<input type="radio" name="{{ s.student.usn }}" id="option1" class="text-light" autocomplete="off" value="present" checked> حاضر
 											</label>
 											<label class="btn btn-outline-danger btn-sm">
 												<input type="radio" name="{{ s.student.usn }}" id="option2" autocomplete="off" value="absent"> غایب
