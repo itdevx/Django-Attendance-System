@@ -14,10 +14,12 @@ from io import BytesIO
 from django.template.loader import get_template, render_to_string
 from xhtml2pdf import pisa
 import pandas as pd
+from io import StringIO
 
 
 class IndexView(LoginRequiredMixin, generic.View):
     login_url = 'account:login'
+    template_name = 'home.html'
     
     def get(self, request):
         student_m = models.Student.objects.filter(class_id__shift='صبح').count()
@@ -35,17 +37,18 @@ class IndexView(LoginRequiredMixin, generic.View):
         if assign_e.exists():
             c['class_room_e'] = assign_e
 
-        return render(request, 'home.html', c)
+        return render(request, self.template_name, c)
 
 
 class ClassRoomView(LoginRequiredMixin, generic.View):
     login_url = 'account:login'
-
+    template_name = 'class-room.html'
+    
     def get(self, request, *args, **kwargs):
         number = kwargs.get('number')
         shift = kwargs.get('shift')
         students_in_class_room = models.Student.objects.filter(class_id__number=number, class_id__shift=shift).all()
-        return render(request, 'class-room.html', {'student_class_room': students_in_class_room, 'class': number})
+        return render(request, self.template_name, {'student_class_room': students_in_class_room, 'class': number})
 
 
 class AttendanceList(LoginRequiredMixin, generic.View):
@@ -106,11 +109,11 @@ class AttendanceEdit(LoginRequiredMixin, generic.View):
             # return redirect('student:index')
         c={'att_list': att, 'class_id_number': class_id_number}
         return render(self, self.template_name, c)
-        
 
 
 class AttendanceStudent(generic.View):
     template_name = 'view-attendance-student.html'
+    
     def get(self, request, *args, **kwargs):
         return render(request, self.template_name)
 
@@ -332,8 +335,6 @@ def confirm_update(request, assign_class_id, date, zang):
     return redirect('student:attendance',assign_class_id)
 
 
-
-
 class SearchingView(generic.ListView):
     template_name = 'search.html'
     context_object_name = 'student_class_room'
@@ -361,25 +362,26 @@ def export_csv(request, id_code):
     return response
 
 
-# add table
 def render_to_pdf(template_src, context={}):
     template = get_template(template_src)
     html = template.render(context)
     result = BytesIO()
-    pdf = pisa.pisaDocument(BytesIO(html.encode('UTF-16')), result)
+    # pdf = pisa.pisaDocument(BytesIO(html.encode('UTF-8')), result)
+    pdf = pisa.CreatePDF(BytesIO(html.encode('utf-8')), dest=result)
     if not pdf.err:
         return HttpResponse(result.getvalue(), content_type='application/pdf')
     return None
 
 
-# Bug
 def export_pdf(request, id_code):
-    template = get_template('pdf-output.html')
-    student = models.Student.objects.filter(id_code=id_code)
+    # template = get_template('pdf-output.html')
+    student = models.Student.objects.filter(id_code=id_code).values()
+    df = pd.DataFrame(student)
+    print(df)
     context = {
         'student': student
     }
-    html = template.render(context)
+    # html = template.render(context)
     pdf = render_to_pdf('pdf-output.html', context)
     if pdf:
         return HttpResponse(pdf, content_type='application/pdf')

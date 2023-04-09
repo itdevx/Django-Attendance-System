@@ -17,6 +17,7 @@
                                         <div class="row">
                                             <div class="col-md-6">
                                                 {{ form.number }}
+                                                {{ form.number|placeholder:'This is test' }}
                                                 {% for e in form.number.errors %}
                                                     <p class="text-danger text-center">{{ e }}</p>
                                                 {% endfor %}
