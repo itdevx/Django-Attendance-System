@@ -11,3 +11,9 @@
 12- change date with django jalali [X]
 13- Rest password []
 14- create new superuser view []
+
+
+[] - usn and change date for create the new student
+[X] - fixed create reshte and create class
+[] - change password and create new user
+[] - 

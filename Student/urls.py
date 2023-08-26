@@ -43,7 +43,7 @@ urlpatterns = [
         'edited/delete-class/<int:pk>', views.ClassDelete.as_view(), name='delete-class'
     ),
     path(
-        'edited/edit-class/<number>/<shift>', views.class_edit, name='edit-class'
+        'edited/edit-class/<number>/<shift>', views.EditClassView.as_view(), name='edit-class'
     ),
     path(
         'created/create-reshte/', views.CreateReshteView.as_view(), name='create-reshte'

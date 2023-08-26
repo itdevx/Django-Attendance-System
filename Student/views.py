@@ -1,3 +1,5 @@
+from typing import Any, Dict, Optional
+from django.db import models
 from django.shortcuts import redirect, render, get_object_or_404, HttpResponseRedirect
 from django.http import HttpResponse
 from django.urls import reverse_lazy
@@ -132,13 +134,16 @@ class CreateClassView(LoginRequiredMixin, generic.View):
         if request.POST:
             form = forms.ClassForm(request.POST)
             if form.is_valid():
-                form.save()
-                c = models.Class.objects.last()
-                a = models.Assign(class_id=c)
-                a.save()
-                at = models.AttendanceClass(assign=a)
-                at.save()
-                return redirect('student:create-assign')
+                if models.Class.objects.filter(number=request.POST['number'], shift=request.POST['shift']):
+                    form.add_error('number', 'این کلاس از قبل ثبت شده است')
+                else:
+                    form.save()
+                    c = models.Class.objects.last()
+                    a = models.Assign(class_id=c)
+                    a.save()
+                    at = models.AttendanceClass(assign=a)
+                    at.save()
+                    return redirect('student:create-class')
         else:
             form = forms.ClassForm()
         return render(request, self.template_name, {'form': form, 'class': class_})
@@ -150,38 +155,35 @@ class ClassDelete(LoginRequiredMixin, generic.DeleteView):
     success_url = reverse_lazy('student:create-class')
     
 
-@login_required(login_url='account:login')
-def class_edit(request, number, shift):
-    context = {}
-    obj = get_object_or_404(models.Class, number=number, shift=shift)
-    form = forms.ClassForm(request.POST or None, instance=obj)
-    class_ = models.Class.objects.all()
-    if form.is_valid():
-        form.save()
-        return redirect('student:index')
-    context['form'] = form
-    context['class'] = class_
-    return render(request, 'create-class.html', context)
+class EditClassView(LoginRequiredMixin, generic.UpdateView):
+    login_url = 'account:login'
+    template_name = 'create-class.html'
+    context_object_name = 'form'
+    form_class = forms.ClassForm
+    model = models.Class
+    success_url = reverse_lazy('student:create-class')
+    
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['class'] = models.Class.objects.all()
+        return context
+        
+    def get_object(self, queryset=None):
+        return self.model.objects.get(number=self.kwargs['number'], shift=self.kwargs['shift'])
 
 
-class CreateReshteView(LoginRequiredMixin, generic.View):
+class CreateReshteView(LoginRequiredMixin, generic.CreateView):
+    model = models.Reshte
     login_url = 'account:login'
     template_name = 'create-reshte.html'
-
-    def get(self, request, *args, **kwargs):
-        form = forms.ReshteForm(request.POST)
-        reshte = models.Reshte.objects.all()
-        return render(request, self.template_name, {'form': form, 'reshte': reshte})
+    success_url = reverse_lazy('student:created-list')
+    context_object_name = 'form'
+    form_class = forms.ReshteForm
     
-    def post(self, request, *args, **kwargs):
-        if request.POST:
-            form = forms.ReshteForm(request.POST)
-            if form.is_valid():
-                form.save()
-                return redirect('student:created-list')
-        else:
-            form = forms.ReshteForm()
-        return render(request, self.template_name, {'form': form})
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['reshte'] = models.Reshte.objects.all()
+        return context
 
 
 class ReshteDelete(LoginRequiredMixin, generic.DeleteView):
@@ -192,15 +194,16 @@ class ReshteDelete(LoginRequiredMixin, generic.DeleteView):
 
 @login_required(login_url='account:login')
 def reshte_edit(request, pk):
-    context = {}
-    objec = get_object_or_404(models.Reshte, id=pk)
-    form = forms.ReshteForm(request.POST or None, instance=objec)
+    obj = get_object_or_404(models.Reshte, id=pk)
+    form = forms.ReshteForm(request.POST or None, instance=obj)
     reshte = models.Reshte.objects.all()
     if form.is_valid():
         form.save()
         return redirect('student:create-reshte')
-    context['form'] = form
-    context['reshte'] = reshte
+    context = {
+        'form' : form,
+        'reshte' : reshte
+    }
     return render(request, 'create-reshte.html', context)
 
 

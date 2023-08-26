@@ -7574,11 +7574,13 @@ fieldset:disabled .btn {
 }
 
 .bg-primary {
-    background-color: #3B3B98 !important;
+    /* background-color: #3B3B98 !important; */
+    background-color: #175873 !important;
 }
 
 .bg-secondary {
-    background-color: #74788d !important;
+    /* background-color: #74788d !important; */
+    background-color: #5885AF !important;
 }
 
 .bg-success {
@@ -7590,7 +7592,8 @@ fieldset:disabled .btn {
 }
 
 .bg-warning {
-    background-color: #f1b44c !important;
+    /* background-color: #f1b44c !important; */
+    background-color: #2B7C85 !important;
 }
 
 .bg-danger {

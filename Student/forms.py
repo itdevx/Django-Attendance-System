@@ -51,12 +51,6 @@ class ClassForm(forms.ModelForm):
         model = models.Class
         fields = '__all__'
 
-    def clean_number(self):
-        number = self.cleaned_data.get('number')
-        if models.Class.objects.filter(number=number).exists():
-            raise forms.ValidationError('این کلاس از قبل ثبت شده است')
-        else:
-            return number
     
 
 class ReshteForm(forms.ModelForm):
@@ -67,10 +61,3 @@ class ReshteForm(forms.ModelForm):
     class Meta:
         model = models.Reshte
         fields = '__all__'
-
-    def clean_name(self):
-        name = self.cleaned_data['name']
-        if models.Reshte.objects.filter(name=name).exists():
-            raise forms.ValidationError('این رشته تحصیلی از قبل ثبت شده است')
-        else:
-            return name

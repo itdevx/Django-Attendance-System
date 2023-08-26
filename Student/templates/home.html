@@ -32,7 +32,8 @@
 									<td>
 										<div class="badge p-3 bg-primary"><a href="{{ c.get_absolute_url }}" class="text-white">مشاهده</a></div>
 										<div class="badge p-3 bg-warning"><a href="{% url 'student:attendance' c.class_id.number %}" class="text-white">حضور غیاب</a></div>
-										<div class="badge p-3 bg-green"><a href="{% url 'student:attendance-list' c.class_id.number %}" class="text">لیست حضور غیاب این کلاس</a></div>
+										<div class="badge p-3 bg-secondary"><a href="{% url 'student:attendance-list' c.class_id.number %}" class="text-white">لیست حضور غیاب این کلاس</a></div>
+										<!-- <div class="badge p-3 bg-green"><a href="{% url 'student:attendance-list' c.class_id.number %}">لیست حضور غیاب این کلاس</a></div> -->
 									</td>
 								</tr>
 							{% endfor %}
@@ -68,7 +69,7 @@
 									<td>
 										<div class="badge p-3 bg-primary"><a href="{{ c.get_absolute_url }}" class="text-white">مشاهده</a></div>
 										<div class="badge p-3 bg-warning"><a href="{% url 'student:attendance' c.class_id.number %}" class="text-white">حضور غیاب</a></div>
-										<div class="badge p-3 bg-green"><a href="{% url 'student:attendance-list' c.class_id.number %}" class="text">لیست حضور غیاب این کلاس</a></div>
+										<div class="badge p-3 bg-secondary"><a href="{% url 'student:attendance-list' c.class_id.number %}" class="text-white">لیست حضور غیاب این کلاس</a></div>
 									</td>
 								</tr>
 							{% endfor %}
