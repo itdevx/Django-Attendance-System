@@ -1,0 +1,70 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load jalali_tags %}
+{% block title %}ایجاد معلم جدید{% endblock %}
+{% block body %}
+
+	<div id="main-wrapper">
+	    <div class="content-body">
+		<div class="container">
+		    <div class="row mt-5 d-flex justify-content-bettwen">
+                <div class="col-md-12 col-sm-12 col-lg-6 col-xl-6 col-12 mt-5">
+                    <form action="" method="post">
+                        {% csrf_token %}
+                        <div class="row d-flex justify-content-center ">
+                            <div class="col-md-8">
+                                <div class="col-md-12">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            {{ form.as_p }}
+                                            {{ form.media }}
+{#                                             {% for e in form.name.errors %}#}
+{#                                                <p class="text-danger text-center">{{ e }}</p>#}
+{#                                            {% endfor %}#}
+                                        </div>
+                                    </div>
+                                    <button class="btn btn-primary btn-sm mt-5 btn-block mb-5">ذخیره</button>
+                                    <hr class="text-secondary mb-5">
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="col-md-12 col-sm-12 col-lg-6 col-xl-6 col-12 mt-5">
+                    <div class="card">
+                    <div class="card-header align-items-center">
+                        <h4 class="card-title">  معلم های ثبت شده</h4>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                        <table class="table table-striped responsive-table text-center">
+                            <thead>
+                            <tr>
+                                <th>رشته تحصیلی</th>
+                                <th>وضعیت</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                                {% for t in teachers %}
+                                    <tr>
+                                        <td>
+                                            <h4>{{ t.first_name }} {{ t.last_name }}</h4>
+                                        </td>
+                                        <td>
+                                            
+                                        </td>
+                                    </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                        </div>
+    
+                    </div>
+                    </div>
+                </div>
+		    </div>
+		</div>
+	    </div>
+	</div>
+
+{% endblock %}

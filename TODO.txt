@@ -13,7 +13,26 @@
 14- create new superuser view []
 
 
-[] - usn and change date for create the new student
 [X] - fixed create reshte and create class
-[] - change password and create new user
-[] - 
+
+
+
+[] - create app theacher
+[] - create table for task theacher
+[] - add alert message after success work(creating or updating)
+
+teacher :
+    login
+    attendance students system
+    see all task class in week and change to last year
+
+
+student :
+    plus class number to last year
+    upload pdf or image file and add text for student + attendance system
+    exporting all information for student in year
+    if student finish uni Archive all data in database
+
+
+
+    

@@ -2,7 +2,10 @@ from cmath import log
 from django.shortcuts import redirect, render
 from django.views import generic
 from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.models import User
 from Account import forms
+from Account.forms import UserRegistrationForm
+from django.urls import reverse_lazy
 
 
 class LoginView(generic.View):
@@ -41,7 +44,15 @@ class LogoutRequest(generic.View):
         return redirect('account:login')
 
 
-class SignUpView(generic.View):
-    def get(self, request):
-        return render(request, 'signup.html')
+class SignUpView(generic.CreateView):
+    template_name = 'create-user.html'
+    success_url = reverse_lazy('student:created-list')
+    form_class = UserRegistrationForm
+    model = User
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        return context
+
+
         

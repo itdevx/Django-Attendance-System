@@ -9,7 +9,7 @@ urlpatterns = [
         'login/', views.LoginView.as_view(), name='login'
     ),
     path(
-        'register', views.SignUpView.as_view(), name='register'
+        'create-user', views.SignUpView.as_view(), name='create-user'
     ),
     path(
         'logout', views.LogoutRequest.as_view(), name='logout'

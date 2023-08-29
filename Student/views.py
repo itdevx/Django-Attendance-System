@@ -6,8 +6,10 @@ from django.urls import reverse_lazy
 from django.urls import reverse
 from django.views import generic
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.models import User
 from Student import models
 from Student import forms
+from teacher import forms as tf
 from django.contrib.auth.decorators import login_required
 from extentions.utils import jalali_converter
 from django.utils import timezone
@@ -205,6 +207,20 @@ def reshte_edit(request, pk):
         'reshte' : reshte
     }
     return render(request, 'create-reshte.html', context)
+    
+
+class CreateTeacher(LoginRequiredMixin, generic.CreateView):
+    login_url = 'account:login'
+    template_name = 'create-teacher.html'
+    model = User
+    form_class = tf.TeacherWeekForm
+    success_url = reverse_lazy('student:create-teacher')
+    context_object_name = 'form'
+    
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['teachers'] = User.objects.all()
+        return context
 
 
 class CreateStudenView(LoginRequiredMixin, generic.View):

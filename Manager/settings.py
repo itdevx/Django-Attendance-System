@@ -41,7 +41,9 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'Student',
     'Account',
-    'jalali_date'
+    'teacher',
+    'jalali_date',
+    'bootstrap_datepicker_plus'
 ]
 
 MIDDLEWARE = [

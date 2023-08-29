@@ -30,8 +30,17 @@ ZANG = (
     ('دوم', 'دوم'),
 )
 
+WEEK = (
+    ('شنبه', 'شنبه'),
+    ('یکشنبه', 'یکشنبه'),
+    ('دوشنبه', 'دوشنبه'),
+    ('سه شنبه', 'سه شنبه'),
+    ('چهارشنبه', 'چهارشنبه'),
+)
+
 class Reshte(models.Model):
     name = models.CharField(max_length=100)
+    
 
     def __str__(self):
         return self.name
