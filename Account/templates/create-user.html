@@ -16,8 +16,26 @@
                                 <div class="col-md-12">
                                     <div class="row">
                                         <div class="col-md-12">
-                                            {{ form.as_p }}
-                                            {{ form.media }}
+                                            {{ form.username }}
+                                            {% for e in form.username.errors %}
+                                                <p class="text-danger">{{ e }}</p>
+                                            {% endfor %}
+                                            {{ form.first_name }}
+                                            {% for e in form.first_name.errors %}
+                                                <p class="text-danger">{{ e }}</p>
+                                            {% endfor %}
+                                            {{ form.last_name }}
+                                            {% for e in form.last_name.errors %}
+                                                <p class="text-danger">{{ e }}</p>
+                                            {% endfor %}
+                                            {{ form.password1 }}
+                                            {% for e in form.password1.errors %}
+                                                <p class="text-danger">{{ e }}</p>
+                                            {% endfor %}
+                                            {{ form.password2 }}
+                                            {% for e in form.password2.errors %}
+                                                <p class="text-danger">{{ e }}</p>
+                                            {% endfor %}
                                             {% for e in form.errors %}
                                                 <p class="text-danger">{{ e }}</p>
                                             {% endfor %}
@@ -45,17 +63,43 @@
                             </tr>
                             </thead>
                             <tbody>
-
+                                {% for t in teacher %}
                                     <tr>
                                         <td>
-                                            <h4></h4>
+                                            <h4>{{ t.get_full_name }}</h4>
                                         </td>
                                         <td>
-                                            
+                                            <a class="btn badge btn-primary" href="">ویرایش</a>
+                                            <button type="button" class="btn badge btn-danger" data-bs-toggle="modal" data-bs-target="#staticBackdrop-{{ t.id }}">
+                                                پاک کردن
+                                            </button>
+
+                                            <!-- Modal -->
+                                            <form action="" method="post">
+                                                {% csrf_token %}
+                                                <div class="modal fade" id="staticBackdrop-{{ t.id }}" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                                                    <div class="modal-dialog">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                        <h5 class="modal-title" id="staticBackdropLabel">
+                                                            آیا میخواهید این معلم را پاک کنید؟  "{{ t.get_full_name }}"
+                                                        </h5>
+                                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                        </div>
+
+                                                        <div class="modal-footer">
+                                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">انصراف</button>
+                                                        <button type="submit" class="btn btn-danger">پاک کردن</button>
+                                                        </div>
+                                                    </div>
+                                                    </div>
+                                                </div>
+                                            </form>
                                         </td>
                                     </tr>
-
+                                {% endfor %}
                             </tbody>
+
                         </table>
                         </div>
     
