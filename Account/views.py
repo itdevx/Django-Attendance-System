@@ -6,6 +6,8 @@ from django.contrib.auth.models import User
 from Account import forms
 from Account.forms import UserRegistrationForm
 from django.urls import reverse_lazy
+from django.contrib.auth.mixins import LoginRequiredMixin
+
 
 
 class LoginView(generic.View):
@@ -44,7 +46,8 @@ class LogoutRequest(generic.View):
         return redirect('account:login')
 
 
-class SignUpView(generic.CreateView):
+class SignUpView(LoginRequiredMixin, generic.CreateView):
+    login_url = 'account:login'
     template_name = 'create-user.html'
     success_url = reverse_lazy('student:created-list')
     form_class = UserRegistrationForm
@@ -54,6 +57,3 @@ class SignUpView(generic.CreateView):
         context = super().get_context_data(**kwargs)
         context['teacher'] = User.objects.all()
         return context
-
-
-        

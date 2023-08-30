@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 {% load static %}
-{% block title %}اطلاعات دانش آموز | {{ student.full_name }}{% endblock %}
+{% block title %}  | {% endblock %}
 {% block body %}
 
 	<div id="main-wrapper">
@@ -10,34 +10,28 @@
                     <div class="col-xxl-12 col-xl-12">
                         <div class="card">
                         <div class="card-header">
-                            <h4 class="card-title">تست</h4>
+                            <h4 class="card-title">جدول برنامه هفتگی آقای  {{ teacher.get_full_name }}</h4>
                         </div>
                         <div class="card-body">
                             <div class="table-responsive transaction-table">
                             <table class="table table-striped responsive-table text-center">
                                 <thead>
                                 <tr>
-                                    <th>نام خانوادگی</th>
-                                    <th>نام پدر</th>
-                                    <th>شماره ملی</th>
-                                    <th>شماره کلاس</th>
-                                    <th>شیفت</th>
-                                    <th>پایه تحصیلی</th>
-                                    <th>رشته تحصیلی</th>
-                                    <th>خروجی</th>
+                                    <th>روز های هفته</th>
+                                    <th>کلاس ها</th>
+                                    <th>زمان شروع</th>
+                                    <th>زمان پایان</th>
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <tr>
-                                    <td>{{ student.full_name }}</td>
-                                    <td>{{ student.father_name }}</td>
-                                    <td>{{ student.id_code }}</td>
-                                    <td>{{ student.class_id.number }}</td>
-                                    <td>{{ student.class_id.shift }}</td>
-                                    <td>{{ student.level }}</td>
-                                    <td>{{ student.reshte }}</td>
-                                    <td><a href="{% url 'student:export-csv' student.id_code %}">CSV</a> <a href="{% url 'student:export-pdf' student.id_code %}">PDF</a> </td>
-                                </tr>
+                                {% for t in teacher_wt %}
+                                    <tr>
+                                            <td>{{ t.day }}</td>
+                                            <td>{{ t.classes }}</td>
+                                            <td>{{ t.start_time }}</td>
+                                            <td>{{ t.end_time }}</td>
+                                    </tr>
+                                {% endfor %}
                                 </tbody>
                             </table>
                             </div>
@@ -48,63 +42,6 @@
             </div>
 		<div class="container">
 		    <div class="row">
-
-			<div class="col-xxl-6 col-xl-6">
-			    <div class="card">
-				<div class="card-header">
-				    <h4 class="card-title">حضور و غیاب</h4>
-				</div>
-				<div class="card-body">
-					<table class="table table-striped responsive-table text-center">
-						<thead>
-						<tr>
-							<th>تاریخ</th>
-							<th>زنگ</th>
-							<th>وضعیت</th>
-						</tr>
-						</thead>
-						<tbody>
-						{% for a in attendance %}
-							<tr>
-								<td>{{ a.date }}</td>
-								<td>{{ a.zang }}</td>
-								<td>
-									{% if a.status %}
-										<h5 class="text-success">
-											حاضر
-										</h5>
-									{% else %}
-										<h5 class="text-danger">
-											غایب
-										</h5>
-								{% endif %}
-								</td>
-							</tr>
-						{% endfor %}
-						</tbody>
-					</table>
-				    <!-- <ul class="align-center">
-						{% for a in attendance %}
-							{{ a.zang }}
-                            <li>
-								{% if a.status %}
-									<h5 class="text-success">
-										حاضر
-									</h5>
-								{% else %}
-									<h5 class="text-danger">
-										غایب
-									</h5>
-								{% endif %}
-                                <h5 class="text-left">{{ a.jdate }}</h5>
-								<span></span>
-								<hr class="text-primary">
-                            </li>
-						{% endfor %}
-				    </ul> -->
-				</div>
-			    </div>
-			</div>
             <!-- <div class="col-xxl-8">
 			    <div class="card">
 				<div class="card-header">

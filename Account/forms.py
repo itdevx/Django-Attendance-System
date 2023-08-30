@@ -14,8 +14,8 @@ class UserRegistrationForm(UserCreationForm):
         self.fields['username'].widget.attrs.update({'class': 'form-control text-center mt-3', 'placeholder': 'نام کاربری را وارد کنید (کد ملی)'})
         self.fields['first_name'].widget.attrs.update({'class': 'form-control text-center mt-3', 'placeholder': 'نام را وارد کنید'})
         self.fields['last_name'].widget.attrs.update({'class': 'form-control text-center mt-3', 'placeholder': 'نام خانوادگی را وارد کنید'})
-        self.fields['password1'].widget.attrs.update({'class': 'form-control text-center mt-3', 'placeholder': 'گذر واژه را وارد کنید'})
-        self.fields['password2'].widget.attrs.update({'class': 'form-control text-center mt-3', 'placeholder': 'گذره وازه را دوباره وارد کنید'})
+        self.fields['password1'].widget.attrs.update({'class': 'form-control text-center mt-3', 'placeholder': 'گذرواژه را وارد کنید'})
+        self.fields['password2'].widget.attrs.update({'class': 'form-control text-center mt-3', 'placeholder': 'گذرواژه را دوباره وارد کنید'})
 
     class Meta:
         model = User

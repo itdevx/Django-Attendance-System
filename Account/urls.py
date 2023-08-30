@@ -13,5 +13,5 @@ urlpatterns = [
     ),
     path(
         'logout', views.LogoutRequest.as_view(), name='logout'
-    )
+    ),
 ]

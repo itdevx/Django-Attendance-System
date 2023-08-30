@@ -10,7 +10,7 @@ valid_time_formats = ['%P', '%H:%M%A', '%H:%M %A', '%H:%M%a', '%H:%M %a']
 class UserFullName(User):
     class Meta:
         proxy = True
-        
+
     def __str__(self):
         return self.get_full_name()
 

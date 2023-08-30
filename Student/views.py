@@ -209,7 +209,7 @@ def reshte_edit(request, pk):
     return render(request, 'create-reshte.html', context)
     
 
-class CreateTeacher(LoginRequiredMixin, generic.CreateView):
+class CreateTaskForTeacher(LoginRequiredMixin, generic.CreateView):
     login_url = 'account:login'
     template_name = 'create-teacher.html'
     model = User
