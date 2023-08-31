@@ -11,7 +11,10 @@ class TeacherWeekTable(LoginRequiredMixin, generic.View):
 
     def get(self, request, username):
         teacher = User.objects.get(username=username)
-        teacher_week = TeacherWeek.objects.filter(teacher=teacher)
+        teacher_week = TeacherWeek.objects.filter(teacher=teacher).order_by('-day', 'start_time', 'classes')
+        for i in teacher_week:
+            print(int(i.start_time.hour))
+
         context = {
             'teacher_wt' : teacher_week,
             'teacher' : teacher

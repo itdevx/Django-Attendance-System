@@ -32,5 +32,12 @@ class TeacherWeekForm(forms.ModelForm):
             'start_time' : TimePickerInput(),
             'end_time' : TimePickerInput(),
         }
-        
-    
+
+    def clean_end_time(self):
+        data = super(TeacherWeekForm, self).clean()
+        start_time = self.cleaned_data.get('start_time')
+        end_time = self.cleaned_data.get('end_time')
+        if start_time.hour >= end_time.hour:
+            raise forms.ValidationError('ساعت شروع از ساعت پایان بیشتر میباشد')
+        return
+
