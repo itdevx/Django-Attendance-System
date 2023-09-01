@@ -7,6 +7,7 @@ from Account import forms
 from Account.forms import UserRegistrationForm
 from django.urls import reverse_lazy
 from django.contrib.auth.mixins import LoginRequiredMixin
+from Student import mixins
 
 
 
@@ -46,7 +47,7 @@ class LogoutRequest(generic.View):
         return redirect('account:login')
 
 
-class SignUpView(LoginRequiredMixin, generic.CreateView):
+class SignUpView(mixins.SuperUserAccessMixins, LoginRequiredMixin, generic.CreateView):
     login_url = 'account:login'
     template_name = 'create-user.html'
     success_url = reverse_lazy('student:created-list')

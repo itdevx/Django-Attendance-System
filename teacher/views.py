@@ -27,7 +27,7 @@ class Teacher(LoginRequiredMixin, generic.View):
     def get(self, request):
         if not request.user.is_superuser:
             teacher = User.objects.filter(username=request.user.username)
-            teacher_week = TeacherWeek.objects.filter(teacher=teacher).order_by('-day', 'start_time', 'classes')
+            teacher_week = TeacherWeek.objects.filter(teacher=teacher).order_by('-day', 'start_time')
             print(teacher_week)
             context = {
                 'teacher': teacher,

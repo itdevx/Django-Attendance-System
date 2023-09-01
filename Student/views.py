@@ -9,6 +9,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.models import User
 from Student import models
 from Student import forms
+from Student import mixins
 from teacher import forms as tf
 from django.contrib.auth.decorators import login_required
 from extentions.utils import jalali_converter
@@ -30,7 +31,6 @@ class IndexView(LoginRequiredMixin, generic.View):
         if request.user.is_superuser:
             student_m = models.Student.objects.filter(class_id__shift='صبح').count()
             student_e = models.Student.objects.filter(class_id__shift='عصر').count()
-
             c = {
                 'student_m': student_m,
                 'student_e': student_e,
@@ -45,16 +45,20 @@ class IndexView(LoginRequiredMixin, generic.View):
                 c['class_room_e'] = assign_e
 
             return render(request, self.template_name, c)
+
         else:
             self.template_name = 'teacher.html'
             teacher = User.objects.get(username=request.user.username)
-            teacher_week_table = TeacherWeek.objects.filter(teacher=teacher)
+            teacher_week_table = TeacherWeek.objects.filter(teacher=teacher).order_by('-day', '-start_time')
+            # add attendance filter by teacher!
+
             context = {
                 'teacher': teacher,
                 'teacher_wt': teacher_week_table
             }
 
             return render(request, self.template_name, context)
+
 
 class ClassRoomView(LoginRequiredMixin, generic.View):
     login_url = 'account:login'
@@ -95,7 +99,6 @@ class AttendanceList(LoginRequiredMixin, generic.View):
         return render(request, self.template_name, c)
 
 
-# add new view for filter zang
 class AttendanceEdit(LoginRequiredMixin, generic.View):
     login_url = 'account:login'
     template_name = 'attendance-edit.html'
@@ -134,7 +137,7 @@ class AttendanceStudent(generic.View):
         return render(request, self.template_name)
 
 
-class CreateClassView(LoginRequiredMixin, generic.View):
+class CreateClassView(mixins.SuperUserAccessMixins, LoginRequiredMixin, generic.View):
     login_url = 'account:login'
     template_name = 'create-class.html'
 
@@ -163,13 +166,13 @@ class CreateClassView(LoginRequiredMixin, generic.View):
         return render(request, self.template_name, {'form': form, 'class': class_})
 
 
-class ClassDelete(LoginRequiredMixin, generic.DeleteView):
+class ClassDelete(mixins.SuperUserAccessMixins, LoginRequiredMixin, generic.DeleteView):
     login_url = 'account:login'
     model = models.Class
     success_url = reverse_lazy('student:create-class')
     
 
-class EditClassView(LoginRequiredMixin, generic.UpdateView):
+class EditClassView(mixins.SuperUserAccessMixins, LoginRequiredMixin, generic.UpdateView):
     login_url = 'account:login'
     template_name = 'create-class.html'
     context_object_name = 'form'
@@ -186,7 +189,7 @@ class EditClassView(LoginRequiredMixin, generic.UpdateView):
         return self.model.objects.get(number=self.kwargs['number'], shift=self.kwargs['shift'])
 
 
-class CreateReshteView(LoginRequiredMixin, generic.CreateView):
+class CreateReshteView(mixins.SuperUserAccessMixins, LoginRequiredMixin, generic.CreateView):
     model = models.Reshte
     login_url = 'account:login'
     template_name = 'create-reshte.html'
@@ -200,7 +203,7 @@ class CreateReshteView(LoginRequiredMixin, generic.CreateView):
         return context
 
 
-class ReshteDelete(LoginRequiredMixin, generic.DeleteView):
+class ReshteDelete(mixins.SuperUserAccessMixins, LoginRequiredMixin, generic.DeleteView):
     login_url = 'account:login'
     model = models.Reshte
     success_url = reverse_lazy('student:create-reshte')
@@ -221,7 +224,7 @@ def reshte_edit(request, pk):
     return render(request, 'create-reshte.html', context)
     
 
-class CreateTaskForTeacher(LoginRequiredMixin, generic.CreateView):
+class CreateTaskForTeacher(mixins.SuperUserAccessMixins, LoginRequiredMixin, generic.CreateView):
     login_url = 'account:login'
     template_name = 'create-teacher.html'
     model = User
@@ -235,7 +238,7 @@ class CreateTaskForTeacher(LoginRequiredMixin, generic.CreateView):
         return context
 
 
-class CreateStudenView(LoginRequiredMixin, generic.View):
+class CreateStudenView(mixins.SuperUserAccessMixins, LoginRequiredMixin, generic.View):
     login_url = 'account:login'
     template_name = 'create-student.html'
 
@@ -254,7 +257,7 @@ class CreateStudenView(LoginRequiredMixin, generic.View):
         return render(request, self.template_name, {'form': form})
 
 
-class StudentInfoView(LoginRequiredMixin, generic.View):
+class StudentInfoView(mixins.SuperUserAccessMixins, LoginRequiredMixin, generic.View):
     login_url = 'account:login'
     template_name = 'student.html'
 
@@ -377,7 +380,7 @@ class SearchingView(generic.ListView):
         return models.Student.objects.all()
 
 
-class WalletView(generic.View):
+class WalletView(mixins.SuperUserAccessMixins, generic.View):
     def get(self, request):
         return render(request, 'index.html')
 

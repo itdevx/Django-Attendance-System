@@ -11,8 +11,14 @@
             <span><i class="icofont-ui-home"></i></span>
             </a>
         </li>
+            {% if request.user.is_superuser %}
         <li><a href="{% url 'student:created-list' %}" data-toggle="tooltip" data-placement="right" title="تنظیمات">
             <span><i class="icofont-settings"></i></span>
+            </a>
+        </li>
+            {% endif %}
+        <li><a href="" data-toggle="tooltip" data-placement="right" title="اطلاعات کاربری">
+            <span><i class="icofont-user"></i></span>
             </a>
         </li>
         <li class="logout"><a href="{% url 'account:logout' %}" data-toggle="tooltip" data-placement="right" title="خروج">
