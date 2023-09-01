@@ -1,0 +1,125 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}  برنامه هفتگی {% endblock %}
+{% block body %}
+
+	<div id="main-wrapper">
+	    <div class="content-body">
+            <div class="container">
+                <div class="row">
+                    <div class="col-xxl-12 col-xl-12">
+                        <div class="card">
+                        <div class="card-header">
+                            <h4 class="card-title">جدول برنامه هفتگی آقای  {{ teacher.get_full_name }}</h4>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-responsive transaction-table">
+                            <table class="table table-striped responsive-table text-center">
+                                <thead>
+                                <tr>
+                                    <th>روز های هفته</th>
+                                    <th>کلاس ها</th>
+                                    <th>زمان شروع</th>
+                                    <th>زمان پایان</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                {% for t in teacher_wt %}
+                                    <tr>
+                                            <td>{{ t.day }}</td>
+                                            <td>{{ t.classes }}</td>
+                                            <td>{{ t.start_time }}</td>
+                                            <td>{{ t.end_time }}</td>
+                                    </tr>
+                                {% endfor %}
+                                </tbody>
+                            </table>
+                            </div>
+                        </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+		<div class="container">
+		    <div class="row">
+            <div class="col-xxl-8">
+			    <div class="card">
+				<div class="card-header">
+				    <h4 class="card-title">کیف پول</h4>
+				</div>
+				<div class="card-body">
+				    <div class="row align-items-center">
+					<div class="col-xxl-6 col-xl-6 col-lg-6 col-md-6">
+					    <div class="balance-chart">
+						<div id="balance-chart"></div>
+						<h4>مقدار کل = 5360 دلار</h4>
+					    </div>
+					</div>
+					<div class="col-xxl-6 col-xl-6 col-lg-6 col-md-6">
+
+					    <ul class="balance-widget">
+						<li>
+						    <div class="icon-title">
+							<i class="cc BTC"></i>
+							<span>بیت کوین</span>
+						    </div>
+						    <div class="text-right">
+							<h5>0.000242 BTC</h5>
+							<span>0.125 دلار</span>
+						    </div>
+						</li>
+						<li>
+						    <div class="icon-title">
+							<i class="cc USDT"></i>
+							<span>تتر</span>
+						    </div>
+						    <div class="text-right">
+							<h5>0.000242 USDT</h5>
+							<span>0.125 دلار</span>
+						    </div>
+						</li>
+						<li>
+						    <div class="icon-title">
+							<i class="cc XTZ"></i>
+							<span>تزوس</span>
+						    </div>
+						    <div class="text-right">
+							<h5>0.000242 XTZ</h5>
+							<span>0.125 دلار</span>
+						    </div>
+						</li>
+						<li>
+						    <div class="icon-title">
+							<i class="cc XMR"></i>
+							<span>مونرو</span>
+						    </div>
+						    <div class="text-right">
+							<h5>0.000242 XMR</h5>
+							<span>0.125 دلار</span>
+						    </div>
+						</li>
+						<li>
+						    <div class="icon-title">
+							<i class="cc XMR"></i>
+							<span>مونرو</span>
+						    </div>
+						    <div class="text-right">
+							<h5>0.000242 XMR</h5>
+							<span>0.125 دلار</span>
+						    </div>
+						</li>
+					    </ul>
+					</div>
+				    </div>
+
+				</div>
+			    </div>
+			</div>
+
+		    </div>
+		</div>
+	    </div>
+	</div>
+
+
+{% endblock %}

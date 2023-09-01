@@ -13,6 +13,7 @@ from teacher import forms as tf
 from django.contrib.auth.decorators import login_required
 from extentions.utils import jalali_converter
 from django.utils import timezone
+from teacher.models import TeacherWeek
 import csv
 from io import BytesIO
 from django.template.loader import get_template, render_to_string
@@ -26,23 +27,34 @@ class IndexView(LoginRequiredMixin, generic.View):
     template_name = 'home.html'
     
     def get(self, request):
-        student_m = models.Student.objects.filter(class_id__shift='صبح').count()
-        student_e = models.Student.objects.filter(class_id__shift='عصر').count()
-        c = {
-            'student_m': student_m,
-            'student_e': student_e
-        }
-        assign_m = models.Assign.objects.filter(class_id__shift='صبح')
-        assign_e = models.Assign.objects.filter(class_id__shift='عصر')
+        if request.user.is_superuser:
+            student_m = models.Student.objects.filter(class_id__shift='صبح').count()
+            student_e = models.Student.objects.filter(class_id__shift='عصر').count()
 
-        if assign_m.exists():
-            c['class_room_m'] = assign_m
+            c = {
+                'student_m': student_m,
+                'student_e': student_e,
+            }
+            assign_m = models.Assign.objects.filter(class_id__shift='صبح')
+            assign_e = models.Assign.objects.filter(class_id__shift='عصر')
 
-        if assign_e.exists():
-            c['class_room_e'] = assign_e
+            if assign_m.exists():
+                c['class_room_m'] = assign_m
 
-        return render(request, self.template_name, c)
+            if assign_e.exists():
+                c['class_room_e'] = assign_e
 
+            return render(request, self.template_name, c)
+        else:
+            self.template_name = 'teacher.html'
+            teacher = User.objects.get(username=request.user.username)
+            teacher_week_table = TeacherWeek.objects.filter(teacher=teacher)
+            context = {
+                'teacher': teacher,
+                'teacher_wt': teacher_week_table
+            }
+
+            return render(request, self.template_name, context)
 
 class ClassRoomView(LoginRequiredMixin, generic.View):
     login_url = 'account:login'
