@@ -22,3 +22,18 @@ class UserRegistrationForm(UserCreationForm):
         fields = [
             'username', 'first_name', 'last_name', 'password1', 'password2'
         ]
+
+
+class UpdateUserForm(forms.ModelForm):
+    def __init__(self, *args, **kwargs):
+        super(UpdateUserForm, self).__init__(*args, **kwargs)
+        self.fields['username'] = forms.IntegerField()
+        self.fields['username'].widget.attrs.update({'class': 'form-control text-center mt-3 col-12', 'placeholder': 'نام کاربری را وارد کنید (کد ملی)'})
+        self.fields['first_name'].widget.attrs.update({'class': 'form-control text-center mt-3 col-12', 'placeholder': 'نام را وارد کنید'})
+        self.fields['last_name'].widget.attrs.update({'class': 'form-control text-center mt-3 col-12'})
+
+    class Meta:
+        model = User
+        fields = ['username', 'first_name', 'last_name']
+
+

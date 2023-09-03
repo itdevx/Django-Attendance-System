@@ -58,3 +58,15 @@ class SignUpView(mixins.SuperUserAccessMixins, LoginRequiredMixin, generic.Creat
         context = super().get_context_data(**kwargs)
         context['teacher'] = User.objects.all()
         return context
+
+
+class UpdateUserView(LoginRequiredMixin, generic.UpdateView):
+    login_url = 'account:login'
+    template_name = 'update-user.html'
+    context_object_name = 'form'
+    model = User
+    form_class = forms.UpdateUserForm
+    success_url = reverse_lazy('student:index')
+    # def get_queryset(self):
+    #     username = self.kwargs['username']
+    #     return User.objects.get(username=username)

@@ -14,4 +14,7 @@ urlpatterns = [
     path(
         'logout', views.LogoutRequest.as_view(), name='logout'
     ),
+    path(
+        'update-user/<int:pk>', views.UpdateUserView.as_view(), name='update-user'
+    )
 ]

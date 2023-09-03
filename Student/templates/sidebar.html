@@ -13,16 +13,20 @@
         </li>
             {% if request.user.is_superuser %}
         <li><a href="{% url 'student:created-list' %}" data-toggle="tooltip" data-placement="right" title="تنظیمات">
-            <span><i class="icofont-settings"></i></span>
+            <span><i class="icofont-ui-settings"></i></span>
             </a>
         </li>
             {% endif %}
-        <li><a href="" data-toggle="tooltip" data-placement="right" title="اطلاعات کاربری">
-            <span><i class="icofont-user"></i></span>
+        <li><a href="{% url 'account:update-user' request.user.id %}" data-toggle="tooltip" data-placement="right" title="اطلاعات کاربری">
+            <span><i class="icofont-ui-edit"></i></span>
+            </a>
+        </li>
+        <li><a href="{% url 'account:update-user' request.user.id %}" data-toggle="tooltip" data-placement="right" title="اطلاعات کاربری">
+            <span><i class="icofont-ui-unlock"></i></span>
             </a>
         </li>
         <li class="logout"><a href="{% url 'account:logout' %}" data-toggle="tooltip" data-placement="right" title="خروج">
-            <span><i class="icofont-power"></i></span>
+            <span><i class="icofont-ui-power"></i></span>
             </a>
         </li>
         </ul>
