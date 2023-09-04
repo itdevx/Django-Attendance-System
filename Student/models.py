@@ -87,6 +87,7 @@ class Assign(models.Model):
 
 
 class AttendanceClass(models.Model):
+
     assign = models.ForeignKey(Assign, on_delete=models.CASCADE)
     date = models.DateField(auto_now_add=True)
     status = models.IntegerField(default=0)    

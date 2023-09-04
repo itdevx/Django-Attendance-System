@@ -12,6 +12,7 @@ class TeacherWeekTable(LoginRequiredMixin, generic.View):
     def get(self, request, username):
         teacher = User.objects.get(username=username)
         teacher_week = TeacherWeek.objects.filter(teacher=teacher).order_by('-day', 'start_time', 'classes')
+        print(teacher_week)
         context = {
             'teacher_wt' : teacher_week,
             'teacher' : teacher
@@ -28,7 +29,7 @@ class Teacher(LoginRequiredMixin, generic.View):
         if not request.user.is_superuser:
             teacher = User.objects.filter(username=request.user.username)
             teacher_week = TeacherWeek.objects.filter(teacher=teacher).order_by('-day', 'start_time')
-            print(teacher_week)
+
             context = {
                 'teacher': teacher,
                 'teacher_wt': teacher_week

@@ -10,7 +10,6 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from Student import mixins
 
 
-
 class LoginView(generic.View):
     template_name = 'signin.html'
     form_class = forms.LoginForm
@@ -67,6 +66,4 @@ class UpdateUserView(LoginRequiredMixin, generic.UpdateView):
     model = User
     form_class = forms.UpdateUserForm
     success_url = reverse_lazy('student:index')
-    # def get_queryset(self):
-    #     username = self.kwargs['username']
-    #     return User.objects.get(username=username)
+

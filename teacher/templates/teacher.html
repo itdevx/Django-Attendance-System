@@ -39,7 +39,84 @@
                         </div>
                     </div>
                 </div>
+            <div class="row">
+			<div class="col-xxl-6">
+			    <div class="card">
+				<div class="card-header align-items-center">
+				    <h4 class="card-title">کلاس های شیفت صبح</h4>
+				    <h5 class="text-left">تعداد : {{ student_m }} نفر</h5>
+				</div>
+				<div class="card-body">
+				    <div class="table-responsive">
+					<table class="table table-striped responsive-table text-center">
+					    <thead>
+						<tr>
+						    <th>شماره کلاس</th>
+						    <th>وضعیت</th>
+						</tr>
+					    </thead>
+					    <tbody>
+							{% for c in teacher_week_attendance_m %}
+								<tr>
+									<td>
+									<h4>{{ c.classes.number }}</h4>
+									</td>
+									<td>
+										<div class="badge p-3 bg-primary"><a href="" class="text-white">مشاهده</a></div>
+										<div class="badge p-3 bg-warning"><a href="" class="text-white">حضور غیاب</a></div>
+										<div class="badge p-3 bg-secondary"><a href="" class="text-white">لیست حضور غیاب این کلاس<a></div>
+									</td>
+								</tr>
+							{% endfor %}
+					    </tbody>
+					</table>
+				    </div>
+
+				</div>
+			    </div>
+			</div>
+
+			<div class="col-xxl-6">
+			    <div class="card">
+				<div class="card-header align-items-center">
+				    <h4 class="card-title">کلاس های شیفت عصر</h4>
+				    <h5 class="text-left">تعداد : {{ student_e }} نفر</h5>
+				</div>
+				<div class="card-body">
+				    <div class="table-responsive">
+					<table class="table table-striped responsive-table text-center">
+					    <thead>
+						<tr>
+						    <th>شماره کلاس</th>
+						    <th>وضعیت</th>
+						</tr>
+					    </thead>
+					    <tbody>
+							{% for c in teacher_week_attendance_e %}
+								<tr>
+									<td>
+									<h4>{{ c.classes.number }}</h4>
+									</td>
+									<td>
+										<div class="badge p-3 bg-primary"><a href="" class="text-white">مشاهده</a></div>
+										<div class="badge p-3 bg-warning"><a href="" class="text-white">حضور غیاب</a></div>
+										<div class="badge p-3 bg-secondary"><a href="" class="text-white">لیست حضور غیاب این کلاس</a></div>
+									</td>
+								</tr>
+							{% endfor %}
+					    </tbody>
+					</table>
+				    </div>
+
+				</div>
+			    </div>
+			</div>
+		    </div>
             </div>
+            </div>
+
+	</div>
+
 
 	</div>
 

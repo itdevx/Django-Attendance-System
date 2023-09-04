@@ -45,16 +45,21 @@ class IndexView(LoginRequiredMixin, generic.View):
                 c['class_room_e'] = assign_e
 
             return render(request, self.template_name, c)
-
         else:
             self.template_name = 'teacher.html'
             teacher = User.objects.get(username=request.user.username)
             teacher_week_table = TeacherWeek.objects.filter(teacher=teacher).order_by('-day', '-start_time')
             # add attendance filter by teacher!
+            teacher_week_attendance_m = TeacherWeek.objects.filter(teacher=teacher, classes__shift='صبح')
+            teacher_week_attendance_e = TeacherWeek.objects.filter(teacher=teacher, classes__shift='عصر')
+            for i in teacher_week_attendance_m:
+                print(i.classes.number)
 
             context = {
                 'teacher': teacher,
-                'teacher_wt': teacher_week_table
+                'teacher_wt': teacher_week_table,
+                'teacher_week_attendance_m': teacher_week_attendance_m,
+                'teacher_week_attendance_e': teacher_week_attendance_e
             }
 
             return render(request, self.template_name, context)
