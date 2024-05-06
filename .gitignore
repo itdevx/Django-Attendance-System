@@ -25,6 +25,7 @@ media
 *.db
 db
 sqlite3
+db.sqlite3
 # Distribution / packaging
 .Python
 build/
