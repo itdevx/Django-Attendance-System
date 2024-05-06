@@ -22,7 +22,9 @@ media
 
 # C extensions
 *.so
-
+*.db
+db
+sqlite3
 # Distribution / packaging
 .Python
 build/
