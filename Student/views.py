@@ -21,6 +21,7 @@ from django.template.loader import get_template, render_to_string
 from xhtml2pdf import pisa
 import pandas as pd
 from io import StringIO
+from django.contrib import messages
 
 
 class IndexView(LoginRequiredMixin, generic.View):
@@ -175,6 +176,7 @@ class ClassDelete(mixins.SuperUserAccessMixins, LoginRequiredMixin, generic.Dele
     login_url = 'account:login'
     model = models.Class
     success_url = reverse_lazy('student:create-class')
+    
     
 
 class EditClassView(mixins.SuperUserAccessMixins, LoginRequiredMixin, generic.UpdateView):

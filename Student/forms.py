@@ -2,6 +2,8 @@ from django import forms
 from Student import models
 from jalali_date.fields import JalaliDateField
 from jalali_date.widgets import AdminJalaliDateWidget
+from bootstrap_datepicker_plus.widgets import DatePickerInput
+
 
 
 class StudentForm(forms.ModelForm):
@@ -19,6 +21,9 @@ class StudentForm(forms.ModelForm):
     class Meta:
         model = models.Student
         exclude = ['level_up']
+        widgets = {
+            'date': DatePickerInput()
+        }
 
 
 class StudentEditForm(forms.ModelForm):

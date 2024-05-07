@@ -135,6 +135,7 @@
     box-sizing: border-box;
 }
 
+
 body {
     margin: 0;
     font-family: "IRANYekan", sans-serif;
@@ -2705,6 +2706,10 @@ progress {
     margin-right: -1px;
     border-top-right-radius: 0;
     border-bottom-right-radius: 0;
+    height: 100% ;
+    margin: auto ;
+    border-bottom-left-radius: 7px !important;
+    border-top-left-radius: 7px !important;
 }
 
 .valid-feedback {
