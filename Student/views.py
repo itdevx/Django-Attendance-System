@@ -166,6 +166,7 @@ class CreateClassView(mixins.SuperUserAccessMixins, LoginRequiredMixin, generic.
                     a.save()
                     at = models.AttendanceClass(assign=a)
                     at.save()
+                    messages.add_message(request, messages.SUCCESS, 'کلاس با موفقیت ثبت شد')
                     return redirect('student:create-class')
         else:
             form = forms.ClassForm()
@@ -258,6 +259,7 @@ class CreateStudenView(mixins.SuperUserAccessMixins, LoginRequiredMixin, generic
             form = forms.StudentForm(request.POST)
             if form.is_valid():
                 form.save()
+                messages.add_message(request, messages.SUCCESS, 'دانش آموز با موفقیت ثبت شد')
                 return redirect('student:create-student')
         else:
             form = forms.StudentForm()
