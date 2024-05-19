@@ -2,7 +2,8 @@
 <!DOCTYPE html  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
+    <!-- <meta charset="UTF-8"> -->
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="content-type" content="text/html; charset=utf-8">
@@ -16,14 +17,14 @@
         }
     
         @font-face {
-            font-family: RTLFont; 
-            src: url('../static/fonts/Amiri-Italic.ttf')
+            font-family: Amiri, "Amiri Font"; 
+            src: url("{% static 'fonts/Amiri-Italic.ttf' %}")
             /* src: url("{% static 'fonts/nin.ttf' %}"); */
           }
-          body {
+          * {
                 font-weight: 200;
                 font-size: 14px;
-                font-family: RTLFont !important;
+                font-family: Amiri !important;
             }
 
           /* html, body, p, table, tr, td, span {
@@ -55,7 +56,8 @@
           </tr>
           <tr>
             <th scope="row">2</th>
-            <td>Jacob</td>
+            <pdf:language name="arabic" />
+            <td>یاسین</td>
             <td>Thornton</td>
             <td>@fat</td>
           </tr>
